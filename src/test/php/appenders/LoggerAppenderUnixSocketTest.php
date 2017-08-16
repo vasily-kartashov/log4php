@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class LoggerAppenderUnixSocketTest extends TestCase
 {
-    public function testLogging()
+    public function _testLogging()
     {
         Logger::configure([
             'appenders' => [

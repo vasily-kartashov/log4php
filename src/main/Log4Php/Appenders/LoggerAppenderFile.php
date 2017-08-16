@@ -76,7 +76,10 @@ class LoggerAppenderFile extends LoggerAppender
     public function close()
     {
         if (is_resource($this->fp)) {
-            $this->write($this->layout->getFooter());
+            $footer = $this->layout->getFooter();
+            if ($footer) {
+                $this->write($footer);
+            }
             fclose($this->fp);
         }
         $this->fp = null;
@@ -157,7 +160,6 @@ class LoggerAppenderFile extends LoggerAppender
         // Create the target folder if needed
         if (!is_file($file)) {
             $dir = dirname($file);
-
             if (!is_dir($dir)) {
                 $success = mkdir($dir, 0777, true);
                 if ($success === false) {
@@ -183,7 +185,10 @@ class LoggerAppenderFile extends LoggerAppender
         }
 
         // Write the header
-        $this->write($this->layout->getHeader());
+        $header = $this->layout->getHeader();
+        if ($header) {
+            $this->write($header);
+        }
         return true;
     }
 
