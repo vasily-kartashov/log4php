@@ -190,15 +190,19 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
                 $this->closed = true;
             }
             // check twice as now we have an exclusive lock for the file
-            if ($rollOverRequired && $this->rollOverRequired()) {
+            $rollOverRequired = $rollOverRequired && $this->rollOverRequired();
+            if ($rollOverRequired) {
                 try {
-                    $this->rollOver();
+                    $this->startRollOver();
                 } catch (LoggerException $ex) {
                     $this->warn("Rollover failed: " . $ex->getMessage() . " Closing appender.");
                     $this->closed = true;
                 }
             }
             flock($this->fp, LOCK_UN);
+            if ($rollOverRequired) {
+                $this->completeRollOver();
+            }
         } else {
             $this->warn("Failed locking file for writing. Closing appender.");
             $this->closed = true;
@@ -228,9 +232,21 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      *
      * @throws LoggerException If any part of the rollover procedure fails.
      */
-    private function rollOver()
+    private function startRollOver()
     {
         // If maxBackups <= 0, then there is no file renaming to be done.
+        if ($this->maxBackupIndex > 0) {
+            // Backup the active file
+            $this->moveToBackup($this->file);
+        }
+
+        // Truncate the active file
+        ftruncate($this->fp, 0);
+        rewind($this->fp);
+    }
+
+    private function completeRollOver()
+    {
         if ($this->maxBackupIndex > 0) {
             // Delete the oldest file, to keep Windows happy.
             $file = $this->file . '.' . $this->maxBackupIndex;
@@ -241,30 +257,24 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
 
             // Map {(maxBackupIndex - 1), ..., 2, 1} to {maxBackupIndex, ..., 3, 2}
             $this->renameArchivedLogs($this->file);
-
-            // Backup the active file
-            $this->moveToBackup($this->file);
         }
-
-        // Truncate the active file
-        ftruncate($this->fp, 0);
-        rewind($this->fp);
     }
 
     private function renameArchivedLogs($fileName)
     {
+        $pairs = [];
         for ($i = $this->maxBackupIndex - 1; $i >= 1; $i--) {
-            $source = $fileName . "." . $i;
+            $pairs[$fileName . '.' . $i] = $fileName . '.' . ($i + 1);
+        }
+        $pairs[$fileName . '.temp'] = $fileName . '.1';
+        foreach ($pairs as $source => $target) {
             if ($this->compress) {
                 $source .= '.gz';
             }
-
             if (file_exists($source)) {
-                $target = $fileName . '.' . ($i + 1);
                 if ($this->compress) {
                     $target .= '.gz';
                 }
-
                 rename($source, $target);
             }
         }
@@ -273,10 +283,10 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
     private function moveToBackup($source)
     {
         if ($this->compress) {
-            $target = $source . '.1.gz';
+            $target = $source . '.temp.gz';
             $this->compressFile($source, $target);
         } else {
-            $target = $source . '.1';
+            $target = $source . '.temp';
             copy($source, $target);
         }
     }
