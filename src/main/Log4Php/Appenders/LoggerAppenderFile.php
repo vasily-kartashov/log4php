@@ -39,9 +39,6 @@ class LoggerAppenderFile extends LoggerAppender
      * If set to true, the file is locked before appending. This allows
      * concurrent access. However, appending without locking is faster so
      * it should be used where appropriate.
-     *
-     * TODO: make this a configurable parameter
-     *
      * @var boolean
      */
     protected $locking = true;
@@ -145,6 +142,24 @@ class LoggerAppenderFile extends LoggerAppender
     public function setFile($file)
     {
         $this->setString('file', $file);
+    }
+
+    /**
+     * Returns the 'locking' parameter
+     * @return bool
+     */
+    public function getLocking()
+    {
+        return $this->locking;
+    }
+
+    /**
+     * Sets the 'locking parameter'
+     * @param $locking
+     */
+    public function setLocking($locking)
+    {
+        $this->setBoolean('locking', $locking);
     }
 
     /**
