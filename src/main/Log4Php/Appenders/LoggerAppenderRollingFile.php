@@ -180,23 +180,31 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
         }
 
         // once per around 100 requests check if roll over required
-        if (rand(1, 100) == 1 && $this->rollOverRequired()) {
-            if (flock($this->fp, LOCK_EX)) {
+        $rollOverRequired = rand(1, 100) == 1 && $this->rollOverRequired();
+
+        // Lock the file while writing and possible rolling over
+        if (flock($this->fp, LOCK_EX)) {
+            // Write to locked file
+            if (fwrite($this->fp, $string) === false) {
+                $this->warn("Failed writing to file. Closing appender.");
+                $this->closed = true;
+            }
+            // check twice as now we have an exclusive lock for the file
+            $rollOverRequired = $rollOverRequired && $this->rollOverRequired();
+            if ($rollOverRequired) {
                 try {
                     $this->startRollOver();
                 } catch (LoggerException $ex) {
                     $this->warn("Rollover failed: " . $ex->getMessage() . " Closing appender.");
                     $this->closed = true;
                 }
-                flock($this->fp, LOCK_UN);
-                $this->completeRollOver();
-            } else {
-                $this->warn("Failed locking file for writing. Closing appender.");
-                $this->closed = true;
             }
-        }
-        if (fwrite($this->fp, $string) === false) {
-            $this->warn("Failed writing to file. Closing appender.");
+            flock($this->fp, LOCK_UN);
+            if ($rollOverRequired) {
+                $this->completeRollOver();
+            }
+        } else {
+            $this->warn("Failed locking file for writing. Closing appender.");
             $this->closed = true;
         }
     }
@@ -210,8 +218,17 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
         return filesize($this->file) > $this->maxFileSize;
     }
 
+
     /**
-     * Copy the current file to File.temp and truncate the content of current file
+     * Implements the usual roll over behaviour.
+     *
+     * If MaxBackupIndex is positive, then files
+     * File.1, ..., File.MaxBackupIndex -1 are renamed to File.2, ..., File.MaxBackupIndex.
+     * Moreover, File is renamed File.1 and closed. A new File is created to receive further log output.
+     *
+     * If MaxBackupIndex is equal to zero, then the File is truncated with no backup files created.
+     *
+     * Rollover must be called while the file is locked so that it is safe for concurrent access.
      *
      * @throws LoggerException If any part of the rollover procedure fails.
      */
@@ -228,19 +245,6 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
         rewind($this->fp);
     }
 
-    /**
-     * Implements the usual roll over behaviour.
-     *
-     * If MaxBackupIndex is positive, then files
-     * File.1, ..., File.MaxBackupIndex -1 are renamed to File.2, ..., File.MaxBackupIndex.
-     * Moreover, File is renamed File.1 and closed. A new File is created to receive further log output.
-     *
-     * If MaxBackupIndex is equal to zero, then the File is truncated with no backup files created.
-     *
-     * Rollover must be called while the file is locked so that it is safe for concurrent access.
-     *
-     * @throws LoggerException If any part of the rollover procedure fails.
-     */
     private function completeRollOver()
     {
         if ($this->maxBackupIndex > 0) {
