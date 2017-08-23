@@ -99,6 +99,21 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
         parent::append($event);
     }
 
+    protected function openFile()
+    {
+        $currentFile = $this->getTargetFile();
+        $newFileCreated = !file_exists($currentFile);
+        $status = parent::openFile();
+        if ($status && $newFileCreated) {
+            if (file_exists($this->file)) {
+                unlink($this->file);
+            }
+            symlink($currentFile, $this->file);
+        }
+        return $status;
+    }
+
+
     /** Renders the date using the configured <var>datePattern<var>.
      * @param float|int|null $timestamp
      * @return false|string
@@ -131,6 +146,6 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
      */
     protected function getTargetFile()
     {
-        return str_replace('%s', $this->currentDate, $this->file);
+        return $this->file . '.' . $this->currentDate;
     }
 }

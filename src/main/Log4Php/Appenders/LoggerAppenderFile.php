@@ -189,6 +189,7 @@ class LoggerAppenderFile extends LoggerAppender
         if ($header) {
             $this->write($header);
         }
+
         return true;
     }
 

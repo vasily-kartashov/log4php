@@ -104,11 +104,11 @@ class LoggerAppenderDailyFileTest extends TestCase
     public function testLazyFileOpen()
     {
         $event = LoggerTestHelper::getWarnEvent("my message");
-        $file = PHPUNIT_TEMP_DIR . '/lazy-file.%s.log';
+        $file = PHPUNIT_TEMP_DIR . '/lazy-file.log';
         $pattern = 'Y-m-d';
 
         $date = date($pattern, $event->getTimestamp());
-        $path = PHPUNIT_TEMP_DIR . "/lazy-file.$date.log";
+        $path = PHPUNIT_TEMP_DIR . "/lazy-file.log.$date";
 
         if (file_exists($path)) {
             unlink($path);
@@ -130,7 +130,7 @@ class LoggerAppenderDailyFileTest extends TestCase
         $message = uniqid();
         $level = LoggerLevel::getLevelDebug();
 
-        $file = PHPUNIT_TEMP_DIR . '/lazy-file.%s.log';
+        $file = PHPUNIT_TEMP_DIR . '/lazy-file.log';
 
         // Get some timestamps for events - different date for each
         $ts1 = mktime(10, 0, 0, 7, 3, 1980);
@@ -142,9 +142,9 @@ class LoggerAppenderDailyFileTest extends TestCase
         $e3 = new LoggerLoggingEvent(__CLASS__, 'test', $level, $message, $ts3);
 
         // Expected paths
-        $path1 = PHPUNIT_TEMP_DIR . '/lazy-file.1980-07-03.log';
-        $path2 = PHPUNIT_TEMP_DIR . '/lazy-file.1980-07-04.log';
-        $path3 = PHPUNIT_TEMP_DIR . '/lazy-file.1980-07-05.log';
+        $path1 = PHPUNIT_TEMP_DIR . '/lazy-file.log.1980-07-03';
+        $path2 = PHPUNIT_TEMP_DIR . '/lazy-file.log.1980-07-04';
+        $path3 = PHPUNIT_TEMP_DIR . '/lazy-file.log.1980-07-05';
 
         @unlink($path1);
         @unlink($path2);
@@ -177,7 +177,7 @@ class LoggerAppenderDailyFileTest extends TestCase
         $event = LoggerTestHelper::getWarnEvent("my message");
 
         $appender = new LoggerAppenderDailyFile();
-        $appender->setFile(PHPUNIT_TEMP_DIR . '/TEST-daily.txt.%s');
+        $appender->setFile(PHPUNIT_TEMP_DIR . '/TEST-daily.txt');
         $appender->activateOptions();
         $appender->append($event);
         $appender->close();
@@ -193,7 +193,7 @@ class LoggerAppenderDailyFileTest extends TestCase
 
         $appender = new LoggerAppenderDailyFile();
         $appender->setDatePattern('Y');
-        $appender->setFile(PHPUNIT_TEMP_DIR . '/TEST-daily.txt.%s');
+        $appender->setFile(PHPUNIT_TEMP_DIR . '/TEST-daily.txt');
         $appender->activateOptions();
         $appender->append($event);
         $appender->close();
