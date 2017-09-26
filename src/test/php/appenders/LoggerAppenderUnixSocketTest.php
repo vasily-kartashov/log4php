@@ -9,6 +9,11 @@ use PHPUnit\Framework\TestCase;
 
 class LoggerAppenderUnixSocketTest extends TestCase
 {
+    public function testDummy()
+    {
+        Assert::assertTrue(true);
+    }
+
     public function _testLogging()
     {
         Logger::configure([
