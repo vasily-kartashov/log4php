@@ -78,13 +78,13 @@ class LoggerFilterStringMatch extends LoggerFilter
      */
     public function decide(LoggerLoggingEvent $event): int
     {
-        $msg = $event->getRenderedMessage();
+        $renderedMessage = $event->getRenderedMessage();
 
-        if ($msg === null or $this->stringToMatch === null) {
+        if ($renderedMessage === null or $this->stringToMatch === null) {
             return LoggerFilter::NEUTRAL;
         }
 
-        if (strpos($msg, $this->stringToMatch) !== false) {
+        if (strpos($renderedMessage, $this->stringToMatch) !== false) {
             return ($this->acceptOnMatch) ? LoggerFilter::ACCEPT : LoggerFilter::DENY;
         }
         return LoggerFilter::NEUTRAL;

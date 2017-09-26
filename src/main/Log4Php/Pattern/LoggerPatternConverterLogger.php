@@ -46,6 +46,7 @@ class LoggerPatternConverterLogger extends LoggerPatternConverter
     public function convert(LoggerLoggingEvent $event)
     {
         $name = $event->getLoggerName();
+        assert($name !== null);
         if (!isset($this->cache[$name])) {
             // If length is set return shortened logger name
             if (isset($this->length)) {

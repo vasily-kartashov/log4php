@@ -104,7 +104,7 @@ class LoggerReflectionUtils
      * the conversion is by new Boolean(value).
      *
      * @param string $name name of the property
-     * @param string $value String value of the property
+     * @param string|null $value String value of the property
      * @return mixed
      * @throws Exception
      */

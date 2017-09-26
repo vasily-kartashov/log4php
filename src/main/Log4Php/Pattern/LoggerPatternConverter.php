@@ -39,7 +39,7 @@ abstract class LoggerPatternConverter
 
     /**
      * Formatting information, parsed from pattern modifiers.
-     * @var LoggerFormattingInfo
+     * @var LoggerFormattingInfo|null
      */
     protected $formattingInfo;
 
@@ -51,8 +51,8 @@ abstract class LoggerPatternConverter
 
     /**
      * Constructor
-     * @param LoggerFormattingInfo $formattingInfo
-     * @param array|string $option
+     * @param LoggerFormattingInfo|null $formattingInfo
+     * @param mixed $option
      */
     public function __construct(LoggerFormattingInfo $formattingInfo = null, $option = null)
     {

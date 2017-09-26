@@ -274,7 +274,7 @@ class LoggerLevel
      *
      * @param mixed $arg The value to convert to level.
      * @param LoggerLevel|null $defaultLevel Value to return if conversion is not possible
-     * @return LoggerLevel
+     * @return LoggerLevel|null
      */
     public static function toLevel($arg, $defaultLevel = null)
     {

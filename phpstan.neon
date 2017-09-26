@@ -1,0 +1,4 @@
+parameters:
+    ignoreErrors:
+        - '|Function newrelic_.*|'
+        - '|Function fsockopen invoked.*|'

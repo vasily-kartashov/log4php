@@ -76,7 +76,7 @@ class LoggerLoggingEvent
     /**
      * The application supplied message rendered through the log4php
      * object rendering mechanism. At present renderedMessage == message.
-     * @var string
+     * @var string|null
      */
     private $renderedMessage;
 
@@ -304,11 +304,11 @@ class LoggerLoggingEvent
 
     /**
      * Render message.
-     * @return string
+     * @return string|null
      */
     public function getRenderedMessage()
     {
-        if ($this->renderedMessage === null and $this->message !== null) {
+        if ($this->renderedMessage === null && $this->message !== null) {
             if (is_string($this->message)) {
                 $pairs = [];
                 foreach ($this->context as $key => $val) {

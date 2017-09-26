@@ -90,7 +90,10 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
             //       $this->closed to true and the appender would not receive
             //       any more logging requests
             if (is_resource($this->fp)) {
-                $this->write($this->layout->getFooter());
+                $footer = $this->layout->getFooter();
+                if ($footer) {
+                    $this->write($footer);
+                }
                 fclose($this->fp);
             }
             $this->fp = null;

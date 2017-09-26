@@ -109,7 +109,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * parsed for whatever reason, a warning will be issued, and the default
      * configuration will be returned ({@link $defaultConfiguration}).
      *
-     * @param string|array $input Either path to the config file or the
+     * @param string|array|null $input Either path to the config file or the
      *        configuration as an array. If not set, default configuration
      *        will be used.
      * @return array The parsed configuration.

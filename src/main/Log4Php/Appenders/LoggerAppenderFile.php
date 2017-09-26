@@ -85,7 +85,10 @@ class LoggerAppenderFile extends LoggerAppender
 
     public function append(LoggerLoggingEvent $event)
     {
-        $this->write($this->layout->format($event));
+        $content = $this->layout->format($event);
+        if ($content !== null) {
+            $this->write($content);
+        }
     }
 
     /**

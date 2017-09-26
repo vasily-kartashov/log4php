@@ -86,7 +86,7 @@ class Logger implements LoggerInterface, GenericLogger
 
     /**
      * Returns the parent Logger. Can be null if this is the root logger.
-     * @return Logger
+     * @return Logger|null
      */
     public function getParent()
     {
@@ -236,7 +236,9 @@ class Logger implements LoggerInterface, GenericLogger
      */
     public function log($level, $message, array $context = [])
     {
-        $this->_log(LoggerLevel::toLevel($level), $message, $context);
+        $loggerLevel = LoggerLevel::toLevel($level, LoggerLevel::getLevelInfo());
+        assert($loggerLevel !== null);
+        $this->_log($loggerLevel, $message, $context);
     }
 
 
@@ -343,7 +345,11 @@ class Logger implements LoggerInterface, GenericLogger
      */
     public function isEnabledFor(LoggerLevel $level)
     {
-        return $level->isGreaterOrEqual($this->getEffectiveLevel());
+        $effectiveLevel = $this->getEffectiveLevel();
+        if ($effectiveLevel === null) {
+            return false;
+        }
+        return $level->isGreaterOrEqual($effectiveLevel);
     }
 
     /**
@@ -508,17 +514,19 @@ class Logger implements LoggerInterface, GenericLogger
      */
     public function getEffectiveLevel()
     {
-        for ($logger = $this; $logger !== null; $logger = $logger->getParent()) {
-            if ($logger->getLevel() !== null) {
-                return $logger->getLevel();
+        $logger = $this;
+        do {
+            $level = $logger->getLevel();
+            if ($level !== null) {
+                return $level;
             }
-        }
+        } while (($logger = $logger->getParent()) !== null);
         return null;
     }
 
     /**
      * Get the assigned Logger level.
-     * @return LoggerLevel The assigned level or null if none is assigned.
+     * @return LoggerLevel|null The assigned level or null if none is assigned.
      */
     public function getLevel()
     {

@@ -38,7 +38,7 @@ class LoggerRoot extends Logger
     }
 
     /**
-     * @return LoggerLevel the level
+     * @return LoggerLevel|null the level
      */
     public function getEffectiveLevel()
     {

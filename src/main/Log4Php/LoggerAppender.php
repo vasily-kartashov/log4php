@@ -121,7 +121,7 @@ abstract class LoggerAppender extends LoggerConfigurable
     /**
      * Returns the first filter in the filter chain.
      * The return value may be <i>null</i> if no is filter is set.
-     * @return LoggerFilter
+     * @return LoggerFilter|null
      */
     public function getFilter()
     {
@@ -131,7 +131,7 @@ abstract class LoggerAppender extends LoggerConfigurable
     /**
      * Returns the first filter in the filter chain.
      * The return value may be <i>null</i> if no is filter is set.
-     * @return LoggerFilter
+     * @return LoggerFilter|null
      */
     public function getFirstFilter()
     {

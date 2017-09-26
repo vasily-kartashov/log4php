@@ -120,7 +120,7 @@ class LoggerLayoutPattern extends LoggerLayout
 
     /**
      * Head of a chain of Converters.
-     * @var LoggerPatternConverter
+     * @var LoggerPatternConverter|null
      */
     private $head;
 

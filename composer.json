@@ -15,9 +15,9 @@
     "psr/log": ">=1.0"
   },
   "require-dev": {
-    "jakub-onderka/php-parallel-lint": "0.9.*",
-    "phpstan/phpstan": "0.6.*",
-    "phpunit/phpunit": ">=6",
-    "squizlabs/php_codesniffer": ">=2"
+    "jakub-onderka/php-parallel-lint": "*",
+    "phpstan/phpstan": "*",
+    "phpunit/phpunit": "^6.0",
+    "squizlabs/php_codesniffer": "*"
   }
 }

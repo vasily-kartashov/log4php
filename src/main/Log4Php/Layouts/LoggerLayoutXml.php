@@ -209,11 +209,14 @@ class LoggerLayoutXml extends LoggerLayout
     /**
      * Encases a string in CDATA tags, and escapes any existing CDATA end
      * tags already present in the string.
-     * @param string $string
+     * @param string|null $string
      * @return string
      */
     private function encodeCDATA($string)
     {
+        if ($string === null) {
+            return self::CDATA_START . self::CDATA_END;
+        }
         $string = str_replace(self::CDATA_END, self::CDATA_EMBEDDED_END, $string);
         return self::CDATA_START . $string . self::CDATA_END;
     }

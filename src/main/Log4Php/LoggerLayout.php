@@ -36,9 +36,9 @@ abstract class LoggerLayout extends LoggerConfigurable
      * Override this method to create your own layout format.
      *
      * @param LoggerLoggingEvent
-     * @return string
+     * @return string|null
      */
-    public function format(LoggerLoggingEvent $event): string
+    public function format(LoggerLoggingEvent $event)
     {
         return $event->getRenderedMessage();
     }
