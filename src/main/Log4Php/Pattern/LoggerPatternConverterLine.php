@@ -25,6 +25,10 @@ use Log4Php\LoggerLoggingEvent;
  */
 class LoggerPatternConverterLine extends LoggerPatternConverter
 {
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return mixed
+     */
     public function convert(LoggerLoggingEvent $event)
     {
         return $event->getLocationInformation()->getLineNumber();

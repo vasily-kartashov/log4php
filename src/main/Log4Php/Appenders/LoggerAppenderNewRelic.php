@@ -7,10 +7,16 @@ use Log4Php\LoggerLoggingEvent;
 
 class LoggerAppenderNewRelic extends LoggerAppender
 {
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return void
+     */
     protected function append(LoggerLoggingEvent $event)
     {
         $context = $event->getContext() + $event->getLogger()->resolveExtendedContext();
-        $message = $event->getRenderedMessage() . PHP_EOL . json_encode(array_filter($context));
+        $eventMessage = $event->getRenderedMessage();
+        $prefix = ($eventMessage !== null) ? $eventMessage . PHP_EOL : '';
+        $message = $prefix . json_encode(array_filter($context));
 
         if (extension_loaded('newrelic')) {
             if (isset($context['exception'])) {

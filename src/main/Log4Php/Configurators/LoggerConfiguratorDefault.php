@@ -89,11 +89,9 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * will use the default configuration contained in
      * {@link $defaultConfiguration}.
      *
-     * @param LoggerHierarchy $hierarchy The hierarchy on which to perform
-     *        the configuration.
-     * @param string|array $input Either path to the config file or the
-     *        configuration as an array. If not set, default configuration
-     *        will be used.
+     * @param LoggerHierarchy $hierarchy The hierarchy on which to perform the configuration.
+     * @param string|array $input Either path to the config file or the configuration as an array. If not set, default configuration will be used.
+     * @return void
      */
     public function configure(LoggerHierarchy $hierarchy, $input = null)
     {
@@ -167,6 +165,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * @param $url
      * @return string
      * @throws LoggerException
+     * @return string
      */
     private function getConfigType($url)
     {
@@ -192,6 +191,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
     /**
      * Helper method to simplify error reporting.
      * @param string $message
+     * @return void
      */
     private function warn(string $message)
     {
@@ -203,6 +203,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      *
      * @param LoggerHierarchy $hierarchy
      * @param array $config
+     * @return void
      */
     private function doConfigure(LoggerHierarchy $hierarchy, $config)
     {
@@ -252,6 +253,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * {@link $appenders} array so it can be later linked to loggers.
      * @param string $name Appender name.
      * @param array $config Appender configuration options.
+     * @return void
      */
     private function configureAppender($name, $config)
     {
@@ -321,6 +323,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * Parses layout config, creates the layout and links it to the appender.
      * @param LoggerAppender $appender
      * @param array $config Layout configuration.
+     * @return void
      */
     private function createAppenderLayout(LoggerAppender $appender, $config)
     {
@@ -371,6 +374,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      *
      * @param mixed $object The object to configure.
      * @param array $options
+     * @return void
      */
     private function setOptions($object, array $options)
     {
@@ -386,10 +390,10 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
     }
 
     /**
-     * Parses filter config, creates the filter and adds it to the appender's
-     * filter chain.
+     * Parses filter config, creates the filter and adds it to the appender's filter chain.
      * @param LoggerAppender $appender
      * @param array $config Filter configuration.
+     * @return void
      */
     private function createAppenderFilter(LoggerAppender $appender, array $config)
     {
@@ -419,6 +423,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * @see configureLogger()
      * @param LoggerHierarchy $hierarchy
      * @param array $config
+     * @return void
      */
     private function configureRootLogger(LoggerHierarchy $hierarchy, array $config)
     {
@@ -431,6 +436,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      *
      * @param Logger $logger The logger to configure
      * @param array $config Logger configuration options.
+     * @return void
      */
     private function configureLogger(Logger $logger, array $config)
     {
@@ -476,6 +482,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * @param LoggerHierarchy $hierarchy
      * @param string $name
      * @param array $config
+     * @return void
      */
     private function configureOtherLogger(LoggerHierarchy $hierarchy, string $name, array $config)
     {
@@ -484,6 +491,11 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
         $this->configureLogger($logger, $config);
     }
 
+    /**
+     * @param LoggerHierarchy $hierarchy
+     * @param array $config
+     * @return void
+     */
     private function configureRenderer(LoggerHierarchy $hierarchy, array $config)
     {
         if (empty($config['renderingClass'])) {
@@ -500,6 +512,11 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
         $hierarchy->getRendererMap()->addRenderer($config['renderedClass'], $config['renderingClass']);
     }
 
+    /**
+     * @param LoggerHierarchy $hierarchy
+     * @param $class
+     * @return void
+     */
     private function configureDefaultRenderer(LoggerHierarchy $hierarchy, $class)
     {
         if (empty($class)) {

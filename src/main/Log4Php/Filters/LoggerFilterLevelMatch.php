@@ -61,6 +61,7 @@ class LoggerFilterLevelMatch extends LoggerFilter
 
     /**
      * @param boolean $acceptOnMatch
+     * @return void
      */
     public function setAcceptOnMatch($acceptOnMatch)
     {
@@ -69,6 +70,7 @@ class LoggerFilterLevelMatch extends LoggerFilter
 
     /**
      * @param string $level the level to match
+     * @return void
      */
     public function setLevelToMatch(string $level)
     {

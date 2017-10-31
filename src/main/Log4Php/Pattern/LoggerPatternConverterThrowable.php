@@ -25,6 +25,10 @@ use Log4Php\LoggerLoggingEvent;
  */
 class LoggerPatternConverterThrowable extends LoggerPatternConverter
 {
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return string
+     */
     public function convert(LoggerLoggingEvent $event)
     {
         $info = $event->getThrowableInformation();

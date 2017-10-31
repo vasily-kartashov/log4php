@@ -25,26 +25,26 @@ namespace Log4Php\Helpers;
 class LoggerFormattingInfo
 {
     /**
-     * Minimal output length. If output is shorter than this value, it will be
-     * padded with spaces.
+     * Minimal output length. If output is shorter than this value, it will be padded with spaces.
+     * @var int
      */
     public $min = 0;
 
     /**
-     * Maximum output length. If output is longer than this value, it will be
-     * trimmed.
+     * Maximum output length. If output is longer than this value, it will be trimmed.
+     * @var int
      */
     public $max = PHP_INT_MAX;
 
     /**
-     * Whether to pad the string from the left. If set to false, the string
-     * will be padded from the right.
+     * Whether to pad the string from the left. If set to false, the string will be padded from the right.
+     * @var bool
      */
     public $padLeft = true;
 
     /**
-     * Whether to trim the string from the left. If set to false, the string
-     * will be trimmed from the right.
+     * Whether to trim the string from the left. If set to false, the string will be trimmed from the right.
+     * @var bool
      */
     public $trimLeft = false;
 }

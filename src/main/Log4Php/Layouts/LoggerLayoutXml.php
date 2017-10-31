@@ -85,6 +85,9 @@ class LoggerLayoutXml extends LoggerLayout
     /** The namespace prefix in use */
     protected $namespacePrefix = self::LOG4PHP_NS_PREFIX;
 
+    /**
+     * @return bool
+     */
     public function activateOptions()
     {
         if ($this->getLog4jNamespace()) {
@@ -94,6 +97,7 @@ class LoggerLayoutXml extends LoggerLayout
             $this->namespace = self::LOG4PHP_NS;
             $this->namespacePrefix = self::LOG4PHP_NS_PREFIX;
         }
+        return true;
     }
 
     /**
@@ -184,6 +188,7 @@ class LoggerLayoutXml extends LoggerLayout
      * true, then the file name and line number of the statement at the
      * origin of the log statement will be output.
      * @param bool $flag
+     * @return void
      */
     public function setLocationInfo(bool $flag)
     {
@@ -199,7 +204,8 @@ class LoggerLayoutXml extends LoggerLayout
     }
 
     /**
-     * @param boolean
+     * @param boolean|string $flag
+     * @return void
      */
     public function setLog4jNamespace($flag)
     {

@@ -41,6 +41,7 @@ class LoggerMDC
      *
      * @param string $key the key
      * @param string $value the value
+     * @return void
      */
     public static function put($key, $value)
     {
@@ -51,8 +52,7 @@ class LoggerMDC
      * Returns the context value identified by the key parameter.
      *
      * @param string $key The key.
-     * @return string The context or an empty string if no context found
-     *    for given key.
+     * @return string The context or an empty string if no context found for given key.
      */
     public static function get($key)
     {
@@ -74,6 +74,7 @@ class LoggerMDC
      * Only affects user mappings, not $_ENV or $_SERVER.
      *
      * @param string $key The key to be removed.
+     * @return void
      */
     public static function remove($key)
     {
@@ -82,6 +83,7 @@ class LoggerMDC
 
     /**
      * Clears the mapped diagnostic context.
+     * @return void
      */
     public static function clear()
     {

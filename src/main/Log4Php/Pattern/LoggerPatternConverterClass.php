@@ -26,12 +26,21 @@ use Log4Php\LoggerLoggingEvent;
  */
 class LoggerPatternConverterClass extends LoggerPatternConverter
 {
-    /** Length to which to shorten the class name. */
+    /**
+     * Length to which to shorten the class name.
+     * @var int
+     */
     private $length;
 
-    /** Holds processed class names. */
+    /**
+     * Holds processed class names.
+     * @var array
+     */
     private $cache = [];
 
+    /**
+     * @return void
+     */
     public function activateOptions()
     {
         // Parse the option (desired output length)
@@ -40,6 +49,10 @@ class LoggerPatternConverterClass extends LoggerPatternConverter
         }
     }
 
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return mixed
+     */
     public function convert(LoggerLoggingEvent $event)
     {
         $name = $event->getLocationInformation()->getClassName();

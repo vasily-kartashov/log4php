@@ -57,6 +57,7 @@ class LoggerFilterStringMatch extends LoggerFilter
 
     /**
      * @param mixed $acceptOnMatch a boolean or a string ('true' or 'false')
+     * @return void
      */
     public function setAcceptOnMatch($acceptOnMatch)
     {
@@ -65,6 +66,7 @@ class LoggerFilterStringMatch extends LoggerFilter
 
     /**
      * @param string $string the string to match
+     * @return void
      */
     public function setStringToMatch(string $string)
     {

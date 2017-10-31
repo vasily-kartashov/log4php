@@ -26,6 +26,7 @@ use ReflectionClass;
 class LoggerLoggingEvent
 {
 
+    /** @var int */
     private static $startTime;
 
     /**
@@ -43,9 +44,9 @@ class LoggerLoggingEvent
      * This field will be marked as private in future
      * releases. Please do not access it directly.
      * Use the {@link getLoggerName()} method instead.
-     * @deprecated
+     * @var string|null
      */
-    private $categoryName;
+    private $loggerName;
 
     /**
      * Level of the logging event.
@@ -127,9 +128,9 @@ class LoggerLoggingEvent
         $this->fqcn = $fqcn;
         if ($logger instanceof Logger) {
             $this->logger = $logger;
-            $this->categoryName = $logger->getName();
+            $this->loggerName = $logger->getName();
         } else {
-            $this->categoryName = strval($logger);
+            $this->loggerName = strval($logger);
         }
         $this->level = $level;
         $this->message = $message;
@@ -148,6 +149,7 @@ class LoggerLoggingEvent
     /**
      * Returns the full qualified class name.
      * TODO: PHP does contain namespaces in 5.3. Those should be returned too,
+     * @return string
      */
     public function getFullQualifiedClassName()
     {
@@ -239,12 +241,12 @@ class LoggerLoggingEvent
 
     /**
      * Return the name of the logger. Use this form instead of directly
-     * accessing the {@link $categoryName} field.
+     * accessing the {@link $loggerName} field.
      * @return string|null
      */
     public function getLoggerName()
     {
-        return $this->categoryName;
+        return $this->loggerName;
     }
 
     /**
@@ -274,9 +276,8 @@ class LoggerLoggingEvent
     }
 
     /**
-     * Returns the the context corresponding to the <code>key</code>
-     * parameter.
-     * @param $key
+     * Returns the the context corresponding to the <code>key</code> parameter.
+     * @param string $key
      * @return string
      */
     public function getMDC($key)
@@ -371,7 +372,7 @@ class LoggerLoggingEvent
     {
         $eventTime = $this->getTimestamp();
         $eventStartTime = LoggerLoggingEvent::getStartTime();
-        return number_format(($eventTime - $eventStartTime) * 1000, 0, '', '');
+        return (int) number_format(($eventTime - $eventStartTime) * 1000, 0, '', '');
     }
 
     /**
@@ -409,7 +410,7 @@ class LoggerLoggingEvent
     {
         return [
             'fqcn',
-            'categoryName',
+            'loggerName',
             'level',
             'ndc',
             'ndcLookupRequired',

@@ -79,6 +79,7 @@ abstract class LoggerFilter extends LoggerConfigurable
     /**
      * Usually filters options become active when set. We provide a
      * default do-nothing implementation for convenience.
+     * @return void
      */
     public function activateOptions()
     {
@@ -106,6 +107,7 @@ abstract class LoggerFilter extends LoggerConfigurable
      * is passed on until it is the last filter in chain.
      *
      * @param LoggerFilter $filter the filter to add to this chain
+     * @return void
      */
     public function addNext(LoggerFilter $filter)
     {

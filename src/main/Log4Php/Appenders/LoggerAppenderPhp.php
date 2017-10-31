@@ -36,6 +36,10 @@ use Log4Php\LoggerLoggingEvent;
  */
 class LoggerAppenderPhp extends LoggerAppender
 {
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return void
+     */
     public function append(LoggerLoggingEvent $event)
     {
         $level = $event->getLevel();

@@ -27,5 +27,6 @@ namespace Log4Php\Pattern;
  */
 class LoggerPatternConverterCookie extends LoggerPatternConverterSuperglobal
 {
+    /** @var string */
     protected $name = '_COOKIE';
 }

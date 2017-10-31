@@ -48,7 +48,10 @@ class Logger implements LoggerInterface, GenericLogger
     /** The assigned Logger level. */
     private $level;
 
-    /** The name of this Logger instance. */
+    /**
+     * The name of this Logger instance.
+     * @var string
+     */
     private $name;
 
     /**
@@ -69,6 +72,7 @@ class Logger implements LoggerInterface, GenericLogger
     /**
      * Constructor.
      * @param string $name Name of the logger.
+     * @return void
      */
     public function __construct($name)
     {
@@ -102,7 +106,6 @@ class Logger implements LoggerInterface, GenericLogger
      *
      * @param string $message
      * @param array  $context
-     *
      * @return void
      */
     public function emergency($message, array $context = [])
@@ -118,7 +121,6 @@ class Logger implements LoggerInterface, GenericLogger
      *
      * @param string $message
      * @param array  $context
-     *
      * @return void
      */
     public function alert($message, array $context = [])
@@ -133,7 +135,6 @@ class Logger implements LoggerInterface, GenericLogger
      *
      * @param string $message
      * @param array  $context
-     *
      * @return void
      */
     public function critical($message, array $context = [])
@@ -147,7 +148,6 @@ class Logger implements LoggerInterface, GenericLogger
      *
      * @param string $message
      * @param array  $context
-     *
      * @return void
      */
     public function error($message, array $context = [])
@@ -163,7 +163,6 @@ class Logger implements LoggerInterface, GenericLogger
      *
      * @param string $message
      * @param array  $context
-     *
      * @return void
      */
     public function warning($message, array $context = [])
@@ -176,7 +175,6 @@ class Logger implements LoggerInterface, GenericLogger
      *
      * @param string $message
      * @param array  $context
-     *
      * @return void
      */
     public function notice($message, array $context = [])
@@ -191,7 +189,6 @@ class Logger implements LoggerInterface, GenericLogger
      *
      * @param string $message
      * @param array  $context
-     *
      * @return void
      */
     public function info($message, array $context = [])
@@ -204,7 +201,6 @@ class Logger implements LoggerInterface, GenericLogger
      *
      * @param string $message
      * @param array  $context
-     *
      * @return void
      */
     public function debug($message, array $context = [])
@@ -217,7 +213,6 @@ class Logger implements LoggerInterface, GenericLogger
      *
      * @param string $message
      * @param array  $context
-     *
      * @return void
      */
     public function trace($message, array $context = [])
@@ -231,7 +226,6 @@ class Logger implements LoggerInterface, GenericLogger
      * @param mixed  $level
      * @param string $message
      * @param array  $context
-     *
      * @return void
      */
     public function log($level, $message, array $context = [])
@@ -247,6 +241,7 @@ class Logger implements LoggerInterface, GenericLogger
      * @param string $message
      * @param array $context
      * @param bool $extendedContextResolved
+     * @return void
      */
     private function _log(LoggerLevel $level, $message, array $context = [], bool $extendedContextResolved = false)
     {
@@ -273,6 +268,7 @@ class Logger implements LoggerInterface, GenericLogger
     /**
      * Logs an already prepared logging event object.
      * @param LoggerLoggingEvent $event
+     * @return void
      */
     public function logEvent(LoggerLoggingEvent $event)
     {
@@ -292,6 +288,7 @@ class Logger implements LoggerInterface, GenericLogger
      *
      * @param bool $assertion
      * @param string $msg message to log
+     * @return void
      */
     public function assertLog($assertion = true, $msg = '')
     {
@@ -310,6 +307,7 @@ class Logger implements LoggerInterface, GenericLogger
      * @param Exception $throwable Optional throwable information to include in the logging event.
      * @param LoggerLevel $level log level
      * @param mixed $message message to log
+     * @return void
      */
     public function forcedLog($fqcn, $throwable, LoggerLevel $level, $message)
     {
@@ -325,6 +323,7 @@ class Logger implements LoggerInterface, GenericLogger
     /**
      * Forwards the given logging event to all linked appenders.
      * @param LoggerLoggingEvent $event
+     * @return void
      */
     public function callAppenders($event)
     {
@@ -440,6 +439,7 @@ class Logger implements LoggerInterface, GenericLogger
     /**
      * Adds a new appender to the Logger.
      * @param LoggerAppender $appender The appender to add.
+     * @return void
      */
     public function addAppender($appender)
     {
@@ -447,7 +447,10 @@ class Logger implements LoggerInterface, GenericLogger
         $this->appenders[$appenderName] = $appender;
     }
 
-    /** Removes all appenders from the Logger. */
+    /**
+     * Removes all appenders from the Logger.
+     * @return void
+     */
     public function removeAllAppenders()
     {
         foreach ($this->appenders as $name => $appender) {
@@ -458,6 +461,7 @@ class Logger implements LoggerInterface, GenericLogger
     /**
      * Remove the appender passed as parameter form the Logger.
      * @param mixed $appender an appender name or a {@link LoggerAppender} instance.
+     * @return void
      */
     public function removeAppender($appender)
     {
@@ -492,6 +496,7 @@ class Logger implements LoggerInterface, GenericLogger
     /**
      * Sets the additivity flag.
      * @param $additive
+     * @return void
      */
     public function setAdditivity(bool $additive)
     {
@@ -538,6 +543,7 @@ class Logger implements LoggerInterface, GenericLogger
      * Use LoggerLevel::getLevelXXX() methods to get a LoggerLevel object, e.g.
      * <code>$logger->setLevel(LoggerLevel::getLevelInfo());</code>
      * @param LoggerLevel $level The level to set, or NULL to clear the logger level.
+     * @return void
      */
     public function setLevel(LoggerLevel $level = null)
     {
@@ -557,18 +563,25 @@ class Logger implements LoggerInterface, GenericLogger
     /**
      * Sets the parent logger.
      * @param Logger $logger
+     * @return void
      */
     public function setParent(Logger $logger)
     {
         $this->parent = $logger;
     }
 
-
+    /**
+     * @param callable $resolver
+     * @return void
+     */
     public function addContextResolver(callable $resolver)
     {
         $this->extendedContextResolvers[] = $resolver;
     }
 
+    /**
+     * @return array
+     */
     public function resolveExtendedContext(): array
     {
         $extendedContext = [];
@@ -589,6 +602,7 @@ class Logger implements LoggerInterface, GenericLogger
 
     /**
      * Indicates if log4php has been initialized
+     * @var bool
      */
     private static $initialized = false;
 
@@ -634,6 +648,7 @@ class Logger implements LoggerInterface, GenericLogger
 
     /**
      * Clears all Logger definitions from the logger hierarchy.
+     * @return void
      */
     public static function clear()
     {
@@ -642,6 +657,7 @@ class Logger implements LoggerInterface, GenericLogger
 
     /**
      * Destroy configurations for logger definitions
+     * @return void
      */
     public static function resetConfiguration()
     {
@@ -680,6 +696,7 @@ class Logger implements LoggerInterface, GenericLogger
      * @param string|LoggerConfigurator $configurator A custom configurator class: either a class name (string),
      *        or an object which implements the LoggerConfigurator interface. If left empty, the default configurator
      *        implementation will be used.
+     * @return void
      */
     public static function configure($configuration = null, $configurator = null)
     {
@@ -693,8 +710,9 @@ class Logger implements LoggerInterface, GenericLogger
      * Creates a logger configurator instance based on the provided
      * configurator class. If no class is given, returns an instance of
      * the default configurator.
-     * @param string|LoggerConfigurator $configurator The configurator class or LoggerConfigurator instance.
+     * @param mixed $configurator The configurator class or LoggerConfigurator instance.
      * @return LoggerConfigurator
+     * @todo add better parameter type for configurator instead of mixed
      */
     private static function getConfigurator($configurator = null)
     {

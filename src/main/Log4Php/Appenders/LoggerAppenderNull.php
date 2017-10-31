@@ -29,6 +29,7 @@ class LoggerAppenderNull extends LoggerAppender
 {
     /**
      * This appender does not require a layout.
+     * @var bool
      */
     protected $requiresLayout = false;
 
@@ -36,6 +37,7 @@ class LoggerAppenderNull extends LoggerAppender
      * Do nothing.
      *
      * @param LoggerLoggingEvent $event
+     * @return void
      */
     public function append(LoggerLoggingEvent $event)
     {

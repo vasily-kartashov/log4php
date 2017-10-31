@@ -76,7 +76,11 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      */
     protected $compress = false;
 
-    public function __construct($name = '')
+    /**
+     * LoggerAppenderRollingFile constructor.
+     * @param string $name
+     */
+    public function __construct(string $name = '')
     {
         parent::__construct($name);
     }
@@ -91,6 +95,9 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
         return $this->maxFileSize;
     }
 
+    /**
+     * @return void
+     */
     public function activateOptions()
     {
         parent::activateOptions();
@@ -103,7 +110,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
 
     /**
      * Returns the 'maxBackupIndex' parameter.
-     * @return integer
+     * @return int
      */
     public function getMaxBackupIndex()
     {
@@ -112,7 +119,8 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
 
     /**
      * Set the 'maxBackupIndex' parameter.
-     * @param integer $maxBackupIndex
+     * @param int $maxBackupIndex
+     * @return void
      */
     public function setMaxBackupIndex($maxBackupIndex)
     {
@@ -121,7 +129,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
 
     /**
      * Returns the 'maxFileSize' parameter.
-     * @return integer
+     * @return int
      */
     public function getMaxFileSize()
     {
@@ -131,6 +139,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
     /**
      * Set the 'maxFileSize' parameter.
      * @param mixed $maxFileSize
+     * @return void
      */
     public function setMaxFileSize($maxFileSize)
     {
@@ -141,11 +150,12 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * Set the 'maxFileSize' parameter (kept for backward compatibility).
      * @param mixed $maxFileSize
      * @deprecated Use setMaxFileSize() instead.
+     * @return void
      */
     public function setMaximumFileSize($maxFileSize)
     {
         $this->warn("The 'maximumFileSize' parameter is deprecated. Use 'maxFileSize' instead.");
-        return $this->setMaxFileSize($maxFileSize);
+        $this->setMaxFileSize($maxFileSize);
     }
 
     /**
@@ -160,6 +170,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
     /**
      * Sets the 'compress' parameter.
      * @param boolean $compress
+     * @return void
      */
     public function setCompress($compress)
     {
@@ -169,6 +180,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
     /**
      * Writes a string to the target file. Opens file if not already open.
      * @param string $string Data to write.
+     * @return void
      */
     protected function write($string)
     {
@@ -209,6 +221,9 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
         }
     }
 
+    /**
+     * @return bool
+     */
     private function rollOverRequired(): bool
     {
         if (!file_exists($this->file)) {
@@ -230,6 +245,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      *
      * Rollover must be called while the file is locked so that it is safe for concurrent access.
      *
+     * @return void
      * @throws LoggerException If any part of the rollover procedure fails.
      */
     private function startRollOver()
@@ -245,6 +261,10 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
         rewind($this->fp);
     }
 
+    /**
+     * @return void
+     * @throws LoggerException
+     */
     private function completeRollOver()
     {
         if ($this->maxBackupIndex > 0) {
@@ -260,7 +280,11 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
         }
     }
 
-    private function renameArchivedLogs($fileName)
+    /**
+     * @param string $fileName
+     * @return void
+     */
+    private function renameArchivedLogs(string $fileName)
     {
         $pairs = [];
         for ($i = $this->maxBackupIndex - 1; $i >= 1; $i--) {
@@ -280,7 +304,11 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
         }
     }
 
-    private function moveToBackup($source)
+    /**
+     * @param string $source
+     * @return void
+     */
+    private function moveToBackup(string $source)
     {
         if ($this->compress) {
             $target = $source . '.temp.gz';
@@ -291,7 +319,13 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
         }
     }
 
-    private function compressFile($source, $target)
+    /**
+     * @param string $source
+     * @param string $target
+     * @return void
+     * @throws LoggerException
+     */
+    private function compressFile(string $source, string $target)
     {
         $target = 'compress.zlib://' . $target;
 
@@ -307,7 +341,10 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
 
         while (!feof($fin)) {
             $chunk = fread($fin, self::COMPRESS_CHUNK_SIZE);
-            if (false === fwrite($fout, $chunk)) {
+            if ($chunk === false) {
+                throw new LoggerException('Failed to read from file');
+            }
+            if (fwrite($fout, $chunk) === false) {
                 throw new LoggerException("Failed writing to compressed file.");
             }
         }

@@ -101,7 +101,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      * Loads and parses the INI configuration file.
      *
      * @param string $url Path to the config file.
-     * @return array|bool
+     * @return array
      * @throws LoggerException
      */
     private function load($url)
@@ -129,6 +129,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      *
      * @param string $value The configuration value (level and appender-refs).
      * @param string $name Logger name.
+     * @return void
      */
     private function parseLogger($value, $name)
     {
@@ -229,6 +230,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      *
      * @param string $key
      * @param string $value
+     * @return void
      */
     private function parseAppender($key, $value)
     {
@@ -280,6 +282,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      *
      * @param string $key log4php.renderer.<renderedClass>
      * @param string $value <renderingClass>
+     * @return void
      */
     private function parseRenderer($key, $value)
     {

@@ -52,12 +52,18 @@ class LoggerAppenderSocket extends LoggerAppender
     // *** Appender methods                   ***
     // ******************************************
 
-    /** Override the default layout to use serialized. */
-    public function getDefaultLayout()
+    /**
+     * Override the default layout to use serialized.
+     * @return LoggerLayoutSerialized
+     */
+    public function getDefaultLayout(): LoggerLayoutSerialized
     {
         return new LoggerLayoutSerialized();
     }
 
+    /**
+     * @return void
+     */
     public function activateOptions()
     {
         if (empty($this->remoteHost)) {
@@ -73,6 +79,10 @@ class LoggerAppenderSocket extends LoggerAppender
         $this->closed = false;
     }
 
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return void
+     */
     public function append(LoggerLoggingEvent $event)
     {
         $socket = fsockopen($this->remoteHost, $this->port, $errno, $errstr, $this->timeout);
@@ -95,6 +105,7 @@ class LoggerAppenderSocket extends LoggerAppender
 
     /**
      * Returns the target host.
+     * @return string
      */
     public function getRemoteHost()
     {
@@ -104,13 +115,17 @@ class LoggerAppenderSocket extends LoggerAppender
     /**
      * Sets the target host.
      * @param string $hostname
+     * @return void
      */
     public function setRemoteHost(string $hostname)
     {
         $this->setString('remoteHost', $hostname);
     }
 
-    /** Returns the target port. */
+    /**
+     * Returns the target port.
+     * @return int
+     */
     public function getPort()
     {
         return $this->port;
@@ -119,6 +134,7 @@ class LoggerAppenderSocket extends LoggerAppender
     /**
      * Sets the target port
      * @param int $port
+     * @return void
      */
     public function setPort(int $port)
     {
@@ -127,6 +143,7 @@ class LoggerAppenderSocket extends LoggerAppender
 
     /**
      * Returns the timeout
+     * @return int
      */
     public function getTimeout()
     {
@@ -136,6 +153,7 @@ class LoggerAppenderSocket extends LoggerAppender
     /**
      * Sets the timeout.
      * @param int $timeout
+     * @return void
      */
     public function setTimeout(int $timeout)
     {

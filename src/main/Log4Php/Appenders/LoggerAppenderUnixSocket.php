@@ -7,10 +7,15 @@ use Log4Php\LoggerLoggingEvent;
 
 class LoggerAppenderUnixSocket extends LoggerAppender
 {
+    /** @var string */
     protected $path;
 
+    /** @var resource|bool */
     private $socket;
 
+    /**
+     * @return void
+     */
     public function activateOptions()
     {
         if (empty($this->path)) {
@@ -21,6 +26,10 @@ class LoggerAppenderUnixSocket extends LoggerAppender
         $this->closed = false;
     }
 
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return void
+     */
     protected function append(LoggerLoggingEvent $event)
     {
         if (!is_resource($this->socket)) {
@@ -40,6 +49,7 @@ class LoggerAppenderUnixSocket extends LoggerAppender
 
     /**
      * Returns the path.
+     * @return string
      */
     public function getPath()
     {
@@ -49,12 +59,16 @@ class LoggerAppenderUnixSocket extends LoggerAppender
     /**
      * Sets the path.
      * @param string $path
+     * @return void
      */
     public function setPath(string $path)
     {
         $this->setString('path', $path);
     }
 
+    /**
+     * @return void
+     */
     public function close()
     {
         parent::close();

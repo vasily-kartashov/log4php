@@ -26,6 +26,7 @@ abstract class LoggerLayout extends LoggerConfigurable
     /**
      * Activates options for this layout.
      * Override this method if you have options to be activated.
+     * @return bool
      */
     public function activateOptions()
     {
@@ -35,7 +36,7 @@ abstract class LoggerLayout extends LoggerConfigurable
     /**
      * Override this method to create your own layout format.
      *
-     * @param LoggerLoggingEvent
+     * @param LoggerLoggingEvent $event
      * @return string|null
      */
     public function format(LoggerLoggingEvent $event)
@@ -73,6 +74,7 @@ abstract class LoggerLayout extends LoggerConfigurable
     /**
      * Triggers a warning for this layout with the given message.
      * @param $message
+     * @return void
      */
     protected function warn(string $message)
     {

@@ -26,6 +26,10 @@ use Log4Php\LoggerLoggingEvent;
  */
 class LoggerPatternConverterRelative extends LoggerPatternConverter
 {
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return string
+     */
     public function convert(LoggerLoggingEvent $event)
     {
         $ts = $event->getRelativeTime();

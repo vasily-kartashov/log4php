@@ -50,6 +50,7 @@ class LoggerRoot extends Logger
      * null. Root logger must always have a level.
      *
      * @param LoggerLevel $level
+     * @return void
      */
     public function setLevel(LoggerLevel $level = null)
     {
@@ -63,6 +64,7 @@ class LoggerRoot extends Logger
     /**
      * Override parent setter. Root logger cannot have a parent.
      * @param Logger $parent
+     * @return void
      */
     public function setParent(Logger $parent)
     {

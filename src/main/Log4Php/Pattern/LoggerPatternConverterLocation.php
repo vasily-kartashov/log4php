@@ -21,11 +21,14 @@ namespace Log4Php\Pattern;
 use Log4Php\LoggerLoggingEvent;
 
 /**
- * Returns the line number within the file from which the logging request was
- * issued.
+ * Returns the line number within the file from which the logging request was issued.
  */
 class LoggerPatternConverterLocation extends LoggerPatternConverter
 {
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return string
+     */
     public function convert(LoggerLoggingEvent $event)
     {
         return

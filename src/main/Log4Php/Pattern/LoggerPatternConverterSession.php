@@ -27,5 +27,8 @@ namespace Log4Php\Pattern;
  */
 class LoggerPatternConverterSession extends LoggerPatternConverterSuperglobal
 {
+    /**
+     * @var string
+     */
     protected $name = '_SESSION';
 }

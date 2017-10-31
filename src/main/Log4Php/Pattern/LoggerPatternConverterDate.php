@@ -19,6 +19,7 @@
 namespace Log4Php\Pattern;
 
 use DateTime;
+use Log4Php\LoggerException;
 use Log4Php\LoggerLoggingEvent;
 
 /**
@@ -36,14 +37,19 @@ class LoggerPatternConverterDate extends LoggerPatternConverter
     const DATE_FORMAT_ABSOLUTE = 'H:i:s';
     const DATE_FORMAT_DATE = 'd M Y H:i:s.u';
 
+    /** @var string */
     private $format = self::DATE_FORMAT_ISO8601;
 
+    /** @var array */
     private $specials = [
         'ISO8601'  => self::DATE_FORMAT_ISO8601,
         'ABSOLUTE' => self::DATE_FORMAT_ABSOLUTE,
         'DATE'     => self::DATE_FORMAT_DATE,
     ];
 
+    /**
+     * @return void
+     */
     public function activateOptions()
     {
         // Parse the option (date format)
@@ -56,9 +62,17 @@ class LoggerPatternConverterDate extends LoggerPatternConverter
         }
     }
 
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return string
+     * @throws LoggerException
+     */
     public function convert(LoggerLoggingEvent $event)
     {
         $time = DateTime::createFromFormat('U.u', number_format($event->getTimestamp(), 6, '.', ''));
+        if ($time === false) {
+            throw new LoggerException('Invalid date format');
+        }
         return $time->format($this->format);
     }
 }

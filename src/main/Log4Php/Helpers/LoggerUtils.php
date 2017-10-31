@@ -112,7 +112,9 @@ class LoggerUtils
                 break;
             }
         }
-        unset($fragment);
+        if (isset($fragment)) {
+            unset($fragment);
+        }
 
         return implode('\\', $fragments);
     }

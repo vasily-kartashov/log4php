@@ -45,7 +45,7 @@ class LoggerLoggingEventTestCaseLayout extends LoggerLayout
 
     public function activateOptions()
     {
-        return;
+        return true;
     }
 
     public function format(LoggerLoggingEvent $event): string

@@ -61,6 +61,9 @@ class LoggerAppenderFile extends LoggerAppender
      */
     protected $fp;
 
+    /**
+     * @return void
+     */
     public function activateOptions()
     {
         if (empty($this->file)) {
@@ -70,6 +73,9 @@ class LoggerAppenderFile extends LoggerAppender
         }
     }
 
+    /**
+     * @return void
+     */
     public function close()
     {
         if (is_resource($this->fp)) {
@@ -83,6 +89,10 @@ class LoggerAppenderFile extends LoggerAppender
         $this->closed = true;
     }
 
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return void
+     */
     public function append(LoggerLoggingEvent $event)
     {
         $content = $this->layout->format($event);
@@ -103,6 +113,7 @@ class LoggerAppenderFile extends LoggerAppender
     /**
      * Sets the 'append' parameter.
      * @param boolean $append
+     * @return void
      */
     public function setAppend($append)
     {
@@ -112,6 +123,7 @@ class LoggerAppenderFile extends LoggerAppender
     /**
      * Sets the 'file' parameter. Left for legacy reasons.
      * @param string $fileName
+     * @return void
      * @deprecated Use setFile() instead.
      */
     public function setFileName($fileName)
@@ -141,6 +153,7 @@ class LoggerAppenderFile extends LoggerAppender
     /**
      * Sets the 'file' parameter.
      * @param string $file
+     * @return void
      */
     public function setFile($file)
     {
@@ -159,6 +172,7 @@ class LoggerAppenderFile extends LoggerAppender
     /**
      * Sets the 'locking parameter'
      * @param $locking
+     * @return void
      */
     public function setLocking($locking)
     {
@@ -213,6 +227,7 @@ class LoggerAppenderFile extends LoggerAppender
 
     /**
      * Helper function which can be easily overridden by daily file appender.
+     * @return string
      */
     protected function getTargetFile()
     {
@@ -222,6 +237,7 @@ class LoggerAppenderFile extends LoggerAppender
     /**
      * Writes a string to the target file. Opens file if not already open.
      * @param string $string Data to write.
+     * @return void
      */
     protected function write($string)
     {
@@ -239,7 +255,11 @@ class LoggerAppenderFile extends LoggerAppender
         }
     }
 
-    protected function writeWithLocking($string)
+    /**
+     * @param string $string
+     * @return void
+     */
+    protected function writeWithLocking(string $string)
     {
         if (flock($this->fp, LOCK_EX)) {
             if (fwrite($this->fp, $string) === false) {
@@ -253,6 +273,10 @@ class LoggerAppenderFile extends LoggerAppender
         }
     }
 
+    /**
+     * @param $string
+     * @return void
+     */
     protected function writeWithoutLocking($string)
     {
         if (fwrite($this->fp, $string) === false) {

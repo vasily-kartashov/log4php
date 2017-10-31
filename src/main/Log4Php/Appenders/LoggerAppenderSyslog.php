@@ -141,6 +141,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * Sets the {@link $ident}.
      *
      * @param string $ident
+     * @return void
      */
     public function setIdent($ident)
     {
@@ -161,6 +162,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * Sets the {@link $priority}.
      *
      * @param string $priority
+     * @return void
      */
     public function setPriority($priority)
     {
@@ -181,6 +183,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * Sets the {@link $facility}.
      *
      * @param string $facility
+     * @return void
      */
     public function setFacility($facility)
     {
@@ -201,6 +204,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      * Sets the {@link $overridePriority}.
      *
      * @param string $overridePriority
+     * @return void
      */
     public function setOverridePriority($overridePriority)
     {
@@ -221,12 +225,16 @@ class LoggerAppenderSyslog extends LoggerAppender
      * Sets the 'option' parameter.
      *
      * @param string $option
+     * @return void
      */
     public function setOption($option)
     {
         $this->option = $option;
     }
 
+    /**
+     * @return void
+     */
     public function activateOptions()
     {
         $this->intPriority = $this->parsePriority();
@@ -238,6 +246,7 @@ class LoggerAppenderSyslog extends LoggerAppender
 
     /**
      * Parses the priority string and returns the corresponding int value.
+     * @return mixed
      */
     private function parsePriority()
     {
@@ -254,6 +263,7 @@ class LoggerAppenderSyslog extends LoggerAppender
 
     /**
      * Parses a syslog option string and returns the corresponding int value.
+     * @return mixed
      */
     private function parseOption()
     {
@@ -278,6 +288,7 @@ class LoggerAppenderSyslog extends LoggerAppender
 
     /**
      * Parses the facility string and returns the corresponding int value.
+     * @return mixed
      */
     private function parseFacility()
     {
@@ -292,6 +303,9 @@ class LoggerAppenderSyslog extends LoggerAppender
         return null;
     }
 
+    /**
+     * @return void
+     */
     public function close()
     {
         if ($this->closed != true) {
@@ -309,6 +323,7 @@ class LoggerAppenderSyslog extends LoggerAppender
      *
      * @see http://www.php.net/manual/en/function.syslog.php#97843
      * @param LoggerLoggingEvent $event
+     * @return void
      */
     public function append(LoggerLoggingEvent $event)
     {

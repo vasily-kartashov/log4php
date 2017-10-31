@@ -124,7 +124,10 @@ class LoggerLayoutPattern extends LoggerLayout
      */
     private $head;
 
-    /** Returns the default converter map. */
+    /**
+     * Returns the default converter map.
+     * @return array
+     */
     public static function getDefaultConverterMap()
     {
         return self::$defaultConverterMap;
@@ -141,6 +144,7 @@ class LoggerLayoutPattern extends LoggerLayout
      * controls formatting and consists of a mix of literal content and
      * conversion specifiers.
      * @param string $conversionPattern
+     * @return void
      */
     public function setConversionPattern($conversionPattern)
     {
@@ -150,6 +154,8 @@ class LoggerLayoutPattern extends LoggerLayout
     /**
      * Processes the conversion pattern and creates a corresponding chain of
      * pattern converters which will be used to format logging events.
+     * @return bool
+     * @throws LoggerException
      */
     public function activateOptions()
     {
@@ -159,6 +165,8 @@ class LoggerLayoutPattern extends LoggerLayout
 
         $parser = new LoggerPatternParser($this->pattern, $this->converterMap);
         $this->head = $parser->parse();
+
+        return true;
     }
 
     /**

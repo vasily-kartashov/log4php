@@ -83,6 +83,7 @@ class LoggerHierarchy
 
     /**
      * Clears all loggers.
+     * @return void
      */
     public function clear()
     {
@@ -150,6 +151,7 @@ class LoggerHierarchy
 
     /**
      * Returns the logger renderer map.
+     *
      * @return LoggerRendererMap
      */
     public function getRendererMap()
@@ -159,6 +161,7 @@ class LoggerHierarchy
 
     /**
      * Returns the root logger.
+     *
      * @return LoggerRoot
      */
     public function getRootLogger()
@@ -168,6 +171,7 @@ class LoggerHierarchy
 
     /**
      * Returns the main threshold level.
+     *
      * @return LoggerLevel
      */
     public function getThreshold()
@@ -176,8 +180,8 @@ class LoggerHierarchy
     }
 
     /**
-     * Returns true if the hierarchy is disabled for given log level and false
-     * otherwise.
+     * Returns true if the hierarchy is disabled for given log level and false otherwise.
+     *
      * @param LoggerLevel $level
      * @return bool
      */
@@ -199,6 +203,8 @@ class LoggerHierarchy
      *
      * <p>This method should be used sparingly and with care as it will
      * block all logging until it is completed.</p>
+     *
+     * @return void
      */
     public function resetConfiguration()
     {
@@ -221,7 +227,7 @@ class LoggerHierarchy
     /**
      * Sets the main threshold level.
      * @param LoggerLevel $threshold
-     * @internal param LoggerLevel $l
+     * @return void
      */
     public function setThreshold(LoggerLevel $threshold)
     {
@@ -238,6 +244,7 @@ class LoggerHierarchy
      * and again to a nested appender.
      *
      * @todo Check if the last paragraph is correct.
+     * @return void
      */
     public function shutdown()
     {
@@ -250,12 +257,18 @@ class LoggerHierarchy
 
     /**
      * Prints the current Logger hierarchy tree. Useful for debugging.
+     * @return void
      */
     public function printHierarchy()
     {
         $this->printHierarchyInner($this->getRootLogger(), 0);
     }
 
+    /**
+     * @param Logger $current
+     * @param $level
+     * @return void
+     */
     private function printHierarchyInner(Logger $current, $level)
     {
         for ($i = 0; $i < $level; $i++) {

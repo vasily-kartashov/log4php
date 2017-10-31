@@ -42,18 +42,27 @@ class LoggerLevel
     const TRACE     = 5000;
     const ALL       = -2147483647;
 
-    /** Integer level value. */
+    /**
+     * Integer level value.
+     * @var int
+     */
     private $level;
 
-    /** Contains a list of instantiated levels. */
+    /**
+     * Contains a list of instantiated levels.
+     * @var array
+     */
     private static $levelMap;
 
-    /** String representation of the level. */
+    /**
+     * String representation of the level.
+     * @var string
+     */
     private $levelStr;
 
     /**
      * Equivalent syslog level.
-     * @var integer
+     * @var int
      */
     private $syslogEquivalent;
 
@@ -234,7 +243,7 @@ class LoggerLevel
      * otherwise.
      *
      * @param LoggerLevel $other
-     * @return boolean
+     * @return bool
      */
     public function isGreaterOrEqual($other)
     {

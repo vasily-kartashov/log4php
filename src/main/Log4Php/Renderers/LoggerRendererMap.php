@@ -51,10 +51,9 @@ class LoggerRendererMap
      * If a renderer already exists for the given <var>$renderedClass</var> it
      * will be overwritten without warning.
      *
-     * @param string $renderedClass The name of the class which will be
-     *        rendered by the renderer.
-     * @param string $renderingClass The name of the class which will
-     *        perform the rendering.
+     * @param string $renderedClass The name of the class which will be rendered by the renderer.
+     * @param string $renderingClass The name of the class which will perform the rendering.
+     * @return void
      */
     public function addRenderer($renderedClass, $renderingClass)
     {
@@ -87,8 +86,8 @@ class LoggerRendererMap
      * addRenderer(). However, it has custom error messages so let it sit for
      * now.
      *
-     * @param string $renderingClass The name of the class which will
-     *        perform the rendering.
+     * @param string $renderingClass The name of the class which will perform the rendering.
+     * @return void
      */
     public function setDefaultRenderer(string $renderingClass)
     {
@@ -181,6 +180,7 @@ class LoggerRendererMap
 
     /**
      * Empties the renderer map.
+     * @return void
      */
     public function clear()
     {
@@ -189,6 +189,7 @@ class LoggerRendererMap
 
     /**
      * Resets the renderer map to it's default configuration.
+     * @return void
      */
     public function reset()
     {

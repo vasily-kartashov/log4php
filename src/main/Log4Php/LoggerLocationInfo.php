@@ -71,31 +71,46 @@ class LoggerLocationInfo
             '(' . $this->getFileName() . ':' . $this->getLineNumber() . ')';
     }
 
-    /** Returns the caller class name. */
+    /**
+     * Returns the caller class name.
+     * @return string
+     */
     public function getClassName()
     {
         return ($this->className === null) ? self::LOCATION_INFO_NA : $this->className;
     }
 
-    /** Returns the caller file name. */
+    /**
+     * Returns the caller file name.
+     * @return string
+     */
     public function getFileName()
     {
         return ($this->fileName === null) ? self::LOCATION_INFO_NA : $this->fileName;
     }
 
-    /** Returns the caller line number. */
+    /**
+     * Returns the caller line number.
+     * @return string|int
+     */
     public function getLineNumber()
     {
         return ($this->lineNumber === null) ? self::LOCATION_INFO_NA : $this->lineNumber;
     }
 
-    /** Returns the caller method name. */
+    /**
+     * Returns the caller method name.
+     * @return string
+     */
     public function getMethodName()
     {
         return ($this->methodName === null) ? self::LOCATION_INFO_NA : $this->methodName;
     }
 
-    /** Returns the full information of the caller. */
+    /**
+     * Returns the full information of the caller.
+     * @return string
+     */
     public function getFullInfo()
     {
         return ($this->fullInfo === null) ? self::LOCATION_INFO_NA : $this->fullInfo;

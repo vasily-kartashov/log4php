@@ -54,6 +54,7 @@ class LoggerConfigurationAdapterPHP implements LoggerConfigurationAdapter
         }
 
         /** @noinspection PhpIncludeInspection */
+        /** @psalm-suppress UnresolvableInclude */
         $config = include($url);
 
         if ($config === false) {

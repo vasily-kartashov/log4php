@@ -43,12 +43,16 @@ class LoggerAppenderConsole extends LoggerAppender
     /** The standard error stream.*/
     const STDERR = 'php://stderr';
 
-    /** The 'target' parameter. */
+    /**
+     * The 'target' parameter.
+     * @var string
+     */
     protected $target = self::STDOUT;
 
     /**
      * Stream resource for the target stream.
-     * @var resource
+     * @var resource|bool|null
+     * @return void
      */
     protected $fp = null;
 
@@ -58,10 +62,12 @@ class LoggerAppenderConsole extends LoggerAppender
         if (is_resource($this->fp) && $this->layout !== null) {
             fwrite($this->fp, $this->layout->getHeader());
         }
-        $this->closed = (bool)is_resource($this->fp) === false;
+        $this->closed = (bool) is_resource($this->fp) === false;
     }
 
-
+    /**
+     * @return void
+     */
     public function close()
     {
         if ($this->closed != true) {
@@ -73,6 +79,10 @@ class LoggerAppenderConsole extends LoggerAppender
         }
     }
 
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return void
+     */
     public function append(LoggerLoggingEvent $event)
     {
         if (is_resource($this->fp) && $this->layout !== null) {
@@ -92,6 +102,7 @@ class LoggerAppenderConsole extends LoggerAppender
     /**
      * Sets the 'target' parameter.
      * @param string $target
+     * @return void
      */
     public function setTarget($target)
     {

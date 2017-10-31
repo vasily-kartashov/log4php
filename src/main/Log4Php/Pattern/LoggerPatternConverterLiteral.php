@@ -27,6 +27,7 @@ use Log4Php\LoggerLoggingEvent;
  */
 class LoggerPatternConverterLiteral extends LoggerPatternConverter
 {
+    /** @var string */
     private $literalValue;
 
     public function __construct(string $literalValue)
@@ -35,6 +36,10 @@ class LoggerPatternConverterLiteral extends LoggerPatternConverter
         $this->literalValue = $literalValue;
     }
 
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return string
+     */
     public function convert(LoggerLoggingEvent $event)
     {
         return $this->literalValue;

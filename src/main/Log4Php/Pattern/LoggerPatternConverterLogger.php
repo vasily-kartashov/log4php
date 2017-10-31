@@ -35,6 +35,9 @@ class LoggerPatternConverterLogger extends LoggerPatternConverter
     /** Holds processed logger names. */
     private $cache = [];
 
+    /**
+     * @return void
+     */
     public function activateOptions()
     {
         // Parse the option (desired output length)
@@ -43,6 +46,10 @@ class LoggerPatternConverterLogger extends LoggerPatternConverter
         }
     }
 
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return mixed
+     */
     public function convert(LoggerLoggingEvent $event)
     {
         $name = $event->getLoggerName();

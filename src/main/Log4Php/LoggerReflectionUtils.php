@@ -49,8 +49,9 @@ class LoggerReflectionUtils
      * @param object $obj The object to configure.
      * @param array $properties An array containing keys and values.
      * @param string $prefix Only keys having the specified prefix will be set.
+     * @return void
+     * @todo check if it's useful
      */
-    // TODO: check, if this is really useful
     public static function setPropertiesByObject($obj, $properties, $prefix)
     {
         $pSetter = new LoggerReflectionUtils($obj);
@@ -70,6 +71,7 @@ class LoggerReflectionUtils
      *
      * @param array $properties An array containing keys and values.
      * @param string $prefix Only keys having the specified prefix will be set.
+     * @return void
      */
     public function setProperties($properties, $prefix)
     {
@@ -124,6 +126,9 @@ class LoggerReflectionUtils
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function activate()
     {
         if (method_exists($this->obj, 'activateoptions')) {

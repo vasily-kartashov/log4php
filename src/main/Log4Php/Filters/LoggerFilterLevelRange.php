@@ -81,6 +81,7 @@ class LoggerFilterLevelRange extends LoggerFilter
 
     /**
      * @param boolean $acceptOnMatch
+     * @return void
      */
     public function setAcceptOnMatch($acceptOnMatch)
     {
@@ -89,6 +90,7 @@ class LoggerFilterLevelRange extends LoggerFilter
 
     /**
      * @param string $level the level min to match
+     * @return void
      */
     public function setLevelMin(string $level)
     {
@@ -97,6 +99,7 @@ class LoggerFilterLevelRange extends LoggerFilter
 
     /**
      * @param string $level the level max to match
+     * @return void
      */
     public function setLevelMax(string $level)
     {

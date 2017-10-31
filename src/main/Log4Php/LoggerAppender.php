@@ -100,6 +100,7 @@ abstract class LoggerAppender extends LoggerConfigurable
     /**
      * Adds a filter to the end of the filter chain.
      * @param LoggerFilter $filter add a new LoggerFilter
+     * @return void
      */
     public function addFilter($filter)
     {
@@ -112,6 +113,7 @@ abstract class LoggerAppender extends LoggerConfigurable
 
     /**
      * Clears the filter chain by removing all the filters in it.
+     * @return void
      */
     public function clearFilters()
     {
@@ -122,6 +124,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * Returns the first filter in the filter chain.
      * The return value may be <i>null</i> if no is filter is set.
      * @return LoggerFilter|null
+     * @return void
      */
     public function getFilter()
     {
@@ -172,6 +175,7 @@ abstract class LoggerAppender extends LoggerConfigurable
     /**
      * Sets the appender layout.
      * @param LoggerLayout $layout
+     * @return void
      */
     public function setLayout($layout)
     {
@@ -223,6 +227,7 @@ abstract class LoggerAppender extends LoggerConfigurable
     /**
      * Sets the appender name.
      * @param string $name
+     * @return void
      */
     public function setName($name)
     {
@@ -241,8 +246,8 @@ abstract class LoggerAppender extends LoggerConfigurable
     /**
      * Sets the appender threshold.
      *
-     * @param LoggerLevel|string $threshold Either a {@link LoggerLevel}
-     *   object or a string equivalent.
+     * @param LoggerLevel|string $threshold Either a {@link LoggerLevel} object or a string equivalent.
+     * @return void
      * @see LoggerOptionConverter::toLevel()
      */
     public function setThreshold($threshold)
@@ -256,8 +261,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * If there is no threshold set, then the return value is always <i>true</i>.
      *
      * @param LoggerLevel $level
-     * @return boolean Returns true if level is greater or equal than
-     *   threshold, or if the threshold is not set. Otherwise returns false.
+     * @return boolean Returns true if level is greater or equal than threshold, or if the threshold is not set. Otherwise returns false.
      */
     public function isAsSevereAsThreshold($level)
     {
@@ -270,8 +274,8 @@ abstract class LoggerAppender extends LoggerConfigurable
     /**
      * Prepares the appender for logging.
      *
-     * Derived appenders should override this method if option structure
-     * requires it.
+     * Derived appenders should override this method if option structure requires it.
+     * @return void
      */
     public function activateOptions()
     {
@@ -290,8 +294,8 @@ abstract class LoggerAppender extends LoggerConfigurable
     /**
      * Releases any resources allocated by the appender.
      *
-     * Derived appenders should override this method to perform proper closing
-     * procedures.
+     * Derived appenders should override this method to perform proper closing procedures.
+     * @return void
      */
     public function close()
     {
@@ -301,6 +305,7 @@ abstract class LoggerAppender extends LoggerConfigurable
     /**
      * Triggers a warning for this logger with the given message.
      * @param $message
+     * @return void
      */
     protected function warn(string $message)
     {

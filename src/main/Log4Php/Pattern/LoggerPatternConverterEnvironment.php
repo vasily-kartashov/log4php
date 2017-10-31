@@ -27,5 +27,6 @@ namespace Log4Php\Pattern;
  */
 class LoggerPatternConverterEnvironment extends LoggerPatternConverterSuperglobal
 {
+    /** @var string */
     protected $name = '_ENV';
 }

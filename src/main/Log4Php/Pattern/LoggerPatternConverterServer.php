@@ -27,5 +27,8 @@ namespace Log4Php\Pattern;
  */
 class LoggerPatternConverterServer extends LoggerPatternConverterSuperglobal
 {
+    /**
+     * @var string
+     */
     protected $name = '_SERVER';
 }

@@ -28,8 +28,12 @@ use Log4Php\LoggerLoggingEvent;
  */
 class LoggerPatternConverterMDC extends LoggerPatternConverter
 {
+    /** @var string */
     private $key;
 
+    /**
+     * @return void
+     */
     public function activateOptions()
     {
         if (isset($this->option) && $this->option !== '') {
@@ -37,6 +41,10 @@ class LoggerPatternConverterMDC extends LoggerPatternConverter
         }
     }
 
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return string
+     */
     public function convert(LoggerLoggingEvent $event)
     {
         if (isset($this->key)) {

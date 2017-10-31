@@ -102,6 +102,8 @@ class LoggerNDC
      *
      * <p>This method is equivalent to calling the {@link setMaxDepth()}
      * method with a zero <var>maxDepth</var> argument.
+     *
+     * @return void
      */
     public static function clear()
     {
@@ -170,6 +172,7 @@ class LoggerNDC
      * determined solely by the client.
      *
      * @param string $message The new diagnostic context information.
+     * @return void
      */
     public static function push(string $message)
     {
@@ -178,6 +181,7 @@ class LoggerNDC
 
     /**
      * Remove the diagnostic context for this thread.
+     * @return void
      */
     public static function remove()
     {
@@ -196,6 +200,7 @@ class LoggerNDC
      * this problem.
      *
      * @param integer $maxDepth
+     * @return void
      * @see getDepth()
      */
     public static function setMaxDepth(int $maxDepth)

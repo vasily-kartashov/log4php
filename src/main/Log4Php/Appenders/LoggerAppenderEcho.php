@@ -35,16 +35,20 @@ class LoggerAppenderEcho extends LoggerAppender
 {
     /**
      * Used to mark first append. Set to false after first append.
-     * @var boolean
+     * @var bool
      */
     protected $firstAppend = true;
 
     /**
      * If set to true, a <br /> element will be inserted before each line
-     * break in the logged message. Default value is false. @var boolean
+     * break in the logged message. Default value is false.
+     * @var bool
      */
     protected $htmlLineBreaks = false;
 
+    /**
+     * @return void
+     */
     public function close()
     {
         if ($this->closed != true) {
@@ -55,6 +59,10 @@ class LoggerAppenderEcho extends LoggerAppender
         $this->closed = true;
     }
 
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return void
+     */
     public function append(LoggerLoggingEvent $event)
     {
         if ($this->layout !== null) {
@@ -73,7 +81,7 @@ class LoggerAppenderEcho extends LoggerAppender
 
     /**
      * Returns the 'htmlLineBreaks' parameter.
-     * @returns boolean
+     * @return bool
      */
     public function getHtmlLineBreaks()
     {
@@ -83,6 +91,7 @@ class LoggerAppenderEcho extends LoggerAppender
     /**
      * Sets the 'htmlLineBreaks' parameter.
      * @param boolean $value
+     * @return void
      */
     public function setHtmlLineBreaks($value)
     {

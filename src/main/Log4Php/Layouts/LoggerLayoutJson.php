@@ -14,7 +14,7 @@ class LoggerLayoutJson extends LoggerLayout
         unset($context['exception']);
 
         $entry = array_filter([
-            'date' => date(DATE_ISO8601, $event->getTimestamp()),
+            'date' => date(DATE_ISO8601, (int) $event->getTimestamp()),
             'level' => $event->getLevel()->toString(),
             'name' => $event->getLoggerName(),
             'file' => $event->getLocationInformation()->getFileName(),

@@ -54,7 +54,10 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
      */
     protected $currentDate;
 
-    /** Additional validation for the date pattern. */
+    /**
+     * Additional validation for the date pattern.
+     * @return void
+     */
     public function activateOptions()
     {
         parent::activateOptions();
@@ -73,6 +76,7 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
      * the current file is closed. A new file, with the new date, will be
      * opened by the write() method.
      * @param LoggerLoggingEvent $event
+     * @return void
      */
     public function append(LoggerLoggingEvent $event)
     {
@@ -102,6 +106,9 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
         parent::append($event);
     }
 
+    /**
+     * @return bool
+     */
     protected function openFile()
     {
         $currentFile = $this->getTargetFile();
@@ -123,7 +130,11 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
      */
     protected function getDate($timestamp = null)
     {
-        return date($this->datePattern, $timestamp);
+        if ($timestamp === null) {
+            return date($this->datePattern);
+        } else {
+            return date($this->datePattern, (int) $timestamp);
+        }
     }
 
     /**
@@ -138,6 +149,7 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
     /**
      * Sets the 'datePattern' parameter.
      * @param string $datePattern
+     * @return void
      */
     public function setDatePattern($datePattern)
     {
@@ -146,6 +158,7 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
 
     /**
      * Determines target file. Replaces %s in file path with a date.
+     * @return string
      */
     protected function getTargetFile()
     {

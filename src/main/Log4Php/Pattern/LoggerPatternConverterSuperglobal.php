@@ -38,11 +38,16 @@ abstract class LoggerPatternConverterSuperglobal extends LoggerPatternConverter
     /**
      * Name of the superglobal variable, to be defined by subclasses.
      * For example: "_SERVER" or "_ENV".
+     * @var string
      */
     protected $name;
 
+    /** @var string */
     protected $value = '';
 
+    /**
+     * @return void
+     */
     public function activateOptions()
     {
         // Read the key from options array
@@ -92,6 +97,10 @@ abstract class LoggerPatternConverterSuperglobal extends LoggerPatternConverter
         }
     }
 
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return string
+     */
     public function convert(LoggerLoggingEvent $event)
     {
         return $this->value;

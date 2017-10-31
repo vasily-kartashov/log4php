@@ -39,13 +39,16 @@ class LoggerLayoutSerialized extends LoggerLayout
     /**
      * Sets the location information flag.
      * @param $value
+     * @return void
      */
     public function setLocationInfo($value)
     {
         $this->setBoolean('locationInfo', $value);
     }
 
-    /** Returns the location information flag. */
+    /**
+     * Returns the location information flag.
+     */
     public function getLocationInfo(): bool
     {
         return $this->locationInfo;

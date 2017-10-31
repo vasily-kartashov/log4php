@@ -28,13 +28,17 @@ namespace Log4Php;
  */
 class LoggerAppenderPool
 {
-    /** Holds appenders indexed by their name */
+    /**
+     * Holds appenders indexed by their name
+     * @var LoggerAppender[]
+     */
     private static $appenders = [];
 
     /**
      * Adds an appender to the pool.
      * The appender must be named for this operation.
      * @param LoggerAppender $appender
+     * @return void
      */
     public static function add(LoggerAppender $appender)
     {
@@ -56,8 +60,7 @@ class LoggerAppenderPool
     /**
      * Retrieves an appender from the pool by name.
      * @param string $name Name of the appender to retrieve.
-     * @return LoggerAppender The named appender or NULL if no such appender
-     *  exists in the pool.
+     * @return LoggerAppender|null The named appender or NULL if no such appender exists in the pool.
      */
     public static function get($name)
     {
@@ -67,6 +70,7 @@ class LoggerAppenderPool
     /**
      * Removes an appender from the pool by name.
      * @param string $name Name of the appender to remove.
+     * @return void
      */
     public static function delete($name)
     {
@@ -94,6 +98,7 @@ class LoggerAppenderPool
 
     /**
      * Clears all appenders from the pool.
+     * @return void
      */
     public static function clear()
     {

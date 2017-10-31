@@ -64,6 +64,7 @@ abstract class LoggerPatternConverter
     /**
      * Called in constructor. Converters which need to process the options
      * can override this method.
+     * @return void
      */
     public function activateOptions()
     {
@@ -84,6 +85,7 @@ abstract class LoggerPatternConverter
      *
      * @param string &$sbuf string buffer to write to
      * @param LoggerLoggingEvent $event Event to be formatted.
+     * @return void
      */
     public function format(&$sbuf, $event)
     {

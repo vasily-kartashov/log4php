@@ -26,6 +26,10 @@ use Log4Php\LoggerLoggingEvent;
  */
 class LoggerPatternConverterMethod extends LoggerPatternConverter
 {
+    /**
+     * @param LoggerLoggingEvent $event
+     * @return mixed
+     */
     public function convert(LoggerLoggingEvent $event)
     {
         return $event->getLocationInformation()->getMethodName();

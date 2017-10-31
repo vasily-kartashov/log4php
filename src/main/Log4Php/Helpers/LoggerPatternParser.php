@@ -34,13 +34,22 @@ class LoggerPatternParser
     /** Escape character for conversion words in the conversion pattern. */
     const ESCAPE_CHAR = '%';
 
-    /** Maps conversion words to relevant converters. */
+    /**
+     * Maps conversion words to relevant converters.
+     * @var array
+     */
     private $converterMap;
 
-    /** Conversion pattern used in layout. */
+    /**
+     * Conversion pattern used in layout.
+     * @var string
+     */
     private $pattern;
 
-    /** Regex pattern used for parsing the conversion pattern. */
+    /**
+     * Regex pattern used for parsing the conversion pattern.
+     * @var string
+     */
     private $regex;
 
     /**
@@ -49,9 +58,17 @@ class LoggerPatternParser
      */
     private $head;
 
-    /** Last converter in the chain. */
+    /**
+     * Last converter in the chain.
+     * @var LoggerPatternConverter
+     */
     private $tail;
 
+    /**
+     * LoggerPatternParser constructor.
+     * @param string $pattern
+     * @param array $converterMap
+     */
     public function __construct($pattern, $converterMap)
     {
         $this->pattern = $pattern;
@@ -127,6 +144,7 @@ class LoggerPatternParser
     /**
      * Adds a literal converter to the converter chain.
      * @param string $string The string for the literal converter.
+     * @return void
      */
     private function addLiteral($string)
     {
@@ -141,6 +159,7 @@ class LoggerPatternParser
      *  converter will be used.
      * @param string $modifiers Formatting modifiers.
      * @param string $option Option to pass to the converter.
+     * @return void
      */
     private function addConverter($word, $modifiers, $option)
     {
@@ -190,6 +209,7 @@ class LoggerPatternParser
     /**
      * Adds a converter to the chain and updates $head and $tail pointers.
      * @param LoggerPatternConverter $converter
+     * @return void
      */
     private function addToChain(LoggerPatternConverter $converter)
     {

@@ -210,8 +210,7 @@ class LoggerOptionConverter
     /**
      * Converts a value to string, or throws an exception if not possible.
      *
-     * Objects can be converted to string if they implement the magic
-     * __toString() method.
+     * Objects can be converted to string if they implement the magic __toString() method.
      *
      * @param $value
      * @return string
@@ -223,10 +222,10 @@ class LoggerOptionConverter
             return $value;
         }
         if (is_numeric($value)) {
-            return (string)$value;
+            return (string) $value;
         }
         if (is_object($value) && method_exists($value, '__toString')) {
-            return (string)$value;
+            return $value->__toString();
         }
 
         $valueString = var_export($value, true);
