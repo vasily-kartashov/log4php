@@ -103,7 +103,11 @@ class LoggerPatternParser
         $count = preg_match_all($this->regex, $this->pattern, $matches, PREG_OFFSET_CAPTURE);
         if ($count === false) {
             $error = error_get_last();
-            throw new LoggerException("Failed parsing layout pattern: {$error['message']}");
+            if ($error !== null) {
+                throw new LoggerException("Failed parsing layout pattern {$this->pattern}: {$error['message']}");
+            } else {
+                throw new LoggerException("Failed parsing layout pattern {$this->pattern}");
+            }
         }
 
         $end = 0;

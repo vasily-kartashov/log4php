@@ -29,6 +29,7 @@ class LoggerAppenderUnixSocket extends LoggerAppender
     /**
      * @param LoggerLoggingEvent $event
      * @return void
+     * @psalm-suppress TypeDoesNotContainType
      */
     protected function append(LoggerLoggingEvent $event)
     {

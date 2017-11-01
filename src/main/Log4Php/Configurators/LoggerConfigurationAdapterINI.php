@@ -119,7 +119,11 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
             return $properties;
         } else {
             $error = error_get_last();
-            throw new LoggerException("Error parsing configuration file: {$error['message']}");
+            if ($error !== null) {
+                throw new LoggerException("Error parsing configuration file {$url}: {$error['message']}");
+            } else {
+                throw new LoggerException("Error parsing configuration file {$url}");
+            }
         }
     }
 

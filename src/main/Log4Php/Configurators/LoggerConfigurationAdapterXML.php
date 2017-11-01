@@ -89,6 +89,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
      * @param string $url Input XML.
      * @return SimpleXMLElement
      * @throws LoggerException
+     * @psalm-suppress TypeDoesNotContainType
      */
     private function loadXML($url)
     {

@@ -17,9 +17,6 @@
         <MoreSpecificReturnType errorLevel="suppress"/>
         <PossiblyInvalidArgument errorLevel="suppress"/>
         <PossiblyNullArgument errorLevel="suppress"/>
-        <PossiblyNullArrayAccess errorLevel="suppress"/>
-        <PossiblyNullIterator errorLevel="suppress"/>
         <PropertyNotSetInConstructor errorLevel="suppress"/>
-        <TypeDoesNotContainType errorLevel="suppress"/>
     </issueHandlers>
 </psalm>

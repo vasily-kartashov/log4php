@@ -92,6 +92,7 @@ class LoggerAppenderSocket extends LoggerAppender
     /**
      * @param LoggerLoggingEvent $event
      * @return void
+     * @psalm-suppress TypeDoesNotContainType
      */
     public function append(LoggerLoggingEvent $event)
     {
