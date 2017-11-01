@@ -32,7 +32,10 @@ namespace Log4Php;
 class LoggerMDC
 {
 
-    /** Holds the context map. */
+    /**
+     * Holds the context map.
+     * @var array<string,string>
+     */
     private static $map = [];
 
     /**
@@ -61,7 +64,7 @@ class LoggerMDC
 
     /**
      * Returns the context map as an array.
-     * @return array The MDC context map.
+     * @return string[] The MDC context map.
      */
     public static function getMap()
     {

@@ -45,7 +45,10 @@ class Logger implements LoggerInterface, GenericLogger
      */
     private $additive = true;
 
-    /** The assigned Logger level. */
+    /**
+     * The assigned Logger level.
+     * @var LoggerLevel|null
+     */
     private $level;
 
     /**
@@ -586,7 +589,9 @@ class Logger implements LoggerInterface, GenericLogger
     {
         $extendedContext = [];
         foreach ($this->extendedContextResolvers as $resolver) {
-            $extendedContext += $resolver();
+            /** @var array<string,mixed> $resolvedContext */
+            $resolvedContext = $resolver();
+            $extendedContext += $resolvedContext;
         }
         return $extendedContext;
     }
@@ -597,6 +602,7 @@ class Logger implements LoggerInterface, GenericLogger
 
     /**
      * The logger hierarchy used by log4php.
+     * @var LoggerHierarchy
      */
     private static $hierarchy;
 

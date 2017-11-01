@@ -27,14 +27,12 @@ class LoggerRendererMap
 {
     /**
      * Maps class names to appropriate renderers.
-     *
-     * @var array
+     * @var LoggerRenderer[]
      */
     private $map = [];
 
     /**
      * The default renderer to use if no specific renderer is found.
-     *
      * @var LoggerRenderer
      */
     private $defaultRenderer;

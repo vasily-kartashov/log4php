@@ -147,6 +147,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * @see LoggerAppender::append()
      * @param LoggerLoggingEvent $event
      * @return LoggerLoggingEvent|null
+     * @psalm-suppress MixedInferredReturnType
      */
     public function doAppend(LoggerLoggingEvent $event)
     {

@@ -49,14 +49,17 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
     /** Prefix used for defining a renderer. */
     const RENDERER_PREFIX = "log4php.renderer.";
 
-    /** Holds the configuration. */
+    /**
+     * Holds the configuration.
+     * @var array<string,mixed>
+     */
     private $config = [];
 
     /**
      * Converts the provided INI configuration file to a PHP array config.
      *
      * @param string $path Path to the config file.
-     * @return array
+     * @return array<string,mixed>
      * @throws LoggerException If the file cannot be loaded or parsed.
      */
     public function convert($path)
@@ -103,6 +106,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      * @param string $url Path to the config file.
      * @return array
      * @throws LoggerException
+     * @psalm-suppress MixedInferredReturnType
      */
     private function load($url)
     {
@@ -111,12 +115,12 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
         }
 
         $properties = @parse_ini_file($url, true);
-        if ($properties === false) {
+        if ($properties !== false) {
+            return $properties;
+        } else {
             $error = error_get_last();
             throw new LoggerException("Error parsing configuration file: {$error['message']}");
         }
-
-        return $properties;
     }
 
     /**

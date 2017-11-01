@@ -39,13 +39,20 @@ class LoggerAppenderSocket extends LoggerAppender
     /**
      * Target host.
      * @see http://php.net/manual/en/function.fsockopen.php
+     * @var string|null
      */
     protected $remoteHost;
 
-    /** Target port */
+    /**
+     * Target port
+     * @var int
+     */
     protected $port = 4446;
 
-    /** Connection timeout in ms. */
+    /**
+     * Connection timeout in ms.
+     * @var int|null
+     */
     protected $timeout;
 
     // ******************************************
@@ -73,7 +80,10 @@ class LoggerAppenderSocket extends LoggerAppender
         }
 
         if (empty($this->timeout)) {
-            $this->timeout = ini_get("default_socket_timeout");
+            $timeout = ini_get("default_socket_timeout");
+            if (!empty($timeout)) {
+                $this->timeout = (int) $timeout;
+            }
         }
 
         $this->closed = false;
@@ -143,7 +153,7 @@ class LoggerAppenderSocket extends LoggerAppender
 
     /**
      * Returns the timeout
-     * @return int
+     * @return int|null
      */
     public function getTimeout()
     {

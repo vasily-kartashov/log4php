@@ -201,7 +201,7 @@ class LoggerOptionConverter
                     break;
             }
 
-            return (integer)$size;
+            return (integer) $size;
         }
 
         throw new LoggerException("Given value [$value] cannot be converted to a file size.");
@@ -212,24 +212,22 @@ class LoggerOptionConverter
      *
      * Objects can be converted to string if they implement the magic __toString() method.
      *
-     * @param $value
+     * @param mixed $value
      * @return string
      * @throws LoggerException
+     * @psalm-suppress MixedInferredReturnType
      */
     public static function toStringEx($value)
     {
         if (is_string($value)) {
             return $value;
-        }
-        if (is_numeric($value)) {
+        } elseif (is_numeric($value)) {
             return (string) $value;
-        }
-        if (is_object($value) && method_exists($value, '__toString')) {
+        } elseif (is_object($value) && method_exists($value, '__toString')) {
             return $value->__toString();
+        } else {
+            throw new LoggerException('Given value [' . var_export($value, true) . '] cannot be converted to string.');
         }
-
-        $valueString = var_export($value, true);
-        throw new LoggerException('Given value [' . $valueString . '] cannot be converted to string.');
     }
 
     /**

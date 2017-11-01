@@ -9,47 +9,17 @@
         <directory name="src/main"/>
     </projectFiles>
     <issueHandlers>
-        <DeprecatedMethod errorLevel="error"/>
-        <FailedTypeResolution errorLevel="error"/>
-        <ImplicitToStringCast errorLevel="error"/>
-        <InvalidDocblock errorLevel="error"/>
-        <InvalidArrayAccess errorLevel="error"/>
-        <InvalidCast errorLevel="error"/>
-        <InvalidIterator errorLevel="error"/>
-        <InvalidOperand errorLevel="error"/>
-        <InvalidPropertyAssignment errorLevel="error"/>
-        <InvalidReturnType errorLevel="error"/>
-        <InvalidScalarArgument errorLevel="error"/>
-        <LessSpecificReturnType errorLevel="error"/>
-        <MissingClosureReturnType errorLevel="error"/>
-        <MissingConstructor errorLevel="error"/>
-        <MissingReturnType errorLevel="error"/>
-        <MissingPropertyType errorLevel="error"/>
-        <MisplacedRequiredParam errorLevel="error"/>
         <MixedArgument errorLevel="suppress"/>
         <MixedAssignment errorLevel="suppress"/>
         <MixedArrayAccess errorLevel="suppress"/>
-        <MixedInferredReturnType errorLevel="suppress"/>
-        <MixedMethodCall errorLevel="suppress"/>
         <MixedOperand errorLevel="suppress"/>
-        <MixedPropertyAssignment errorLevel="error"/>
         <MixedPropertyFetch errorLevel="suppress"/>
         <MoreSpecificReturnType errorLevel="suppress"/>
-        <PossiblyFalseArgument errorLevel="error"/>
-        <PossiblyFalseReference errorLevel="error"/>
         <PossiblyInvalidArgument errorLevel="suppress"/>
         <PossiblyNullArgument errorLevel="suppress"/>
         <PossiblyNullArrayAccess errorLevel="suppress"/>
         <PossiblyNullIterator errorLevel="suppress"/>
-        <PossiblyNullOperand errorLevel="error"/>
-        <PossiblyNullReference errorLevel="suppress"/>
-        <PossiblyUndefinedVariable errorLevel="error"/>
         <PropertyNotSetInConstructor errorLevel="suppress"/>
-        <TypeCoercion errorLevel="error"/>
         <TypeDoesNotContainType errorLevel="suppress"/>
-        <UndefinedConstant errorLevel="error"/>
-        <UndefinedMethod errorLevel="error"/>
-        <UnresolvableInclude errorLevel="error"/>
-        <UntypedParam errorLevel="error"/>
     </issueHandlers>
 </psalm>

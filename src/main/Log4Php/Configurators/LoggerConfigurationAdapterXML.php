@@ -29,7 +29,9 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /** Path to the XML schema used for validation. */
     const SCHEMA_PATH = __DIR__ . '/../xml/log4php.xsd';
 
-    /** @var array  */
+    /**
+     * @var array<string,mixed>
+     */
     private $config = [
         'appenders' => [],
         'loggers'   => [],
@@ -97,21 +99,18 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
         libxml_clear_errors();
         $oldValue = libxml_use_internal_errors(true);
 
-        // Load XML
-        $xml = @simplexml_load_file($url);
-        if ($xml === false) {
+        $xml = simplexml_load_file($url);
+        if ($xml !== false) {
+            libxml_clear_errors();
+            libxml_use_internal_errors($oldValue);
+            return $xml;
+        } else {
             $errorStr = "";
             foreach (libxml_get_errors() as $error) {
                 $errorStr .= $error->message;
             }
-
             throw new LoggerException("Error loading configuration file: " . trim($errorStr));
         }
-
-        libxml_clear_errors();
-        libxml_use_internal_errors($oldValue);
-
-        return $xml;
     }
 
     /**

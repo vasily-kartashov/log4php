@@ -46,7 +46,10 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
     /** INI (properties) configuration file format. */
     const FORMAT_INI = 'ini';
 
-    /** Default configuration; used if no configuration file is provided. */
+    /**
+     * Default configuration; used if no configuration file is provided.
+     * @var array<string,mixed>
+     */
     private static $defaultConfiguration = [
         'threshold' => 'ALL',
         'rootLogger' => [
@@ -60,19 +63,25 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
         ],
     ];
 
-    /** Defines which adapter should be used for parsing which format. */
+    /**
+     * Defines which adapter should be used for parsing which format.
+     * @var array<string,string>
+     */
     private $adapters = [
         self::FORMAT_XML => LoggerConfigurationAdapterXML::class,
         self::FORMAT_INI => LoggerConfigurationAdapterINI::class,
         self::FORMAT_PHP => LoggerConfigurationAdapterPHP::class
     ];
 
-    /** Holds the appenders before they are linked to loggers. */
+    /**
+     * Holds the appenders before they are linked to loggers.
+     * @var array
+     */
     private $appenders = [];
 
     /**
      * Returns the default log4php configuration.
-     * @return array
+     * @return array<string,mixed>
      */
     public static function getDefaultConfiguration()
     {

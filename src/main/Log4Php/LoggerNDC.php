@@ -92,7 +92,10 @@ namespace Log4Php;
 class LoggerNDC
 {
 
-    /** This is the repository of NDC stack */
+    /**
+     * This is the repository of NDC stack
+     * @var string[]
+     */
     private static $stack = [];
 
     /**
@@ -159,7 +162,7 @@ class LoggerNDC
     public static function peek()
     {
         if (count(self::$stack) > 0) {
-            return end(self::$stack);
+            return (string) end(self::$stack);
         } else {
             return '';
         }

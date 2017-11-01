@@ -25,6 +25,11 @@ namespace Log4Php\Renderers;
  */
 class LoggerRendererDefault implements LoggerRenderer
 {
+    /**
+     * @param mixed $input
+     * @return string
+     * @psalm-suppress MixedInferredReturnType
+     */
     public function render($input): string
     {
         return print_r($input, true);

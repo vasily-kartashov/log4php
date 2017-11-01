@@ -62,10 +62,16 @@ class LoggerLayoutPattern extends LoggerLayout
     /** Default conversion TTCC Pattern */
     const TTCC_CONVERSION_PATTERN = '%d [%t] %p %c %x - %m%n';
 
-    /** The conversion pattern. */
+    /**
+     * The conversion pattern.
+     * @var string
+     */
     protected $pattern = self::DEFAULT_CONVERSION_PATTERN;
 
-    /** Maps conversion keywords to the relevant converter (default implementation). */
+    /**
+     * Maps conversion keywords to the relevant converter (default implementation).
+     * @var array<string,string>
+     */
     protected static $defaultConverterMap = [
         'c'         => LoggerPatternConverterLogger::class,
         'lo'        => LoggerPatternConverterLogger::class,
@@ -115,7 +121,10 @@ class LoggerLayoutPattern extends LoggerLayout
         'mdc'       => LoggerPatternConverterMDC::class,
     ];
 
-    /** Maps conversion keywords to the relevant converter. */
+    /**
+     * Maps conversion keywords to the relevant converter.
+     * @var array<string,string>
+     */
     protected $converterMap = [];
 
     /**
@@ -126,7 +135,7 @@ class LoggerLayoutPattern extends LoggerLayout
 
     /**
      * Returns the default converter map.
-     * @return array
+     * @return array<string,string>
      */
     public static function getDefaultConverterMap()
     {

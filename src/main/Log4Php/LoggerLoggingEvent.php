@@ -26,7 +26,7 @@ use ReflectionClass;
 class LoggerLoggingEvent
 {
 
-    /** @var int */
+    /** @var float */
     private static $startTime;
 
     /**
@@ -335,7 +335,7 @@ class LoggerLoggingEvent
     public static function getStartTime()
     {
         if (!isset(self::$startTime)) {
-            self::$startTime = microtime(true);
+            self::$startTime = (float) microtime(true);
         }
         return self::$startTime;
     }

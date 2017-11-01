@@ -50,7 +50,7 @@ class LoggerLevel
 
     /**
      * Contains a list of instantiated levels.
-     * @var array
+     * @var array<int,LoggerLevel>
      */
     private static $levelMap;
 
