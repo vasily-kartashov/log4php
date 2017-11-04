@@ -311,10 +311,9 @@ class LoggerLevel
                     return self::getLevelEmergency();
                 case self::OFF:
                     return self::getLevelOff();
-                default:
-                    return $defaultLevel;
             }
-        } else {
+        }
+        if (is_string($arg)) {
             switch (strtoupper($arg)) {
                 case 'ALL':
                     return self::getLevelAll();
@@ -339,9 +338,8 @@ class LoggerLevel
                     return self::getLevelEmergency();
                 case 'OFF':
                     return self::getLevelOff();
-                default:
-                    return $defaultLevel;
             }
         }
+        return $defaultLevel;
     }
 }

@@ -44,7 +44,7 @@ class LoggerLoggingEvent
      * This field will be marked as private in future
      * releases. Please do not access it directly.
      * Use the {@link getLoggerName()} method instead.
-     * @var string|null
+     * @var string
      */
     private $loggerName;
 
@@ -242,7 +242,7 @@ class LoggerLoggingEvent
     /**
      * Return the name of the logger. Use this form instead of directly
      * accessing the {@link $loggerName} field.
-     * @return string|null
+     * @return string
      */
     public function getLoggerName()
     {

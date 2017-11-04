@@ -195,7 +195,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
         $rollOverRequired = rand(1, 100) == 1 && $this->rollOverRequired();
 
         // Lock the file while writing and possible rolling over
-        if (flock($this->fp, LOCK_EX)) {
+        if (is_resource($this->fp) && flock($this->fp, LOCK_EX)) {
             // Write to locked file
             if (fwrite($this->fp, $string) === false) {
                 $this->warn("Failed writing to file. Closing appender.");
@@ -257,8 +257,10 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
         }
 
         // Truncate the active file
-        ftruncate($this->fp, 0);
-        rewind($this->fp);
+        if (is_resource($this->fp)) {
+            ftruncate($this->fp, 0);
+            rewind($this->fp);
+        }
     }
 
     /**

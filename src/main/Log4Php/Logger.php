@@ -234,7 +234,9 @@ class Logger implements LoggerInterface, GenericLogger
     public function log($level, $message, array $context = [])
     {
         $loggerLevel = LoggerLevel::toLevel($level, LoggerLevel::getLevelInfo());
-        assert($loggerLevel !== null);
+        if ($loggerLevel === null) {
+            $loggerLevel = LoggerLevel::getLevelInfo();
+        }
         $this->_log($loggerLevel, $message, $context);
     }
 

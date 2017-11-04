@@ -60,7 +60,10 @@ class LoggerAppenderConsole extends LoggerAppender
     {
         $this->fp = fopen($this->target, 'w');
         if (is_resource($this->fp) && $this->layout !== null) {
-            fwrite($this->fp, $this->layout->getHeader());
+            $message = $this->layout->getHeader();
+            if ($message !== null) {
+                fwrite($this->fp, $message);
+            }
         }
         $this->closed = (bool) is_resource($this->fp) === false;
     }
@@ -72,7 +75,10 @@ class LoggerAppenderConsole extends LoggerAppender
     {
         if ($this->closed != true) {
             if (is_resource($this->fp) && $this->layout !== null) {
-                fwrite($this->fp, $this->layout->getFooter());
+                $message = $this->layout->getFooter();
+                if ($message) {
+                    fwrite($this->fp, $message);
+                }
                 fclose($this->fp);
             }
             $this->closed = true;
@@ -86,7 +92,10 @@ class LoggerAppenderConsole extends LoggerAppender
     public function append(LoggerLoggingEvent $event)
     {
         if (is_resource($this->fp) && $this->layout !== null) {
-            fwrite($this->fp, $this->layout->format($event));
+            $message = $this->layout->format($event);
+            if ($message !== null) {
+                fwrite($this->fp, $message);
+            }
         }
     }
 

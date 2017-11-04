@@ -66,16 +66,17 @@ class LoggerAppenderEcho extends LoggerAppender
     public function append(LoggerLoggingEvent $event)
     {
         if ($this->layout !== null) {
-            if ($this->firstAppend) {
-                echo $this->layout->getHeader();
-                $this->firstAppend = false;
+            $message = $this->layout->format($event);
+            if ($message !== null) {
+                if ($this->firstAppend) {
+                    echo $this->layout->getHeader();
+                    $this->firstAppend = false;
+                }
+                if ($this->htmlLineBreaks) {
+                    $message = nl2br($message);
+                }
+                echo $message;
             }
-            $text = $this->layout->format($event);
-
-            if ($this->htmlLineBreaks) {
-                $text = nl2br($text);
-            }
-            echo $text;
         }
     }
 

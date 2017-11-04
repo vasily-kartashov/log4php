@@ -329,10 +329,11 @@ class LoggerAppenderSyslog extends LoggerAppender
     {
         $priority = $this->getSyslogPriority($event->getLevel());
         $message = $this->layout->format($event);
-
-        openlog($this->ident, $this->intOption, $this->intFacility);
-        syslog($priority, $message);
-        closelog();
+        if ($message !== null) {
+            openlog($this->ident, $this->intOption, $this->intFacility);
+            syslog($priority, $message);
+            closelog();
+        }
     }
 
     /** Determines which syslog priority to use based on the given level.

@@ -33,18 +33,21 @@ class LoggerAppenderUnixSocket extends LoggerAppender
      */
     protected function append(LoggerLoggingEvent $event)
     {
-        if (!is_resource($this->socket)) {
-            $this->socket = fsockopen('unix://' . $this->path);
-            if ($this->socket === false) {
-                $this->warn("Could not open socket to {$this->path}. Closing appender.");
-                $this->closed = true;
-                return;
+        $message = $this->layout->format($event);
+        if ($message !== null) {
+            if (!is_resource($this->socket)) {
+                $this->socket = fsockopen('unix://' . $this->path);
+                if ($this->socket === false) {
+                    $this->warn("Could not open socket to {$this->path}. Closing appender.");
+                    $this->closed = true;
+                    return;
+                }
             }
-        }
-        $status = fwrite($this->socket, $this->layout->format($event));
-        if ($status === false) {
-            $this->warn("Error writing to socket. Closing appender.");
-            $this->closed = true;
+            $status = fwrite($this->socket, $message);
+            if ($status === false) {
+                $this->warn("Error writing to socket. Closing appender.");
+                $this->closed = true;
+            }
         }
     }
 

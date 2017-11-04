@@ -2,9 +2,7 @@
 <psalm name="Psalm config"
        totallyTyped="true"
        stopOnFirstError="false"
-       useDocblockTypes="true"
-       strictBinaryOperands="false"
-       rememberPropertyAssignmentsAfterCall="true">
+       useDocblockTypes="true">
     <projectFiles>
         <directory name="src/main"/>
     </projectFiles>
@@ -14,9 +12,6 @@
         <MixedArrayAccess errorLevel="suppress"/>
         <MixedOperand errorLevel="suppress"/>
         <MixedPropertyFetch errorLevel="suppress"/>
-        <MoreSpecificReturnType errorLevel="suppress"/>
-        <PossiblyInvalidArgument errorLevel="suppress"/>
-        <PossiblyNullArgument errorLevel="suppress"/>
         <PropertyNotSetInConstructor errorLevel="suppress"/>
     </issueHandlers>
 </psalm>

@@ -20,6 +20,7 @@ namespace Log4Php\Appenders;
 
 use Log4Php\Layouts\LoggerLayoutSerialized;
 use Log4Php\LoggerAppender;
+use Log4Php\LoggerException;
 use Log4Php\LoggerLoggingEvent;
 
 /**
@@ -92,22 +93,31 @@ class LoggerAppenderSocket extends LoggerAppender
     /**
      * @param LoggerLoggingEvent $event
      * @return void
+     * @throws LoggerException
      * @psalm-suppress TypeDoesNotContainType
      */
     public function append(LoggerLoggingEvent $event)
     {
-        $socket = fsockopen($this->remoteHost, $this->port, $errno, $errstr, $this->timeout);
-        if ($socket === false) {
-            $this->warn("Could not open socket to {$this->remoteHost}:{$this->port}. Closing appender.");
-            $this->closed = true;
-            return;
+        if ($this->remoteHost === null) {
+            throw new LoggerException('Remote host is not set');
         }
-
-        if (false === fwrite($socket, $this->layout->format($event))) {
-            $this->warn("Error writing to socket. Closing appender.");
-            $this->closed = true;
+        if ($this->timeout === null) {
+            throw new LoggerException('Timeout not set');
         }
-        fclose($socket);
+        $message = $this->layout->format($event);
+        if ($message !== null) {
+            $socket = fsockopen($this->remoteHost, $this->port, $errno, $errstr, $this->timeout);
+            if ($socket === false) {
+                $this->warn("Could not open socket to {$this->remoteHost}:{$this->port}. Closing appender.");
+                $this->closed = true;
+                return;
+            }
+            if (fwrite($socket, $message) === false) {
+                $this->warn("Error writing to socket. Closing appender.");
+                $this->closed = true;
+            }
+            fclose($socket);
+        }
     }
 
     // ******************************************
