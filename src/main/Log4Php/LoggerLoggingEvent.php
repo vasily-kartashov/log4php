@@ -194,8 +194,8 @@ class LoggerLoggingEvent
                             $hopClass = new ReflectionClass($className);
                             if ($hopClass->implementsInterface(GenericHandler::class) ||
                                 $hopClass->implementsInterface(GenericLogger::class)) {
-                                $locationInfo['line'] = $hop['line'];
-                                $locationInfo['file'] = $hop['file'];
+                                $locationInfo['line'] = $hop['line'] ?? null;
+                                $locationInfo['file'] = $hop['file'] ?? null;
                                 break;
                             }
                         }
