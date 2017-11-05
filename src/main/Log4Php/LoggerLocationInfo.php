@@ -28,25 +28,25 @@ class LoggerLocationInfo
 
     /**
      * Caller line number.
-     * @var integer
+     * @var integer|null
      */
     protected $lineNumber;
 
     /**
      * Caller file name.
-     * @var string
+     * @var string|null
      */
     protected $fileName;
 
     /**
      * Caller class name.
-     * @var string
+     * @var string|null
      */
     protected $className;
 
     /**
      * Caller method name.
-     * @var string
+     * @var string|null
      */
     protected $methodName;
 
@@ -63,12 +63,21 @@ class LoggerLocationInfo
      */
     public function __construct($trace)
     {
-        $this->lineNumber = isset($trace['line']) ? $trace['line'] : null;
-        $this->fileName = isset($trace['file']) ? $trace['file'] : null;
-        $this->className = isset($trace['class']) ? $trace['class'] : null;
-        $this->methodName = isset($trace['function']) ? $trace['function'] : null;
-        $this->fullInfo = $this->getClassName() . '.' . $this->getMethodName() .
-            '(' . $this->getFileName() . ':' . $this->getLineNumber() . ')';
+        static $includeFunctions = ['include' => 1, 'require' => 1, 'include_once' => 1, 'require_once' => 1];
+
+        $this->lineNumber = $trace['line']  ?? null;
+        $this->fileName   = $trace['file']  ?? null;
+        $this->className  = $trace['class'] ?? null;
+
+        if (!isset($trace['function'])) {
+            $this->methodName = null;
+        } elseif (isset($includeFunctions[$trace['function']])) {
+            $this->methodName = 'main';
+        } else {
+            $this->methodName = $trace['function'];
+        }
+
+        $this->fullInfo = $this->getClassName() . '.' . $this->getMethodName() . '(' . $this->getFileName() . ':' . $this->getLineNumber() . ')';
     }
 
     /**

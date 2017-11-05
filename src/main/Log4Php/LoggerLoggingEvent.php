@@ -167,56 +167,45 @@ class LoggerLoggingEvent
      */
     public function getLocationInformation()
     {
-        // @todo this is not nice at all, need to be cleaned up
-        if ($this->locationInfo === null) {
-            $locationInfo = [];
-            if (isset($this->context['exception'])) {
-                /** @var \Throwable $throwable */
-                $throwable = $this->context['exception'];
-                $trace = $throwable->getTrace();
-                $hop = $trace[0] ?? null;
-                $this->locationInfo = new LoggerLocationInfo([
-                    'line'     => $throwable->getLine(),
-                    'file'     => $throwable->getFile(),
-                    'function' => $hop['function'] ?? 'main',
-                    'class'    => $hop['class'] ?? 'main',
-                ]);
-            } else {
-                $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-                $prevHop = null;
-                // find the caller
-                $hop = array_pop($trace);
-                while ($hop !== null) {
-                    if (isset($hop['class'])) {
-                        // we are sometimes in functions = no class available: avoid php warning here
-                        $className = strtolower($hop['class']);
-                        if (!empty($className)) {
-                            $hopClass = new ReflectionClass($className);
-                            if ($hopClass->implementsInterface(GenericHandler::class) ||
-                                $hopClass->implementsInterface(GenericLogger::class)) {
-                                $locationInfo['line'] = $hop['line'] ?? null;
-                                $locationInfo['file'] = $hop['file'] ?? null;
-                                break;
-                            }
-                        }
-                    }
-                    $prevHop = $hop;
-                    $hop = array_pop($trace);
-                }
-                $locationInfo['class'] = isset($prevHop['class']) ? $prevHop['class'] : 'main';
-                if (isset($prevHop['function']) and
-                    $prevHop['function'] !== 'include' and
-                    $prevHop['function'] !== 'include_once' and
-                    $prevHop['function'] !== 'require' and
-                    $prevHop['function'] !== 'require_once'
-                ) {
-                    $locationInfo['function'] = $prevHop['function'];
-                } else {
-                    $locationInfo['function'] = 'main';
-                }
-                $this->locationInfo = new LoggerLocationInfo($locationInfo);
-            }
+        if ($this->locationInfo !== null) {
+            return $this->locationInfo;
         }
+
+        if (isset($this->context['exception'])) {
+            /** @var \Throwable $throwable */
+            $throwable = $this->context['exception'];
+            $trace = $throwable->getTrace();
+            $hop = $trace[0] ?? null;
+            $this->locationInfo = new LoggerLocationInfo([
+                'line'     => $throwable->getLine(),
+                'file'     => $throwable->getFile(),
+                'function' => $hop['function'] ?? 'main',
+                'class'    => $hop['class'] ?? 'main',
+            ]);
+            return $this->locationInfo;
+        }
+
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        $prevHop = null;
+        $hop = array_pop($trace);
+
+        while ($hop !== null) {
+            if (isset($hop['class'])) {
+                $interfaces = class_implements($hop['class']);
+                if (isset($interfaces[GenericHandler::class]) || isset($interfaces[GenericLogger::class])) {
+                    break;
+                }
+            }
+            $prevHop = $hop;
+            $hop = array_pop($trace);
+        }
+
+        $this->locationInfo = new LoggerLocationInfo([
+            'line'     => $hop['line'] ?? null,
+            'file'     => $hop['file'] ?? null,
+            'function' => $prevHop['function'] ?? 'main',
+            'class'    => $prevHop['class'] ?? 'main'
+        ]);
         return $this->locationInfo;
     }
 

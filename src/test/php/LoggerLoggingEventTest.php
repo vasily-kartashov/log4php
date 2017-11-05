@@ -1,10 +1,14 @@
 <?php
+
+use Log4Php\Appenders\LoggerAppenderEcho;
 use Log4Php\Appenders\LoggerAppenderNull;
+use Log4Php\Layouts\LoggerLayoutPattern;
 use Log4Php\Logger;
 use Log4Php\LoggerLayout;
 use Log4Php\LoggerLevel;
 use Log4Php\LoggerLoggingEvent;
 use Log4Php\LoggerThrowableInformation;
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -61,9 +65,27 @@ class LoggerLoggingEventTestCaseLayout extends LoggerLayout
  */
 class LoggerLoggingEventTest extends TestCase
 {
-
+    /** @var \Log4Php\LoggerLocationInfo */
     public static $locationInfo;
+
     public static $throwableInfo;
+
+    private static $defaultConfiguration = [
+        'appenders' => [
+            'default' => [
+                'class' => LoggerAppenderEcho::class,
+                'layout' => [
+                    'class' => LoggerLayoutPattern::class,
+                    'params' => [
+                        'conversionPattern' => '%file | %line | %class | %method | %msg'
+                    ]
+                ]
+            ],
+        ],
+        'rootLogger' => [
+            'appenders' => ['default'],
+        ]
+    ];
 
     public function testConstructWithLoggerName()
     {
@@ -150,5 +172,122 @@ class LoggerLoggingEventTest extends TestCase
 
         $result = $ti->getStringRepresentation();
         self::assertInternalType('array', $result);
+    }
+
+    public function testFileLocationInfo()
+    {
+        Logger::configure(self::$defaultConfiguration);
+
+        $path = realpath(__DIR__ . '/locations/file.php');
+        ob_start();
+        include_once($path);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        Assert::assertEquals($path . ' | 5 | main | main | Message', $output);
+    }
+
+    public function testFileLocationInfoWithErrorHandler()
+    {
+        Logger::configure(self::$defaultConfiguration);
+
+        $path = realpath(__DIR__ . '/locations/file-error-handler.php');
+        ob_start();
+        include_once($path);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        Assert::assertEquals($path . ' | 18 | main | main | Division by zero', $output);
+    }
+
+    public function testFileLocationInfoWithExceptionHandler()
+    {
+        Logger::configure(self::$defaultConfiguration);
+
+        $path = realpath(__DIR__ . '/locations/file-exception-handler.php');
+        ob_start();
+        include_once($path);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        Assert::assertEquals($path . ' | 6 | main | main | File exception handler', $output);
+    }
+
+    public function testFunctionLocationInfo()
+    {
+        Logger::configure(self::$defaultConfiguration);
+
+        $path = realpath(__DIR__ . '/locations/function.php');
+        ob_start();
+        include_once($path);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        Assert::assertEquals($path . ' | 7 | main | simple_function_1 | Message', $output);
+    }
+
+    public function testFunctionLocationInfoWithErrorHandler()
+    {
+        Logger::configure(self::$defaultConfiguration);
+
+        $path = realpath(__DIR__ . '/locations/function-error-handler.php');
+        ob_start();
+        include_once($path);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        Assert::assertEquals($path . ' | 20 | main | simple_function_2 | Division by zero', $output);
+    }
+
+    public function testFunctionLocationInfoWithExceptionHandler()
+    {
+        Logger::configure(self::$defaultConfiguration);
+
+        $path = realpath(__DIR__ . '/locations/function-exception-handler.php');
+        ob_start();
+        include_once($path);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        Assert::assertEquals($path . ' | 7 | main | simple_function_3 | Function exception handler', $output);
+    }
+
+    public function testClassLocationInfo()
+    {
+        Logger::configure(self::$defaultConfiguration);
+
+        $path = realpath(__DIR__ . '/locations/class.php');
+        ob_start();
+        include_once($path);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        Assert::assertEquals($path . ' | 9 | SimpleClass1 | __construct | Message', $output);
+    }
+
+    public function testClassLocationInfoWithErrorHandler()
+    {
+        Logger::configure(self::$defaultConfiguration);
+
+        $path = realpath(__DIR__ . '/locations/class-error-handler.php');
+        ob_start();
+        include_once($path);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        Assert::assertEquals($path . ' | 22 | SimpleClass2 | __construct | Division by zero', $output);
+    }
+
+    public function testClassLocationInfoWithExceptionHandler()
+    {
+        Logger::configure(self::$defaultConfiguration);
+
+        $path = realpath(__DIR__ . '/locations/class-exception-handler.php');
+        ob_start();
+        include_once($path);
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        Assert::assertEquals($path . ' | 9 | SimpleClass3 | __construct | Class exception handler', $output);
     }
 }
