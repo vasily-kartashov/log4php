@@ -38,7 +38,7 @@ class LoggerThrowableInformation
 
     /**
      * Create a new instance
-     * @param $throwable - a throwable as a exception
+     * @param Throwable $throwable a throwable as a exception
      */
     public function __construct(Throwable $throwable)
     {

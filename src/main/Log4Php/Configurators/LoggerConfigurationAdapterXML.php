@@ -39,7 +39,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     ];
 
     /**
-     * @param $url
+     * @param string $url
      * @return array
      */
     public function convert($url)
@@ -147,7 +147,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
 
     /**
      * @param SimpleXMLElement $node
-     * @param $name
+     * @param string $name
      * @return null|string
      */
     private function getAttributeValue(SimpleXMLElement $node, $name)
@@ -279,7 +279,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
 
     /**
      * Parses any <param> child nodes returning them in an array.
-     * @param $paramsNode
+     * @param mixed $paramsNode
      * @return array
      */
     private function parseParameters($paramsNode)
@@ -304,7 +304,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
 
     /**
      * Parses a <filter> node.
-     * @param $filterNode
+     * @param mixed $filterNode
      * @return array
      */
     private function parseFilter($filterNode)

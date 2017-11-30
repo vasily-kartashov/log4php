@@ -101,7 +101,7 @@ class LoggerLoggingEvent
     private $locationInfo;
 
     /**
-     * @var LoggerThrowableInformation log4php internal representation of throwable
+     * @var LoggerThrowableInformation|null log4php internal representation of throwable
      */
     private $throwableInfo;
 
@@ -376,7 +376,7 @@ class LoggerLoggingEvent
     }
 
     /**
-     * @return LoggerThrowableInformation
+     * @return LoggerThrowableInformation|null
      */
     public function getThrowableInformation()
     {

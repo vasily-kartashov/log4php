@@ -50,6 +50,40 @@ abstract class LoggerPatternConverter
     protected $option;
 
     /**
+     * @var array
+     * @psalm-var array<int,string>
+     */
+    private static $padding = [
+        '',
+        ' ',
+        '  ',
+        '   ',
+        '    ',
+        '     ',
+        '      ',
+        '       ',
+        '        ',
+        '         ',
+        '          ',
+        '           ',
+        '            ',
+        '             ',
+        '              ',
+        '               ',
+        '                ',
+        '                 ',
+        '                  ',
+        '                   ',
+        '                    ',
+        '                     ',
+        '                      ',
+        '                       ',
+        '                        ',
+        '                         ',
+        '                          ',
+    ];
+
+    /**
      * Constructor
      * @param LoggerFormattingInfo|null $formattingInfo
      * @param mixed $option
@@ -83,9 +117,10 @@ abstract class LoggerPatternConverter
      * Converts the event and formats it according to setting in the
      * Formatting information object.
      *
-     * @param string &$sbuf string buffer to write to
+     * @param string $sbuf string buffer to write to
      * @param LoggerLoggingEvent $event Event to be formatted.
      * @return void
+     * @todo shouldn't sprintf be faster for this stuff?
      */
     public function format(&$sbuf, $event)
     {
@@ -101,7 +136,7 @@ abstract class LoggerPatternConverter
         // Empty string
         if ($string === '' || is_null($string)) {
             if ($fi->min > 0) {
-                $sbuf .= str_repeat(' ', $fi->min);
+                $sbuf .= self::$padding[$fi->min] ?? str_repeat(' ', $fi->min);
             }
             return;
         }
@@ -118,11 +153,11 @@ abstract class LoggerPatternConverter
         } // Add padding if needed
         elseif ($len < $fi->min) {
             if ($fi->padLeft) {
-                $sbuf .= str_repeat(' ', $fi->min - $len);
+                $sbuf .= self::$padding[$fi->min - $len] ?? str_repeat(' ', $fi->min - $len);
                 $sbuf .= $string;
             } else {
                 $sbuf .= $string;
-                $sbuf .= str_repeat(' ', $fi->min - $len);
+                $sbuf .= self::$padding[$fi->min - $len] ?? str_repeat(' ', $fi->min - $len);
             }
         } // No action needed
         else {

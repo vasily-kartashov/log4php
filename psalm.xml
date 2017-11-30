@@ -10,6 +10,8 @@
         <MixedArgument errorLevel="suppress"/>
         <MixedAssignment errorLevel="suppress"/>
         <MixedArrayAccess errorLevel="suppress"/>
+        <MixedArrayOffset errorLevel="suppress"/>
+        <MixedArrayAssignment errorLevel="suppress"/>
         <MixedOperand errorLevel="suppress"/>
         <MixedPropertyFetch errorLevel="suppress"/>
         <PropertyNotSetInConstructor errorLevel="suppress"/>

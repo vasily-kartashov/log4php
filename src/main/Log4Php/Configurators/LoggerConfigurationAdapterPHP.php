@@ -47,6 +47,11 @@ use Log4Php\LoggerException;
  */
 class LoggerConfigurationAdapterPHP implements LoggerConfigurationAdapter
 {
+    /**
+     * @param string $url
+     * @return mixed
+     * @throws LoggerException
+     */
     public function convert($url)
     {
         if (!file_exists($url)) {

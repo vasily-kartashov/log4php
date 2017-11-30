@@ -28,7 +28,7 @@ interface LoggerConfigurationAdapter
 {
     /**
      * Converts the configuration file to PHP format usable by the configurator.
-     * @param $input
+     * @param string $input
      * @return array
      */
     public function convert($input);

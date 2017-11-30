@@ -66,6 +66,7 @@ class Logger implements LoggerInterface, GenericLogger
     /**
      * A collection of appenders linked to this logger.
      * @var LoggerAppender[]
+     * @psalm-var array<string,LoggerAppender>
      */
     private $appenders = [];
 
@@ -75,7 +76,6 @@ class Logger implements LoggerInterface, GenericLogger
     /**
      * Constructor.
      * @param string $name Name of the logger.
-     * @return void
      */
     public function __construct($name)
     {
@@ -490,7 +490,7 @@ class Logger implements LoggerInterface, GenericLogger
 
     /**
      * Returns a linked appender by name.
-     * @param $name
+     * @param string $name
      * @return LoggerAppender
      */
     public function getAppender($name): LoggerAppender
@@ -500,7 +500,7 @@ class Logger implements LoggerInterface, GenericLogger
 
     /**
      * Sets the additivity flag.
-     * @param $additive
+     * @param bool $additive
      * @return void
      */
     public function setAdditivity(bool $additive)
@@ -525,12 +525,16 @@ class Logger implements LoggerInterface, GenericLogger
     public function getEffectiveLevel()
     {
         $logger = $this;
-        do {
+        while (1) {
+            if ($logger === null) {
+                break;
+            }
             $level = $logger->getLevel();
             if ($level !== null) {
                 return $level;
             }
-        } while (($logger = $logger->getParent()) !== null);
+            $logger = $logger->getParent();
+        }
         return null;
     }
 

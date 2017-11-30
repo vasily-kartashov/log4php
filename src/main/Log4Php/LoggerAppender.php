@@ -305,7 +305,7 @@ abstract class LoggerAppender extends LoggerConfigurable
 
     /**
      * Triggers a warning for this logger with the given message.
-     * @param $message
+     * @param string $message
      * @return void
      */
     protected function warn(string $message)

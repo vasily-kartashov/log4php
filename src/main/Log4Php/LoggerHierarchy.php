@@ -266,7 +266,7 @@ class LoggerHierarchy
 
     /**
      * @param Logger $current
-     * @param $level
+     * @param int $level
      * @return void
      */
     private function printHierarchyInner(Logger $current, $level)

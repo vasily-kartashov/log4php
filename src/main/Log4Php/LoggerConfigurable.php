@@ -29,7 +29,7 @@ abstract class LoggerConfigurable
 {
     /** Setter function for boolean type.
      * @param string $property
-     * @param $value
+     * @param mixed $value
      * @return void
      */
     protected function setBoolean(string $property, $value)
@@ -46,7 +46,7 @@ abstract class LoggerConfigurable
     /**
      * Setter function for integer type.
      * @param string $property
-     * @param $value
+     * @param mixed $value
      * @return void
      */
     protected function setInteger(string $property, $value)
@@ -63,7 +63,7 @@ abstract class LoggerConfigurable
     /**
      * Setter function for LoggerLevel values.
      * @param string $property
-     * @param $value
+     * @param mixed $value
      * @return void
      */
     protected function setLevel(string $property, $value)
@@ -80,7 +80,7 @@ abstract class LoggerConfigurable
     /**
      * Setter function for integer type.
      * @param string $property
-     * @param $value
+     * @param mixed $value
      * @return void
      */
     protected function setPositiveInteger(string $property, $value)
@@ -97,7 +97,7 @@ abstract class LoggerConfigurable
     /**
      * Setter for file size.
      * @param string $property
-     * @param $value
+     * @param mixed $value
      * @return void
      */
     protected function setFileSize(string $property, $value)
@@ -114,7 +114,7 @@ abstract class LoggerConfigurable
     /**
      * Setter function for string type.
      * @param string $property
-     * @param $value
+     * @param mixed $value
      * @param bool $nullable
      * @return void
      */

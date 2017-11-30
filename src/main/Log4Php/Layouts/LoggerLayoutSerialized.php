@@ -38,7 +38,7 @@ class LoggerLayoutSerialized extends LoggerLayout
 
     /**
      * Sets the location information flag.
-     * @param $value
+     * @param mixed $value
      * @return void
      */
     public function setLocationInfo($value)

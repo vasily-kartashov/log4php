@@ -73,7 +73,7 @@ abstract class LoggerLayout extends LoggerConfigurable
 
     /**
      * Triggers a warning for this layout with the given message.
-     * @param $message
+     * @param string $message
      * @return void
      */
     protected function warn(string $message)

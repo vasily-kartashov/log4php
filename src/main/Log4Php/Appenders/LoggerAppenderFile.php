@@ -171,7 +171,7 @@ class LoggerAppenderFile extends LoggerAppender
 
     /**
      * Sets the 'locking parameter'
-     * @param $locking
+     * @param bool|string $locking
      * @return void
      */
     public function setLocking($locking)
@@ -274,7 +274,7 @@ class LoggerAppenderFile extends LoggerAppender
     }
 
     /**
-     * @param $string
+     * @param string $string
      * @return void
      */
     protected function writeWithoutLocking($string)

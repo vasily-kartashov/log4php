@@ -34,7 +34,7 @@ class LoggerReflectionUtils
      * Create a new LoggerReflectionUtils for the specified Object.
      * This is done in preparation for invoking {@link setProperty()}
      * one or more times.
-     * @param object &$obj the object for which to set properties
+     * @param object $obj the object for which to set properties
      */
     public function __construct($obj)
     {

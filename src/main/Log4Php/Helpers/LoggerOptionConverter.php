@@ -67,7 +67,7 @@ class LoggerOptionConverter
 
     /**
      * Converts $value to boolean, or throws an exception if not possible.
-     * @param $value
+     * @param mixed $value
      * @return bool
      * @throws LoggerException
      */
@@ -113,7 +113,7 @@ class LoggerOptionConverter
     /**
      * Converts $value to integer, or throws an exception if not possible.
      * Floats cannot be converted to integer.
-     * @param $value
+     * @param mixed $value
      * @return int
      * @throws LoggerException
      */
@@ -132,7 +132,7 @@ class LoggerOptionConverter
 
     /**
      * Converts the value to a level. Throws an exception if not possible.
-     * @param $value
+     * @param mixed $value
      * @return LoggerLevel
      * @throws LoggerException
      */
@@ -224,7 +224,8 @@ class LoggerOptionConverter
         } elseif (is_numeric($value)) {
             return (string) $value;
         } elseif (is_object($value) && method_exists($value, '__toString')) {
-            return $value->__toString();
+            /** @psalm-suppress InvalidCast */
+            return (string) $value;
         } else {
             throw new LoggerException('Given value [' . var_export($value, true) . '] cannot be converted to string.');
         }

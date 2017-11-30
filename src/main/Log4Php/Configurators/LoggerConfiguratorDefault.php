@@ -125,25 +125,27 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
     {
         // No input - use default configuration
         if (!isset($input)) {
-            $config = self::$defaultConfiguration;
-        } // Array input - contains configuration within the array
-        elseif (is_array($input)) {
-            $config = $input;
-        } // String input - contains path to configuration file
-        elseif (is_string($input)) {
-            try {
-                $config = $this->parseFile($input);
-            } catch (LoggerException $e) {
-                $this->warn("Configuration failed. " . $e->getMessage() . " Using default configuration.");
-                $config = self::$defaultConfiguration;
-            }
-        } // Anything else is an error
-        else {
-            $this->warn("Invalid configuration param given. Reverting to default configuration.");
-            $config = self::$defaultConfiguration;
+            return self::$defaultConfiguration;
         }
 
-        return $config;
+        // Array input - contains configuration within the array
+        if (is_array($input)) {
+            return $input;
+        }
+
+        // String input - contains path to configuration file
+        if (is_string($input)) {
+            try {
+                return $this->parseFile($input);
+            } catch (LoggerException $e) {
+                $this->warn("Configuration failed. " . $e->getMessage() . " Using default configuration.");
+                return self::$defaultConfiguration;
+            }
+        }
+
+        // Anything else is an error
+        $this->warn("Invalid configuration param given. Reverting to default configuration.");
+        return self::$defaultConfiguration;
     }
 
     /**
@@ -171,7 +173,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
     }
 
     /** Determines configuration file type based on the file extension.
-     * @param $url
+     * @param string $url
      * @return string
      * @throws LoggerException
      * @return string
@@ -523,7 +525,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
 
     /**
      * @param LoggerHierarchy $hierarchy
-     * @param $class
+     * @param string $class
      * @return void
      */
     private function configureDefaultRenderer(LoggerHierarchy $hierarchy, $class)

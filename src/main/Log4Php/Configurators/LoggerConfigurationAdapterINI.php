@@ -59,7 +59,8 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      * Converts the provided INI configuration file to a PHP array config.
      *
      * @param string $path Path to the config file.
-     * @return array<string,mixed>
+     * @return array
+     * @psalm-return array<string,mixed>
      * @throws LoggerException If the file cannot be loaded or parsed.
      */
     public function convert($path)
@@ -170,8 +171,8 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
     }
 
     /** Helper method. Returns true if $str begins with $sub.
-     * @param $str
-     * @param $sub
+     * @param string $str
+     * @param string $sub
      * @return bool
      */
     private function beginsWith(string $str, string $sub)

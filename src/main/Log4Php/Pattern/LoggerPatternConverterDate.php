@@ -40,7 +40,10 @@ class LoggerPatternConverterDate extends LoggerPatternConverter
     /** @var string */
     private $format = self::DATE_FORMAT_ISO8601;
 
-    /** @var array */
+    /**
+     * @var array
+     * @psalm-var array<string,string>
+     */
     private $specials = [
         'ISO8601'  => self::DATE_FORMAT_ISO8601,
         'ABSOLUTE' => self::DATE_FORMAT_ABSOLUTE,
