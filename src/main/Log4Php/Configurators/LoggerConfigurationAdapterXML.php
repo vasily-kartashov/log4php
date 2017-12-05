@@ -287,7 +287,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
         $params = [];
 
         foreach ($paramsNode->param as $paramNode) {
-            if (empty($paramNode['name'])) {
+            if (!isset($paramNode['name']) || empty($paramNode['name'])) {
                 /** @noinspection RequiredAttributes */
                 $this->warn("A <param> node is missing the required 'name' attribute. Skipping parameter.");
                 continue;

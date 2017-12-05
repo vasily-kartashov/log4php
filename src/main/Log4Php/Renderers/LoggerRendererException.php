@@ -18,12 +18,17 @@
 
 namespace Log4Php\Renderers;
 
+use Throwable;
+
 /**
  * Renderer used for Exceptions.
  */
 class LoggerRendererException implements LoggerRenderer
 {
-
+    /**
+     * @param Throwable $input
+     * @return string
+     */
     public function render($input): string
     {
         // Exception class has a very decent __toString method
