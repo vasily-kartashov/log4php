@@ -296,6 +296,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
             $name = $this->getAttributeValue($paramNode, 'name');
             $value = $this->getAttributeValue($paramNode, 'value');
 
+            /** @psalm-suppress PossiblyNullArrayOffset */
             $params[$name] = $value;
         }
 
