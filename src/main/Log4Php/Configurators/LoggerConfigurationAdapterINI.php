@@ -108,6 +108,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      * @return array
      * @throws LoggerException
      * @psalm-suppress MixedInferredReturnType
+     * @psalm-suppress MixedReturnStatement
      */
     private function load($url)
     {
