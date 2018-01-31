@@ -33,7 +33,7 @@ abstract class LoggerPatternConverter
 {
     /**
      * Next converter in the converter chain.
-     * @var LoggerPatternConverter
+     * @var LoggerPatternConverter|null
      */
     public $next = null;
 
