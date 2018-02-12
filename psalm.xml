@@ -15,5 +15,6 @@
         <MixedOperand errorLevel="suppress"/>
         <MixedPropertyFetch errorLevel="suppress"/>
         <PropertyNotSetInConstructor errorLevel="suppress"/>
+        <RedundantConditionGivenDocblockType errorLevel="suppress"/>
     </issueHandlers>
 </psalm>
