@@ -18,6 +18,7 @@
 
 namespace Log4Php\Renderers;
 
+use InvalidArgumentException;
 use Throwable;
 
 /**
@@ -26,11 +27,14 @@ use Throwable;
 class LoggerRendererException implements LoggerRenderer
 {
     /**
-     * @param Throwable $input
+     * @param mixed $input
      * @return string
      */
     public function render($input): string
     {
+        if (!($input instanceof Throwable)) {
+            throw new InvalidArgumentException('Not a throwable');
+        }
         // Exception class has a very decent __toString method
         // so let's just use that instead of writing lots of code.
         return (string) $input;

@@ -49,7 +49,7 @@ class LoggerConfigurationAdapterPHP implements LoggerConfigurationAdapter
 {
     /**
      * @param string $url
-     * @return mixed
+     * @return array
      * @throws LoggerException
      */
     public function convert($url)

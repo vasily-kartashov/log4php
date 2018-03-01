@@ -99,7 +99,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * {@link $defaultConfiguration}.
      *
      * @param LoggerHierarchy $hierarchy The hierarchy on which to perform the configuration.
-     * @param string|array $input Either path to the config file or the configuration as an array. If not set, default configuration will be used.
+     * @param mixed $input Either path to the config file or the configuration as an array. If not set, default configuration will be used.
      * @return void
      */
     public function configure(LoggerHierarchy $hierarchy, $input = null)
