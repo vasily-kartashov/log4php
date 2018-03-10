@@ -126,7 +126,7 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
 
     /** Renders the date using the configured <var>datePattern<var>.
      * @param float|int|null $timestamp
-     * @return false|string
+     * @return string
      */
     protected function getDate($timestamp = null)
     {
