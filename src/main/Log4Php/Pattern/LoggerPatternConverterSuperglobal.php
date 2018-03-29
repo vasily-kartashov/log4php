@@ -47,6 +47,7 @@ abstract class LoggerPatternConverterSuperglobal extends LoggerPatternConverter
 
     /**
      * @return void
+     * @psalm-suppress InvalidScope
      */
     public function activateOptions()
     {
