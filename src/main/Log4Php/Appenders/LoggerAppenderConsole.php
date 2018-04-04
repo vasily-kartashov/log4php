@@ -52,7 +52,6 @@ class LoggerAppenderConsole extends LoggerAppender
     /**
      * Stream resource for the target stream.
      * @var resource|bool|null
-     * @return void
      */
     protected $fp = null;
 
@@ -121,8 +120,8 @@ class LoggerAppenderConsole extends LoggerAppender
         } elseif ($value == self::STDERR || strtoupper($value) == 'STDERR') {
             $this->target = self::STDERR;
         } else {
-            $target = var_export($target);
-            $this->warn("Invalid value given for 'target' property: [$target]. Property not set.");
+            $value = var_export($target, true);
+            $this->warn("Invalid value given for 'target' property: {$value}. Property not set.");
         }
     }
 }
