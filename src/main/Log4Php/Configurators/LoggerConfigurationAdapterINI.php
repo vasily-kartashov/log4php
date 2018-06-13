@@ -85,15 +85,12 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
                 $this->parseLogger($value, $name);
             }
 
-            // Parse additivity
-            if ($this->beginsWith($key, self::ADDITIVITY_PREFIX)) {
+            if ($this->beginsWith($key, self::ADDITIVITY_PREFIX)) { // Parse additivity
                 $name = substr($key, strlen(self::ADDITIVITY_PREFIX));
                 $this->config['loggers'][$name]['additivity'] = $value;
-            } // Parse appenders
-            elseif ($this->beginsWith($key, self::APPENDER_PREFIX)) {
+            } elseif ($this->beginsWith($key, self::APPENDER_PREFIX)) { // Parse appenders
                 $this->parseAppender($key, $value);
-            } // Parse renderers
-            elseif ($this->beginsWith($key, self::RENDERER_PREFIX)) {
+            } elseif ($this->beginsWith($key, self::RENDERER_PREFIX)) { // Parse renderers
                 $this->parseRenderer($key, $value);
             }
         }
@@ -255,12 +252,10 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
         // The first part is always the appender name
         $name = trim($parts[0]);
 
-        // Only one part - this line defines the appender class
-        if ($count == 1) {
+        if ($count == 1) { // Only one part - this line defines the appender class
             $this->config['appenders'][$name]['class'] = $value;
             return;
-        } // Two parts - either a parameter, a threshold or layout class
-        elseif ($count == 2) {
+        } elseif ($count == 2) { // Two parts - either a parameter, a threshold or layout class
             if ($parts[1] == 'layout') {
                 $this->config['appenders'][$name]['layout']['class'] = $value;
                 return;
@@ -271,8 +266,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
                 $this->config['appenders'][$name]['params'][$parts[1]] = $value;
                 return;
             }
-        } // Three parts - this can only be a layout parameter
-        elseif ($count == 3) {
+        } elseif ($count == 3) { // Three parts - this can only be a layout parameter
             if ($parts[1] == 'layout') {
                 $this->config['appenders'][$name]['layout']['params'][$parts[2]] = $value;
                 return;

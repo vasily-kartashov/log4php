@@ -57,11 +57,9 @@ class LoggerPatternConverterClass extends LoggerPatternConverter
     {
         $name = $event->getLocationInformation()->getClassName();
         if (!isset($this->cache[$name])) {
-            // If length is set return shortened class name
-            if (isset($this->length)) {
+            if (isset($this->length)) { // If length is set return shortened class name
                 $this->cache[$name] = LoggerUtils::shortenClassName($name, $this->length);
-            } // If no length is specified return the full class name
-            else {
+            } else { // If no length is specified return the full class name
                 $this->cache[$name] = $name;
             }
         }

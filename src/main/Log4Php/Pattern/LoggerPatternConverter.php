@@ -143,15 +143,13 @@ abstract class LoggerPatternConverter
 
         $len = strlen($string);
 
-        // Trim the string if needed
-        if ($len > $fi->max) {
+        if ($len > $fi->max) { // Trim the string if needed
             if ($fi->trimLeft) {
                 $sbuf .= substr($string, $len - $fi->max, $fi->max);
             } else {
                 $sbuf .= substr($string, 0, $fi->max);
             }
-        } // Add padding if needed
-        elseif ($len < $fi->min) {
+        } elseif ($len < $fi->min) { // Add padding if needed
             if ($fi->padLeft) {
                 $sbuf .= self::$padding[$fi->min - $len] ?? str_repeat(' ', $fi->min - $len);
                 $sbuf .= $string;
@@ -159,8 +157,7 @@ abstract class LoggerPatternConverter
                 $sbuf .= $string;
                 $sbuf .= self::$padding[$fi->min - $len] ?? str_repeat(' ', $fi->min - $len);
             }
-        } // No action needed
-        else {
+        } else { // No action needed
             $sbuf .= $string;
         }
     }
