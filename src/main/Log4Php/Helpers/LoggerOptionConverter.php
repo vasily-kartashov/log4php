@@ -186,7 +186,7 @@ class LoggerOptionConverter
         $count = preg_match('/^([0-9.]+)(KB|MB|GB)?$/', $str, $matches);
 
         if ($count > 0) {
-            $size = $matches[1];
+            $size = (float) $matches[1];
             $unit = $matches[2];
 
             switch ($unit) {

@@ -28,13 +28,9 @@ class LoggerRendererDefault implements LoggerRenderer
     /**
      * @param mixed $input
      * @return string
-     * @psalm-suppress MixedInferredReturnType
-     * @psalm-suppress MixedReturnStatement
-     * @psalm-suppress InvalidReturnStatement
-     * @psalm-suppress InvalidReturnType
      */
     public function render($input): string
     {
-        return print_r($input, true);
+        return (string) print_r($input, true);
     }
 }

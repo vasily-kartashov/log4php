@@ -736,7 +736,7 @@ class Logger implements LoggerInterface, GenericLogger
             if ($configurator instanceof LoggerConfigurator) {
                 return $configurator;
             } else {
-                trigger_error("log4php: Given configurator object [$configurator] does not implement "
+                trigger_error("log4php: Given configurator object does not implement "
                     . "the LoggerConfigurator interface. Reverting to default configurator.", E_USER_WARNING);
                 return new LoggerConfiguratorDefault();
             }

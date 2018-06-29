@@ -145,7 +145,9 @@ class LoggerNDC
     public static function pop()
     {
         if (count(self::$stack) > 0) {
-            return array_pop(self::$stack);
+            $value = array_pop(self::$stack);
+            assert($value !== null);
+            return $value;
         } else {
             return '';
         }

@@ -116,8 +116,8 @@ class LoggerPatternParser
         foreach ($matches[0] as $key => $item) {
             // Locate where the conversion command starts and ends
             $length = strlen($item[0]);
-            $start = $item[1];
-            $end = $item[1] + $length;
+            $start = (int) $item[1];
+            $end = (int) $item[1] + $length;
 
             // Find any literal expressions between matched commands
             if ($start > $prevEnd) {
@@ -159,11 +159,11 @@ class LoggerPatternParser
     /**
      * Adds a non-literal converter to the converter chain.
      *
-     * @param string $word The conversion word, used to determine which
-     *  converter will be used.
+     * @param string $word The conversion word, used to determine which converter will be used.
      * @param string $modifiers Formatting modifiers.
      * @param string $option Option to pass to the converter.
      * @return void
+     * @throws LoggerException
      */
     private function addConverter($word, $modifiers, $option)
     {

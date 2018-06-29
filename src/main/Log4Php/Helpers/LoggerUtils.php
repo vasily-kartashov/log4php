@@ -83,7 +83,9 @@ class LoggerUtils
 
         // If zero length is specified, return only last fragment
         if ($length == 0) {
-            return array_pop($fragments);
+            $token = array_pop($fragments);
+            assert($token !== null);
+            return $token;
         }
 
         // If the name splits to only one fragment, then it cannot be shortened

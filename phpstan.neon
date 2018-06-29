@@ -3,3 +3,5 @@ parameters:
     ignoreErrors:
         - '|Function newrelic_.*|'
         - '|Function fsockopen invoked.*|'
+        - '|Parameter #1 \$function of function call_user_func expects callable.*|'
+        - '|Cannot cast object to string.|'

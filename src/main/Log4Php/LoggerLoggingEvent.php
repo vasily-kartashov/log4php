@@ -324,7 +324,7 @@ class LoggerLoggingEvent
     public static function getStartTime()
     {
         if (!isset(self::$startTime)) {
-            self::$startTime = (float) microtime(true);
+            self::$startTime = microtime(true);
         }
         return self::$startTime;
     }

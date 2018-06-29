@@ -64,7 +64,7 @@ class LoggerAppenderConsole extends LoggerAppender
                 fwrite($this->fp, $message);
             }
         }
-        $this->closed = (bool) is_resource($this->fp) === false;
+        $this->closed = is_resource($this->fp) === false;
     }
 
     /**
