@@ -52,7 +52,7 @@ class LoggerLocationInfo
 
     /**
      * All the information combined.
-     * @var string
+     * @var string|null
      */
     protected $fullInfo;
 

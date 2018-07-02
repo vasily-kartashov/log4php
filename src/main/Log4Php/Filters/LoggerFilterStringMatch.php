@@ -51,7 +51,7 @@ class LoggerFilterStringMatch extends LoggerFilter
     protected $acceptOnMatch = true;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $stringToMatch;
 

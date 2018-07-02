@@ -55,7 +55,7 @@ class LoggerFilterLevelMatch extends LoggerFilter
 
     /**
      * The level, when to match
-     * @var LoggerLevel
+     * @var LoggerLevel|null
      */
     protected $levelToMatch;
 

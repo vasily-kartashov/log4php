@@ -26,8 +26,7 @@ use Log4Php\Layouts\LoggerLayoutSimple;
 abstract class LoggerAppender extends LoggerConfigurable
 {
     /**
-     * Set to true when the appender is closed. A closed appender will not
-     * accept any logging requests.
+     * Set to true when the appender is closed. A closed appender will not accept any logging requests.
      * @var boolean
      */
     protected $closed = false;
@@ -39,8 +38,7 @@ abstract class LoggerAppender extends LoggerConfigurable
     protected $filter;
 
     /**
-     * The appender's layout. Can be null if the appender does not use
-     * a layout.
+     * The appender's layout. Can be null if the appender does not use a layout.
      * @var LoggerLayout
      */
     protected $layout;
@@ -52,18 +50,14 @@ abstract class LoggerAppender extends LoggerConfigurable
     protected $name;
 
     /**
-     * Appender threshold level. Events whose level is below the threshold
-     * will not be logged.
-     * @var LoggerLevel
+     * Appender threshold level. Events whose level is below the threshold will not be logged.
+     * @var LoggerLevel|null
      */
     protected $threshold;
 
     /**
      * Set to true if the appender requires a layout.
-     *
-     * True by default, appenders which do not use a layout should override
-     * this property to false.
-     *
+     * True by default, appenders which do not use a layout should override this property to false.
      * @var boolean
      */
     protected $requiresLayout = true;
@@ -87,9 +81,7 @@ abstract class LoggerAppender extends LoggerConfigurable
     }
 
     /**
-     * Returns the default layout for this appender. Can be overridden by
-     * derived appenders.
-     *
+     * Returns the default layout for this appender. Can be overridden by derived appenders.
      * @return LoggerLayout
      */
     public function getDefaultLayout()
@@ -238,7 +230,7 @@ abstract class LoggerAppender extends LoggerConfigurable
 
     /**
      * Returns the appender's threshold level.
-     * @return LoggerLevel
+     * @return LoggerLevel|null
      */
     public function getThreshold()
     {
@@ -270,7 +262,7 @@ abstract class LoggerAppender extends LoggerConfigurable
         if ($this->threshold === null) {
             return true;
         }
-        return $level->isGreaterOrEqual($this->getThreshold());
+        return $level->isGreaterOrEqual($this->threshold);
     }
 
     /**
