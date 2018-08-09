@@ -5,3 +5,4 @@ parameters:
         - '|Function fsockopen invoked.*|'
         - '|Parameter #1 \$function of function call_user_func expects callable.*|'
         - '|Cannot cast object to string.|'
+        - '/.*count expects array|Countable, SimpleXMLElement given.*/'

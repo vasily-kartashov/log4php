@@ -41,6 +41,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * @param string $url
      * @return array
+     * @throws LoggerException
      */
     public function convert($url)
     {
