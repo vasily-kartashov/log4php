@@ -80,18 +80,18 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
 
         foreach ($properties as $key => $value) {
             // Parse loggers
-            if ($this->beginsWith($key, self::LOGGER_PREFIX)) {
-                $name = substr($key, strlen(self::LOGGER_PREFIX));
+            if ($this->beginsWith((string) $key, self::LOGGER_PREFIX)) {
+                $name = substr((string) $key, strlen(self::LOGGER_PREFIX));
                 $this->parseLogger($value, $name);
             }
 
-            if ($this->beginsWith($key, self::ADDITIVITY_PREFIX)) { // Parse additivity
-                $name = substr($key, strlen(self::ADDITIVITY_PREFIX));
+            if ($this->beginsWith((string) $key, self::ADDITIVITY_PREFIX)) { // Parse additivity
+                $name = substr((string) $key, strlen(self::ADDITIVITY_PREFIX));
                 $this->config['loggers'][$name]['additivity'] = $value;
-            } elseif ($this->beginsWith($key, self::APPENDER_PREFIX)) { // Parse appenders
-                $this->parseAppender($key, $value);
-            } elseif ($this->beginsWith($key, self::RENDERER_PREFIX)) { // Parse renderers
-                $this->parseRenderer($key, $value);
+            } elseif ($this->beginsWith((string) $key, self::APPENDER_PREFIX)) { // Parse appenders
+                $this->parseAppender((string) $key, $value);
+            } elseif ($this->beginsWith((string) $key, self::RENDERER_PREFIX)) { // Parse renderers
+                $this->parseRenderer((string) $key, $value);
             }
         }
 
@@ -102,10 +102,9 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
      * Loads and parses the INI configuration file.
      *
      * @param string $url Path to the config file.
-     * @return array
+     * @return string[]
+     * @psalm-return array<string,string>
      * @throws LoggerException
-     * @psalm-suppress MixedInferredReturnType
-     * @psalm-suppress MixedReturnStatement
      */
     private function load($url)
     {
@@ -113,7 +112,8 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
             throw new LoggerException("File [$url] does not exist.");
         }
 
-        $properties = @parse_ini_file($url, true);
+        /** @psalm-var array<string,string>|false $properties */
+        $properties = parse_ini_file($url, true);
         if ($properties !== false) {
             return $properties;
         } else {
