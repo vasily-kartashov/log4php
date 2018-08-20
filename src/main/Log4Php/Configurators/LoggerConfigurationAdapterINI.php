@@ -113,7 +113,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
         }
 
         /** @psalm-var array<string,string>|false $properties */
-        $properties = parse_ini_file($url, true);
+        $properties = @parse_ini_file($url, true);
         if ($properties !== false) {
             return $properties;
         } else {
