@@ -31,6 +31,6 @@ class LoggerRendererDefault implements LoggerRenderer
      */
     public function render($input): string
     {
-        return (string) print_r($input, true);
+        return print_r($input, true);
     }
 }
