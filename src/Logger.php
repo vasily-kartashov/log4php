@@ -749,6 +749,7 @@ class Logger implements LoggerInterface, GenericLogger
                 return new LoggerConfiguratorDefault();
             }
 
+            /** @psalm-suppress InvalidStringClass */
             $instance = new $configurator();
 
             if (!($instance instanceof LoggerConfigurator)) {

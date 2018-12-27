@@ -62,6 +62,7 @@ class LoggerRendererMap
         }
 
         // Create the instance
+        /** @psalm-suppress InvalidStringClass */
         $renderer = new $renderingClass();
 
         // Check the class implements the right interface
@@ -96,6 +97,7 @@ class LoggerRendererMap
         }
 
         // Create the instance
+        /** @psalm-suppress InvalidStringClass */
         $renderer = new $renderingClass();
 
         // Check the class implements the right interface

@@ -28,6 +28,8 @@ class LoggerRendererDefault implements LoggerRenderer
     /**
      * @param mixed $input
      * @return string
+     * @psalm-suppress InvalidReturnStatement
+     * @psalm-suppress InvalidReturnType
      */
     public function render($input): string
     {
