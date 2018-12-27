@@ -140,12 +140,17 @@ class LoggerReflectionUtils
     /**
      * Creates an instances from the given class name.
      *
+     * @template T
+     * @template-typeof T $class
+     * @psalm-return T|null an object from the class with the given class name
+     *
      * @param string $class
-     * @return mixed an object from the class with the given class name
+     * @return mixed
      */
-    public static function createObject($class)
+    public static function createObject(string $class)
     {
         if (!empty($class)) {
+            /** @psalm-suppress InvalidStringClass */
             return new $class();
         }
         return null;

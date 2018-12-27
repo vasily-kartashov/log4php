@@ -167,7 +167,10 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
         $type = $this->getConfigType($url);
         $adapterClass = $this->adapters[$type];
 
-        /** @var LoggerConfigurationAdapter $adapter */
+        /**
+         * @var LoggerConfigurationAdapter $adapter
+         * @psalm-suppress InvalidStringClass
+         */
         $adapter = new $adapterClass();
         return $adapter->convert($url);
     }

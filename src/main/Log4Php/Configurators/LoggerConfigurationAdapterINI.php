@@ -148,6 +148,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
 
         // The first value is the logger level
         $level = array_shift($parts);
+        /** @psalm-suppress RedundantCondition */
         assert($level !== null);
 
         // The remaining values are appender references

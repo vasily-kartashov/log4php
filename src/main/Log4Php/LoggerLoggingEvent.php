@@ -190,6 +190,7 @@ class LoggerLoggingEvent
         $hop = array_pop($trace);
 
         while ($hop !== null) {
+            /** @psalm-suppress RedundantCondition */
             if (isset($hop['class'])) {
                 $interfaces = class_implements($hop['class']);
                 if (isset($interfaces[GenericHandler::class]) || isset($interfaces[GenericLogger::class])) {

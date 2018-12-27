@@ -84,6 +84,7 @@ class LoggerUtils
         // If zero length is specified, return only last fragment
         if ($length == 0) {
             $token = array_pop($fragments);
+            /** @psalm-suppress RedundantCondition */
             assert($token !== null);
             return $token;
         }
@@ -114,6 +115,7 @@ class LoggerUtils
                 break;
             }
         }
+        /** @psalm-suppress RedundantCondition */
         if (isset($fragment)) {
             unset($fragment);
         }
