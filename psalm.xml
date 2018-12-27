@@ -7,7 +7,7 @@
        xmlns="https://getpsalm.org/schema/config"
        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd">
     <projectFiles>
-        <directory name="src/main"/>
+        <directory name="src"/>
     </projectFiles>
     <issueHandlers>
         <MixedArgument errorLevel="suppress"/>

@@ -37,9 +37,9 @@ if (!is_dir($tmpDir)) {
 define('PHPUNIT_TEMP_DIR', realpath($tmpDir));
 
 // Make the path to the configurations dir for easier access
-$confDir = __DIR__ . '/../resources/configs';
+$confDir = __DIR__ . '/resources/configs';
 define('PHPUNIT_CONFIG_DIR', realpath($confDir));
 
-require __DIR__ . '/../../../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/LoggerTestHelper.php';
 

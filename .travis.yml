@@ -5,6 +5,7 @@ php:
   - '7.0'
   - '7.1'
   - '7.2'
+  - '7.3'
   - nightly
 
 before_script:
@@ -12,6 +13,6 @@ before_script:
 
 script:
   - ./vendor/bin/phpunit
-  - ./vendor/bin/phpstan analyse --level 7 src/main -c phpstan.neon
+  - ./vendor/bin/phpstan analyse --level 7 src
   - ./vendor/bin/psalm
-  - ./vendor/bin/phpcs --standard=PSR2 -n src/main
+  - ./vendor/bin/phpcs --standard=PSR2 -n src

@@ -7,18 +7,23 @@
   "license": "Apache-2.0",
   "autoload": {
     "psr-4": {
-      "Log4Php\\": "src/main/Log4Php"
+      "Log4Php\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/"
+    ]
   },
   "require": {
     "php": ">=7.0",
     "psr/log": ">=1.0"
   },
   "require-dev": {
-    "jakub-onderka/php-parallel-lint": "*",
-    "phpstan/phpstan": "*",
-    "phpunit/phpunit": "^6.0",
-    "squizlabs/php_codesniffer": "*",
-    "vimeo/psalm": "*"
+    "phpunit/phpunit": "@stable",
+    "jakub-onderka/php-parallel-lint": "@stable",
+    "phpstan/phpstan": "@stable",
+    "vimeo/psalm": "@stable",
+    "squizlabs/php_codesniffer": "@stable"
   }
 }
