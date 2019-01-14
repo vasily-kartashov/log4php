@@ -47,10 +47,11 @@ class LoggerReflectionUtils
      * <code>prefix</code>.
      *
      * @param object $obj The object to configure.
-     * @param array $properties An array containing keys and values.
+     * @param array<string,string|null> $properties An array containing keys and values.
      * @param string $prefix Only keys having the specified prefix will be set.
      * @return void
      * @todo check if it's useful
+     * @throws Exception
      */
     public static function setPropertiesByObject($obj, $properties, $prefix)
     {
@@ -69,9 +70,10 @@ class LoggerReflectionUtils
      * $arr['xxxmale'] = true;
      * and prefix xxx causes setName and setMale.
      *
-     * @param array $properties An array containing keys and values.
+     * @param array<string,string|null> $properties An array containing keys and values.
      * @param string $prefix Only keys having the specified prefix will be set.
      * @return void
+     * @throws Exception
      */
     public function setProperties($properties, $prefix)
     {
@@ -145,13 +147,16 @@ class LoggerReflectionUtils
      * @psalm-return T|null an object from the class with the given class name
      *
      * @param string $class
+     * @param array<int,mixed> $arguments
      * @return mixed
+     *
+     * @psalm-suppress InvalidStringClass
+     * @psalm-suppress RedundantCondition
      */
-    public static function createObject(string $class)
+    public static function createObject(string $class, ...$arguments)
     {
         if (!empty($class)) {
-            /** @psalm-suppress InvalidStringClass */
-            return new $class();
+            return new $class(...$arguments);
         }
         return null;
     }

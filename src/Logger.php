@@ -749,9 +749,7 @@ class Logger implements LoggerInterface, GenericLogger
                 return new LoggerConfiguratorDefault();
             }
 
-            /** @psalm-suppress InvalidStringClass */
-            $instance = new $configurator();
-
+            $instance = LoggerReflectionUtils::createObject($configurator);
             if (!($instance instanceof LoggerConfigurator)) {
                 trigger_error("log4php: Specified configurator class [$configurator] does not implement "
                     . "the LoggerConfigurator interface. Reverting to default configurator.", E_USER_WARNING);

@@ -281,7 +281,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     /**
      * Parses any <param> child nodes returning them in an array.
      * @param mixed $paramsNode
-     * @return array
+     * @return array<string,string|null>
      */
     private function parseParameters($paramsNode)
     {
@@ -297,8 +297,9 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
             $name = $this->getAttributeValue($paramNode, 'name');
             $value = $this->getAttributeValue($paramNode, 'value');
 
-            /** @psalm-suppress PossiblyNullArrayOffset */
-            $params[$name] = $value;
+            if ($name !== null) {
+                $params[$name] = $value;
+            }
         }
 
         return $params;

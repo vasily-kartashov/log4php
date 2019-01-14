@@ -29,6 +29,7 @@ use Log4Php\LoggerFilter;
 use Log4Php\LoggerHierarchy;
 use Log4Php\LoggerLayout;
 use Log4Php\LoggerLevel;
+use Log4Php\LoggerReflectionUtils;
 
 /**
  * Default implementation of the logger configurator.
@@ -234,7 +235,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
         // Configure appenders and add them to the appender pool
         if (isset($config['appenders']) && is_array($config['appenders'])) {
             foreach ($config['appenders'] as $name => $appenderConfig) {
-                $this->configureAppender($name, $appenderConfig);
+                $this->configureAppender((string) $name, $appenderConfig);
             }
         }
 
@@ -246,7 +247,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
         // Configure loggers
         if (isset($config['loggers']) && is_array($config['loggers'])) {
             foreach ($config['loggers'] as $loggerName => $loggerConfig) {
-                $this->configureOtherLogger($hierarchy, $loggerName, $loggerConfig);
+                $this->configureOtherLogger($hierarchy, (string) $loggerName, $loggerConfig);
             }
         }
 
@@ -292,8 +293,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
             return;
         }
 
-        // Instantiate the appender
-        $appender = new $class($name);
+        $appender = LoggerReflectionUtils::createObject($class, $name);
         if (!($appender instanceof LoggerAppender)) {
             $this->warn("Invalid class [$class] given for appender [$name]. "
                 . "Not a valid LoggerAppender class. Skipping appender definition.");
@@ -352,7 +352,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
             return;
         }
 
-        $layout = new $class();
+        $layout = LoggerReflectionUtils::createObject($class);
         if (!($layout instanceof LoggerLayout)) {
             $this->warn("Invalid layout class [$class] specified for appender [$name]. Reverting to default layout.");
             return;
@@ -418,7 +418,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
             return;
         }
 
-        $filter = new $class();
+        $filter = LoggerReflectionUtils::createObject($class);
         if (!($filter instanceof LoggerFilter)) {
             $this->warn("Invalid filter class [$class] specified on appender [$name]. Skipping filter definition.");
             return;

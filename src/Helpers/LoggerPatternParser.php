@@ -19,6 +19,7 @@
 namespace Log4Php\Helpers;
 
 use Log4Php\LoggerException;
+use Log4Php\LoggerReflectionUtils;
 use Log4Php\Pattern\LoggerPatternConverter;
 use Log4Php\Pattern\LoggerPatternConverterLiteral;
 
@@ -202,7 +203,7 @@ class LoggerPatternParser
             throw new LoggerException("Class '$converterClass' does not exist.");
         }
 
-        $converter = new $converterClass($info, $option);
+        $converter = LoggerReflectionUtils::createObject($converterClass, $info, $option);
         if (!($converter instanceof LoggerPatternConverter)) {
             throw new LoggerException("Class '$converterClass' is not an instance of LoggerPatternConverter.");
         }

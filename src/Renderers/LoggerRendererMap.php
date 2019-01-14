@@ -19,6 +19,7 @@
 namespace Log4Php\Renderers;
 
 use Exception;
+use Log4Php\LoggerReflectionUtils;
 
 /**
  * Manages defined renderers and determines which renderer to use for a given input.
@@ -62,8 +63,7 @@ class LoggerRendererMap
         }
 
         // Create the instance
-        /** @psalm-suppress InvalidStringClass */
-        $renderer = new $renderingClass();
+        $renderer = LoggerReflectionUtils::createObject($renderingClass);
 
         // Check the class implements the right interface
         if (!($renderer instanceof LoggerRenderer)) {
@@ -97,8 +97,7 @@ class LoggerRendererMap
         }
 
         // Create the instance
-        /** @psalm-suppress InvalidStringClass */
-        $renderer = new $renderingClass();
+        $renderer = LoggerReflectionUtils::createObject($renderingClass);
 
         // Check the class implements the right interface
         if (!($renderer instanceof LoggerRenderer)) {
