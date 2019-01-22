@@ -185,7 +185,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
     private function getConfigType($url)
     {
         $info = pathinfo($url);
-        $ext = strtolower($info['extension']);
+        $ext = strtolower($info['extension'] ?? '');
 
         switch ($ext) {
             case 'xml':
