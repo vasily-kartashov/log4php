@@ -20,7 +20,7 @@
     "psr/log": ">=1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "@stable",
+    "phpunit/phpunit": "^7",
     "jakub-onderka/php-parallel-lint": "@stable",
     "phpstan/phpstan": "@stable",
     "vimeo/psalm": "@stable",
