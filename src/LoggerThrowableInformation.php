@@ -60,6 +60,7 @@ class LoggerThrowableInformation
      */
     public function getStringRepresentation()
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (!is_array($this->throwableArray)) {
             $renderer = new LoggerRendererException();
             $this->throwableArray = explode("\n", $renderer->render($this->throwable));

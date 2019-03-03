@@ -135,6 +135,7 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
         }
 
         // String input - contains path to configuration file
+        /** @psalm-suppress DocblockTypeContradiction */
         if (is_string($input)) {
             try {
                 return $this->parseFile($input);
@@ -272,8 +273,8 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      */
     private function configureAppender($name, $config)
     {
-
         // TODO: add this check to other places where it might be useful
+        /** @psalm-suppress DocblockTypeContradiction */
         if (!is_array($config)) {
             $type = gettype($config);
             $this->warn("Invalid configuration provided for appender [$name]. "
