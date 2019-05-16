@@ -6,12 +6,12 @@ php:
   - '7.1'
   - '7.2'
   - '7.3'
-  - '7.4snapshot'
 
 before_script:
   - composer update
 
 script:
+  - ./vendor/bin/parallel-lint src
   - ./vendor/bin/phpunit --testdox
   - ./vendor/bin/phpstan analyse --level 7 src -c phpstan.neon
   - ./vendor/bin/psalm

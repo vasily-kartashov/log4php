@@ -15,6 +15,11 @@
       "tests/"
     ]
   },
+  "config": {
+    "optimize-autoloader": true,
+    "classmap-authoritative": true,
+    "sort-packages": true
+  },
   "require": {
     "php": ">=7.0",
     "psr/log": ">=1.0"
