@@ -40,6 +40,7 @@ interface LoggerConfigurator
      *        the configuration.
      * @param mixed $input Either path to the config file or the
      *        configuration as an array.
+     * @return void
      */
     public function configure(LoggerHierarchy $hierarchy, $input = null);
 }

@@ -127,9 +127,9 @@ class LoggerPatternParser
             }
 
             // Extract the data from the matched command
-            $word = !empty($matches['word'][$key]) ? $matches['word'][$key][0] : null;
-            $modifiers = !empty($matches['modifiers'][$key]) ? $matches['modifiers'][$key][0] : null;
-            $option = !empty($matches['option'][$key]) ? $matches['option'][$key][0] : null;
+            $word      = !empty($matches['word'][$key])      ? $matches['word'][$key][0]      : '';
+            $modifiers = !empty($matches['modifiers'][$key]) ? $matches['modifiers'][$key][0] : '';
+            $option    = !empty($matches['option'][$key])    ? $matches['option'][$key][0]    : '';
 
             // Create a converter and add it to the chain
             $this->addConverter($word, $modifiers, $option);

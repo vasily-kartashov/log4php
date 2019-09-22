@@ -282,6 +282,7 @@ abstract class LoggerAppender extends LoggerConfigurable
      * Derived appenders should implement this method to perform actual logging.
      *
      * @param LoggerLoggingEvent $event
+     * @return void
      */
     abstract protected function append(LoggerLoggingEvent $event);
 

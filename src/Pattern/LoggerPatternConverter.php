@@ -109,6 +109,7 @@ abstract class LoggerPatternConverter
      * converters must implement this method.
      *
      * @param LoggerLoggingEvent $event
+     * @return mixed
      * @todo check if possible to add signature
      */
     abstract public function convert(LoggerLoggingEvent $event);

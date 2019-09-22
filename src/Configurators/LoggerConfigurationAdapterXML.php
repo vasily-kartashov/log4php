@@ -280,7 +280,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
 
     /**
      * Parses any <param> child nodes returning them in an array.
-     * @param mixed $paramsNode
+     * @param SimpleXMLElement $paramsNode
      * @return array<string,string|null>
      */
     private function parseParameters($paramsNode)
@@ -294,6 +294,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
                 continue;
             }
 
+            /** @var SimpleXMLElement $paramNode */
             $name = $this->getAttributeValue($paramNode, 'name');
             $value = $this->getAttributeValue($paramNode, 'value');
 
@@ -340,7 +341,7 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     }
 
     /**
-     * Parses a <defaultRenderer> node.
+     * Parses a <defaultRenderer> node
      * @param SimpleXMLElement $node
      * @return void
      */
