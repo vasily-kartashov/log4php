@@ -158,12 +158,14 @@ abstract class LoggerAppender extends LoggerConfigurable
                 case LoggerFilter::DENY:
                     return null;
                 case LoggerFilter::ACCEPT:
-                    return $this->append($event);
+                    $this->append($event);
+                    return null;
                 case LoggerFilter::NEUTRAL:
                     $filter = $filter->getNext();
             }
         }
-        return $this->append($event);
+        $this->append($event);
+        return null;
     }
 
     /**
