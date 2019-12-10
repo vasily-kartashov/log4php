@@ -181,6 +181,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
      * Writes a string to the target file. Opens file if not already open.
      * @param string $string Data to write.
      * @return void
+     * @throws LoggerException
      */
     protected function write($string)
     {
@@ -211,6 +212,7 @@ class LoggerAppenderRollingFile extends LoggerAppenderFile
                     $this->closed = true;
                 }
             }
+            assert(is_resource($this->fp));
             flock($this->fp, LOCK_UN);
             if ($rollOverRequired) {
                 $this->completeRollOver();

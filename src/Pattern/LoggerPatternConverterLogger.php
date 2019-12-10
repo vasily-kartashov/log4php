@@ -29,10 +29,16 @@ use Log4Php\LoggerLoggingEvent;
  */
 class LoggerPatternConverterLogger extends LoggerPatternConverter
 {
-    /** Length to which to shorten the name. */
+    /**
+     * Length to which to shorten the name.
+     * @var int
+     */
     private $length;
 
-    /** Holds processed logger names. */
+    /**
+     * Holds processed logger names.
+     * @var array<string,string>
+     */
     private $cache = [];
 
     /**

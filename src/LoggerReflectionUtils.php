@@ -27,6 +27,7 @@ class LoggerReflectionUtils
 {
     /**
      * the target object
+     * @var object
      */
     private $obj;
 
@@ -143,12 +144,9 @@ class LoggerReflectionUtils
      * Creates an instances from the given class name.
      *
      * @template T
-     * @template-typeof T $class
-     * @psalm-return T|null an object from the class with the given class name
-     *
-     * @param string $class
+     * @param class-string<T> $class
      * @param array<int,mixed> $arguments
-     * @return mixed
+     * @return T|null an object from the class with the given class name
      *
      * @psalm-suppress InvalidStringClass
      * @psalm-suppress RedundantCondition

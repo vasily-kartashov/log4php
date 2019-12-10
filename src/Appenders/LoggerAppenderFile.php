@@ -83,6 +83,7 @@ class LoggerAppenderFile extends LoggerAppender
             if ($footer) {
                 $this->write($footer);
             }
+            assert(is_resource($this->fp));
             fclose($this->fp);
         }
         $this->fp = null;
@@ -266,6 +267,7 @@ class LoggerAppenderFile extends LoggerAppender
                 $this->warn("Failed writing to file. Closing appender.");
                 $this->closed = true;
             }
+            assert(is_resource($this->fp));
             flock($this->fp, LOCK_UN);
         } else {
             $this->warn("Failed locking file for writing. Closing appender.");

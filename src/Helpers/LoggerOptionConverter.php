@@ -27,7 +27,11 @@ use Log4Php\LoggerLevel;
 class LoggerOptionConverter
 {
 
-    /** String values which are converted to boolean TRUE. */
+    /**
+     * String values which are converted to boolean TRUE.
+     *
+     * @var array<string>
+     */
     private static $trueValues = ['1', 'true', 'yes', 'on'];
 
     /**
@@ -36,6 +40,8 @@ class LoggerOptionConverter
      * Note that an empty string must convert to false, because
      * parse_ini_file() which is used for parsing configuration
      * converts the value _false_ to an empty string.
+     *
+     * @var array<string>
      */
     private static $falseValues = ['0', 'false', 'no', 'off', ''];
 

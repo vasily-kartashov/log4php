@@ -98,6 +98,7 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
                 if ($footer) {
                     $this->write($footer);
                 }
+                assert(is_resource($this->fp));
                 fclose($this->fp);
             }
             $this->fp = null;
