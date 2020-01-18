@@ -14,6 +14,6 @@ before_script:
 script:
   - ./vendor/bin/parallel-lint src
   - ./vendor/bin/phpunit --testdox
-  - ./vendor/bin/phpstan analyse --level 7 src -c phpstan.neon
+  - php -v | grep -q 'PHP 7.0' || ./vendor/bin/phpstan analyse --level 7 src -c phpstan.neon
   - ./vendor/bin/psalm
   - ./vendor/bin/phpcs --standard=PSR2 -n src

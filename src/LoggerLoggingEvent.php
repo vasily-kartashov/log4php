@@ -324,6 +324,7 @@ class LoggerLoggingEvent
      * with microseconds.
      * @return float
      * @psalm-suppress MixedInferredReturnType
+     * @psalm-suppress MixedReturnStatement
      */
     public static function getStartTime()
     {
