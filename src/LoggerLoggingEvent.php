@@ -26,7 +26,9 @@ use ReflectionClass;
 class LoggerLoggingEvent
 {
 
-    /** @var float */
+    /**
+     * @var float|null
+     */
     private static $startTime;
 
     /**
@@ -346,7 +348,7 @@ class LoggerLoggingEvent
      */
     public function getRelativeTime()
     {
-        return $this->timeStamp - self::$startTime;
+        return $this->timeStamp - self::getStartTime();
     }
 
     /**

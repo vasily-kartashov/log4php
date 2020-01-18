@@ -50,7 +50,7 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
     /**
      * Current date which was used when opening a file.
      * Used to determine if a rollover is needed when the date changes.
-     * @var string|bool
+     * @var string|null
      */
     protected $currentDate;
 
@@ -125,7 +125,8 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
     }
 
 
-    /** Renders the date using the configured <var>datePattern<var>.
+    /**
+     * Renders the date using the configured <var>datePattern<var>.
      * @param float|int|null $timestamp
      * @return string
      */
@@ -163,6 +164,6 @@ class LoggerAppenderDailyFile extends LoggerAppenderFile
      */
     protected function getTargetFile()
     {
-        return $this->file . '.' . $this->currentDate;
+        return $this->file . '.' . ($this->currentDate ?? $this->getDate());
     }
 }

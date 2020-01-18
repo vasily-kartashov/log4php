@@ -608,7 +608,7 @@ class Logger implements LoggerInterface, GenericLogger
 
     /**
      * The logger hierarchy used by log4php.
-     * @var LoggerHierarchy
+     * @var LoggerHierarchy|null
      */
     private static $hierarchy;
 

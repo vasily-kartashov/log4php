@@ -55,13 +55,13 @@ class LoggerPatternParser
 
     /**
      * First converter in the chain.
-     * @var LoggerPatternConverter
+     * @var LoggerPatternConverter|null
      */
     private $head;
 
     /**
      * Last converter in the chain.
-     * @var LoggerPatternConverter
+     * @var LoggerPatternConverter|null
      */
     private $tail;
 
@@ -97,6 +97,7 @@ class LoggerPatternParser
         // Skip parsing if the pattern is empty
         if (empty($this->pattern)) {
             $this->addLiteral('');
+            assert($this->head !== null);
             return $this->head;
         }
 
@@ -143,6 +144,7 @@ class LoggerPatternParser
             $this->addLiteral($literal);
         }
 
+        assert($this->head !== null);
         return $this->head;
     }
 
@@ -218,7 +220,7 @@ class LoggerPatternParser
      */
     private function addToChain(LoggerPatternConverter $converter)
     {
-        if (!isset($this->head)) {
+        if (!isset($this->head) || !isset($this->tail)) {
             $this->head = $converter;
             $this->tail = $this->head;
         } else {
