@@ -323,6 +323,7 @@ class LoggerLoggingEvent
      * Returns the time when the application started, as a UNIX timestamp
      * with microseconds.
      * @return float
+     * @psalm-suppress MixedInferredReturnType
      */
     public static function getStartTime()
     {
