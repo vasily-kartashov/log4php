@@ -164,7 +164,7 @@ class LoggerAppenderRollingFileTest extends TestCase
 
         $logger->addAppender($appender);
 
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 2000; $i++) {
             $logger->warning(self::WARNING_MASSAGE . $i);
         }
 
