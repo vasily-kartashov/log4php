@@ -7,10 +7,15 @@ use Log4Php\LoggerLoggingEvent;
 
 class LoggerAppenderUnixSocket extends LoggerAppender
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $path;
 
-    /** @var resource|closed-resource|bool */
+    /**
+     * @var resource|closed-resource|bool
+     * @psalm-suppress InvalidDocblock
+     */
     private $socket;
 
     /**

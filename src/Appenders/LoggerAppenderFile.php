@@ -58,6 +58,7 @@ class LoggerAppenderFile extends LoggerAppender
     /**
      * The file resource.
      * @var resource|closed-resource|bool|null
+     * @psalm-suppress InvalidDocblock
      */
     protected $fp;
 
