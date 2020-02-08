@@ -57,7 +57,7 @@ class LoggerAppenderFile extends LoggerAppender
 
     /**
      * The file resource.
-     * @var resource|bool|null
+     * @var resource|closed-resource|bool|null
      */
     protected $fp;
 

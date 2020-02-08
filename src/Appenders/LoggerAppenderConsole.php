@@ -51,7 +51,7 @@ class LoggerAppenderConsole extends LoggerAppender
 
     /**
      * Stream resource for the target stream.
-     * @var resource|bool|null
+     * @var resource|closed-resource|bool|null
      */
     protected $fp = null;
 

@@ -10,7 +10,7 @@ class LoggerAppenderUnixSocket extends LoggerAppender
     /** @var string */
     protected $path;
 
-    /** @var resource|bool */
+    /** @var resource|closed-resource|bool */
     private $socket;
 
     /**
