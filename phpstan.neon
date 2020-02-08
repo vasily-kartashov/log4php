@@ -8,5 +8,7 @@ parameters:
         - '|Cannot cast object to string.|'
         - '|.*count expects array\|Countable, SimpleXMLElement given.*|'
         - '|Unreachable statement.*|'
+        - '|.*contains unresolvable type.|'
+        - '|.*has no typehint specified.|'
     excludes_analyse:
         - **/LoggerPatternConverterSuperglobal.php
