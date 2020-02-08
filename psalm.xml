@@ -10,6 +10,13 @@
         <directory name="src"/>
     </projectFiles>
     <issueHandlers>
+        <InvalidDocblock>
+            <errorLevel type="suppress">
+                <file name="src/Appenders/LoggerAppenderConsole.php"/>
+                <file name="src/Appenders/LoggerAppenderFile.php"/>
+                <file name="src/Appenders/LoggerAppenderUnixSocket.php"/>
+            </errorLevel>
+        </InvalidDocblock>
         <MixedArgument errorLevel="suppress"/>
         <MixedAssignment errorLevel="suppress"/>
         <MixedArrayAccess errorLevel="suppress"/>

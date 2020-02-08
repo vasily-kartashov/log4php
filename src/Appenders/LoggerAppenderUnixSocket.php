@@ -14,7 +14,6 @@ class LoggerAppenderUnixSocket extends LoggerAppender
 
     /**
      * @var resource|closed-resource|bool
-     * @psalm-suppress InvalidDocblock
      */
     private $socket;
 
