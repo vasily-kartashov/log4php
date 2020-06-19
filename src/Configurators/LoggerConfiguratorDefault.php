@@ -181,7 +181,6 @@ class LoggerConfiguratorDefault implements LoggerConfigurator
      * @param string $url
      * @return string
      * @throws LoggerException
-     * @return string
      */
     private function getConfigType($url)
     {
