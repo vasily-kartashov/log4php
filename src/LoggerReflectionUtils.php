@@ -153,6 +153,7 @@ class LoggerReflectionUtils
      * @psalm-suppress UndefinedClass
      * @psalm-suppress MismatchingDocblockParamType
      * @psalm-suppress MixedMethodCall
+     * @psalm-suppress InvalidArgument
      */
     public static function createObject(string $class, ...$arguments)
     {
