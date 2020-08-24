@@ -25,7 +25,7 @@
     "psr/log": ">=1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "@stable",
+    "phpunit/phpunit": "^6 || ^7",
     "phpstan/phpstan": "@stable",
     "php-parallel-lint/php-parallel-lint": "@stable",
     "vimeo/psalm": "@stable",
