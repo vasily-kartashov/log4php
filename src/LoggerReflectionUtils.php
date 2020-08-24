@@ -152,10 +152,11 @@ class LoggerReflectionUtils
      * @psalm-suppress RedundantCondition
      * @psalm-suppress UndefinedClass
      * @psalm-suppress MismatchingDocblockParamType
+     * @psalm-suppress MixedMethodCall
      */
     public static function createObject(string $class, ...$arguments)
     {
-        if (!empty($class)) {
+        if (!empty($class) && class_exists($class)) {
             return new $class(...$arguments);
         }
         return null;
