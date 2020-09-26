@@ -103,6 +103,7 @@ class LoggerPatternParser
 
         // Find all conversion words in the conversion pattern
         $count = preg_match_all($this->regex, $this->pattern, $matches, PREG_OFFSET_CAPTURE);
+        /** @psalm-suppress DocblockTypeContradiction */
         if ($count === false) {
             $error = error_get_last();
             if ($error !== null) {
