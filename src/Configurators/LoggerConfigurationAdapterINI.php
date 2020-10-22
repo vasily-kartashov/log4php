@@ -142,7 +142,7 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
     {
         // Value is divided by commas
         $parts = explode(',', $value);
-        if (empty($value) || empty($parts)) {
+        if (empty($value)) {
             return;
         }
 
