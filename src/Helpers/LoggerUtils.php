@@ -115,10 +115,7 @@ class LoggerUtils
                 break;
             }
         }
-        /** @psalm-suppress RedundantCondition */
-        if (isset($fragment)) {
-            unset($fragment);
-        }
+        unset($fragment);
 
         return implode('\\', $fragments);
     }
