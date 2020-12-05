@@ -25,7 +25,10 @@
         <MixedOperand errorLevel="suppress"/>
         <MixedPropertyFetch errorLevel="suppress"/>
         <PropertyNotSetInConstructor errorLevel="suppress"/>
+        <RedundantCast errorLevel="suppress"/>
+        <RedundantCastGivenDocblockType errorLevel="suppress"/>
         <RedundantCondition errorLevel="suppress"/>
         <RedundantConditionGivenDocblockType errorLevel="suppress"/>
+        <RedundantPropertyInitializationCheck errorLevel="suppress"/>
     </issueHandlers>
 </psalm>

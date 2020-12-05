@@ -181,8 +181,8 @@ class LoggerLoggingEvent
             $this->locationInfo = new LoggerLocationInfo([
                 'line'     => $throwable->getLine(),
                 'file'     => $throwable->getFile(),
-                'function' => $hop['function'] ?? 'main',
-                'class'    => $hop['class'] ?? 'main',
+                'function' => $hop ? ($hop['function'] ?? 'main') : 'main',
+                'class'    => $hop ? ($hop['class'] ?? 'main') : 'main',
             ]);
             return $this->locationInfo;
         }
