@@ -25,7 +25,7 @@
 error_reporting(E_ALL | E_STRICT);
 
 // Required for testing logging of sessionID in pattern layout
-session_start();
+@session_start();
 
 date_default_timezone_set('Europe/London');
 

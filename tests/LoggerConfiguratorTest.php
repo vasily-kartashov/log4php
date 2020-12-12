@@ -44,14 +44,20 @@ class CostumDefaultRenderer implements LoggerRenderer
 
 class LoggerConfiguratorTest extends TestCase
 {
-    /** Reset configuration after each test. */
-    public function setUp()
+    /**
+     * @before
+     * Reset configuration after each test.
+     */
+    public function _setUp()
     {
         Logger::resetConfiguration();
     }
 
-    /** Reset configuration after each test. */
-    public function tearDown()
+    /**
+     * @after
+     * Reset configuration after each test.
+     */
+    public function _tearDown()
     {
         Logger::resetConfiguration();
     }
@@ -66,7 +72,7 @@ class LoggerConfiguratorTest extends TestCase
         $this->assertSame($expected, $actual);
 
         $appenders = Logger::getRootLogger()->getAllAppenders();
-        $this->assertInternalType('array', $appenders);
+        $this->assertTrue(is_array($appenders));
         $this->assertEquals(count($appenders), 1);
 
         $names = array_keys($appenders);
@@ -81,7 +87,7 @@ class LoggerConfiguratorTest extends TestCase
 
         $root = Logger::getRootLogger();
         $appenders = $root->getAllAppenders();
-        $this->assertInternalType('array', $appenders);
+        $this->assertTrue(is_array($appenders));
         $this->assertEquals(count($appenders), 1);
 
         $actual = $root->getLevel();
@@ -89,30 +95,24 @@ class LoggerConfiguratorTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid configuration param given. Reverting to default configuration.
-     */
     public function testInputIsInteger()
     {
+        $this->expectExceptionMessage("Invalid configuration param given. Reverting to default configuration.");
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
         Logger::configure(12345);
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage log4php: Configuration failed. Unsupported configuration file extension: yml
-     */
     public function testYAMLFile()
     {
+        $this->expectExceptionMessage("log4php: Configuration failed. Unsupported configuration file extension: yml");
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
         Logger::configure(PHPUNIT_CONFIG_DIR . '/config.yml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid configuration provided for appender
-     */
     public function testAppenderConfigNotArray()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Invalid configuration provided for appender");
         /** @var PHPUnit_Framework_MockObject_MockObject|LoggerHierarchy $hierachyMock */
         $hierachyMock = $this->createMock(LoggerHierarchy::class);
 
@@ -126,148 +126,120 @@ class LoggerConfiguratorTest extends TestCase
         $configurator->configure($hierachyMock, $config);
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage No class given for appender
-     */
     public function testNoAppenderClassSet()
     {
+        $this->expectExceptionMessage("No class given for appender");
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
         Logger::configure(PHPUNIT_CONFIG_DIR . '/appenders/config_no_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid class [unknownClass] given for appender [foo]. Class does not exist. Skipping appender definition.
-     */
     public function testNotExistingAppenderClassSet()
     {
+        $this->expectExceptionMessage("Invalid class [unknownClass] given for appender [foo]. Class does not exist. Skipping appender definition.");
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
         Logger::configure(PHPUNIT_CONFIG_DIR . '/appenders/config_not_existing_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid class [stdClass] given for appender [foo]. Not a valid LoggerAppender class. Skipping appender definition.
-     */
     public function testInvalidAppenderClassSet()
     {
+        $this->expectExceptionMessage("Invalid class [stdClass] given for appender [foo]. Not a valid LoggerAppender class. Skipping appender definition.");
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
         Logger::configure(PHPUNIT_CONFIG_DIR . '/appenders/config_invalid_appender_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Unknown filter class [Foo] specified on appender [foo]. Skipping filter definition.
-     */
     public function testNotExistingAppenderFilterClassSet()
     {
+        $this->expectExceptionMessage("Unknown filter class [Foo] specified on appender [foo]. Skipping filter definition.");
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
         Logger::configure(PHPUNIT_CONFIG_DIR . '/appenders/config_not_existing_filter_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Unknown option [fooParameter] specified on [Log4Php\Filters\LoggerFilterStringMatch]. Skipping.
-     */
     public function testInvalidAppenderFilterParameter()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Unknown option [fooParameter] specified on [Log4Php\Filters\LoggerFilterStringMatch]. Skipping.");
         Logger::configure(PHPUNIT_CONFIG_DIR . '/appenders/config_invalid_filter_parameters.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid filter class [stdClass] specified on appender [foo]. Skipping filter definition.
-     */
     public function testInvalidAppenderFilterClassSet()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Invalid filter class [stdClass] specified on appender [foo]. Skipping filter definition.");
         Logger::configure(PHPUNIT_CONFIG_DIR . '/appenders/config_invalid_filter_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Unknown layout class [Foo] specified for appender [foo]. Reverting to default layout.
-     */
     public function testNotExistingAppenderLayoutClassSet()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Unknown layout class [Foo] specified for appender [foo]. Reverting to default layout.");
         Logger::configure(PHPUNIT_CONFIG_DIR . '/appenders/config_not_existing_layout_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid layout class [stdClass] specified for appender [foo]. Reverting to default layout.
-     */
     public function testInvalidAppenderLayoutClassSet()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Invalid layout class [stdClass] specified for appender [foo]. Reverting to default layout.");
         Logger::configure(PHPUNIT_CONFIG_DIR . '/appenders/config_invalid_layout_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Layout class not specified for appender [foo]. Reverting to default layout.
-     */
     public function testNoAppenderLayoutClassSet()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Layout class not specified for appender [foo]. Reverting to default layout.");
         Logger::configure(PHPUNIT_CONFIG_DIR . '/appenders/config_no_layout_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Failed adding renderer. Rendering class [stdClass] does not implement the LoggerRenderer interface.
-     */
     public function testInvalidRenderingClassSet()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Failed adding renderer. Rendering class [stdClass] does not implement the LoggerRenderer interface.");
         Logger::configure(PHPUNIT_CONFIG_DIR . '/renderers/config_invalid_rendering_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Rendering class not specified. Skipping renderer definition.
-     */
     public function testNoRenderingClassSet()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Rendering class not specified. Skipping renderer definition.");
         Logger::configure(PHPUNIT_CONFIG_DIR . '/renderers/config_no_rendering_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Rendered class not specified. Skipping renderer definition.
-     */
     public function testNoRenderedClassSet()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Rendered class not specified. Skipping renderer definition.");
         Logger::configure(PHPUNIT_CONFIG_DIR . '/renderers/config_no_rendered_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Failed adding renderer. Rendering class [DoesNotExistRenderer] not found.
-     */
     public function testNotExistingRenderingClassSet()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Failed adding renderer. Rendering class [DoesNotExistRenderer] not found.");
         Logger::configure(PHPUNIT_CONFIG_DIR . '/renderers/config_not_existing_rendering_class.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid additivity value [4711] specified for logger [myLogger].
-     */
     public function testInvalidLoggerAddivity()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Invalid additivity value [4711] specified for logger [myLogger].");
         Logger::configure(PHPUNIT_CONFIG_DIR . '/loggers/config_invalid_additivity.xml');
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Unknown appender [unknownAppender] linked to logger [myLogger].
-     */
     public function testNotExistingLoggerAppendersClass()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Unknown appender [unknownAppender] linked to logger [myLogger].");
         Logger::configure(PHPUNIT_CONFIG_DIR . '/loggers/config_not_existing_appenders.xml');
     }
 
     /**
      * Test that an error is reported when config file is not found.
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage log4php: Configuration failed. File not found
+     *
+     *
      */
     public function testNonexistantFile()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("log4php: Configuration failed. File not found");
         Logger::configure('hopefully/this/path/doesnt/exist/config.xml');
 
     }
@@ -354,12 +326,10 @@ class LoggerConfiguratorTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid threshold value ['FOO'] specified. Ignoring threshold definition.
-     */
     public function testInvalidThreshold()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Invalid threshold value ['FOO'] specified. Ignoring threshold definition.");
         Logger::configure([
             'threshold' => 'FOO',
             'rootLogger' => [
@@ -393,12 +363,10 @@ class LoggerConfiguratorTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid threshold value [FOO] specified for appender [default]. Ignoring threshold definition.
-     */
     public function testAppenderInvalidThreshold()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Invalid threshold value [FOO] specified for appender [default]. Ignoring threshold definition.");
         Logger::configure([
             'rootLogger' => [
                 'appenders' => ['default']
@@ -443,12 +411,10 @@ class LoggerConfiguratorTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid level value [FOO] specified for logger [default]. Ignoring level definition.
-     */
     public function testInvalidLoggerThreshold()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Invalid level value [FOO] specified for logger [default]. Ignoring level definition.");
         Logger::configure([
             'loggers' => [
                 'default' => [
@@ -464,12 +430,10 @@ class LoggerConfiguratorTest extends TestCase
         ]);
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid level value [FOO] specified for logger [root]. Ignoring level definition.
-     */
     public function testInvalidRootLoggerThreshold()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Invalid level value [FOO] specified for logger [root]. Ignoring level definition.");
         Logger::configure([
             'rootLogger' => [
                 'appenders' => ['default'],

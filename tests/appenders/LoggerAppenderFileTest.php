@@ -50,10 +50,14 @@ class LoggerAppenderFileTest extends TestCase
     public function __construct()
     {
         parent::__construct();
+        require_once __DIR__ . '/../bootstrap.php';
         $this->testPath = PHPUNIT_TEMP_DIR . '/TEST.txt';
     }
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function _setUp()
     {
         Logger::resetConfiguration();
         if (file_exists($this->testPath)) {
@@ -61,7 +65,10 @@ class LoggerAppenderFileTest extends TestCase
         }
     }
 
-    public function tearDown()
+    /**
+     * @after
+     */
+    public function _tearDown()
     {
         Logger::resetConfiguration();
         if (file_exists($this->testPath)) {

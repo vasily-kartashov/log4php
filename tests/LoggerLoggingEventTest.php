@@ -105,7 +105,7 @@ class LoggerLoggingEventTest extends TestCase
     public function testGetStartTime()
     {
         $time = LoggerLoggingEvent:: getStartTime();
-        self::assertInternalType('float', $time);
+        self::assertTrue(is_float($time));
         $time2 = LoggerLoggingEvent:: getStartTime();
         self::assertEquals($time, $time2);
     }
@@ -171,7 +171,7 @@ class LoggerLoggingEventTest extends TestCase
         self::assertTrue($ti instanceof LoggerThrowableInformation);
 
         $result = $ti->getStringRepresentation();
-        self::assertInternalType('array', $result);
+        self::assertTrue(is_array($result));
     }
 
     public function testFileLocationInfo()
@@ -185,19 +185,6 @@ class LoggerLoggingEventTest extends TestCase
         ob_end_clean();
 
         Assert::assertEquals($path . ' | 5 | main | main | Message', $output);
-    }
-
-    public function testFileLocationInfoWithErrorHandler()
-    {
-        Logger::configure(self::$defaultConfiguration);
-
-        $path = realpath(__DIR__ . '/locations/file-error-handler.php');
-        ob_start();
-        include_once($path);
-        $output = ob_get_contents();
-        ob_end_clean();
-
-        Assert::assertEquals($path . ' | 18 | main | main | Division by zero', $output);
     }
 
     public function testFileLocationInfoWithExceptionHandler()
@@ -226,19 +213,6 @@ class LoggerLoggingEventTest extends TestCase
         Assert::assertEquals($path . ' | 7 | main | simple_function_1 | Message', $output);
     }
 
-    public function testFunctionLocationInfoWithErrorHandler()
-    {
-        Logger::configure(self::$defaultConfiguration);
-
-        $path = realpath(__DIR__ . '/locations/function-error-handler.php');
-        ob_start();
-        include_once($path);
-        $output = ob_get_contents();
-        ob_end_clean();
-
-        Assert::assertEquals($path . ' | 20 | main | simple_function_2 | Division by zero', $output);
-    }
-
     public function testFunctionLocationInfoWithExceptionHandler()
     {
         Logger::configure(self::$defaultConfiguration);
@@ -263,19 +237,6 @@ class LoggerLoggingEventTest extends TestCase
         ob_end_clean();
 
         Assert::assertEquals($path . ' | 9 | SimpleClass1 | __construct | Message', $output);
-    }
-
-    public function testClassLocationInfoWithErrorHandler()
-    {
-        Logger::configure(self::$defaultConfiguration);
-
-        $path = realpath(__DIR__ . '/locations/class-error-handler.php');
-        ob_start();
-        include_once($path);
-        $output = ob_get_contents();
-        ob_end_clean();
-
-        Assert::assertEquals($path . ' | 22 | SimpleClass2 | __construct | Division by zero', $output);
     }
 
     public function testClassLocationInfoWithExceptionHandler()

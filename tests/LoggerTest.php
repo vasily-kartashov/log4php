@@ -111,13 +111,19 @@ class LoggerTest extends TestCase
         ],
     ];
 
-    protected function setUp()
+    /**
+     * @before
+     */
+    protected function _setUp()
     {
         Logger::clear();
         Logger::resetConfiguration();
     }
 
-    protected function tearDown()
+    /**
+     * @after
+     */
+    protected function _tearDown()
     {
         Logger::clear();
         Logger::resetConfiguration();

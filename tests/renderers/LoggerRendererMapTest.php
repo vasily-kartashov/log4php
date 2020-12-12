@@ -118,22 +118,22 @@ class LoggerRendererMapTest extends TestCase
 
     /**
      * Try adding a non-existant class as renderer.
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Failed adding renderer. Rendering class [DoesNotExist] not found.
      */
     public function testAddRendererError1()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Failed adding renderer. Rendering class [DoesNotExist] not found.");
         $map = new LoggerRendererMap();
         $map->addRenderer(Fruit3::class, 'DoesNotExist');
     }
 
     /**
      * Try adding a class which does not implement LoggerRenderer as renderer.
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Failed adding renderer. Rendering class [stdClass] does not implement the LoggerRenderer interface.
      */
     public function testAddRendererError2()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Failed adding renderer. Rendering class [stdClass] does not implement the LoggerRenderer interface.");
         $map = new LoggerRendererMap();
         $map->addRenderer(Fruit3::class, 'stdClass');
     }
@@ -150,22 +150,22 @@ class LoggerRendererMapTest extends TestCase
 
     /**
      * Try setting a non-existant class as default renderer.
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Failed setting default renderer. Rendering class [DoesNotExist] not found.
      */
     public function testSetDefaultRendererError1()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Failed setting default renderer. Rendering class [DoesNotExist] not found.");
         $map = new LoggerRendererMap();
         $map->setDefaultRenderer('DoesNotExist');
     }
 
     /**
      * Try setting a class which does not implement LoggerRenderer as default renderer.
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Failed setting default renderer. Rendering class [stdClass] does not implement the LoggerRenderer interface.
      */
     public function testSetDefaultRendererError2()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Failed setting default renderer. Rendering class [stdClass] does not implement the LoggerRenderer interface.");
         $map = new LoggerRendererMap();
         $map->setDefaultRenderer('stdClass');
     }

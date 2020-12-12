@@ -43,12 +43,18 @@ class LoggerMDCTest extends TestCase
     /** A pattern without a key. */
     private $pattern5 = "%-5p %c: %X %m";
 
-    protected function setUp()
+    /**
+     * @before
+     */
+    protected function _setUp()
     {
         LoggerMDC::clear();
     }
 
-    protected function tearDown()
+    /**
+     * @after
+     */
+    protected function _tearDown()
     {
         LoggerMDC::clear();
     }

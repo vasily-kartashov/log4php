@@ -40,12 +40,18 @@ class LoggerAppenderSocketTest extends TestCase
     /** The pipes array for the server process. */
     private $pipes;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function _setUp()
     {
         Logger::clear();
     }
 
-    public function tearDown()
+    /**
+     * @after
+     */
+    public function _tearDown()
     {
         Logger::clear();
     }

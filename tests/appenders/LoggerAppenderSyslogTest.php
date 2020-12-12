@@ -219,31 +219,25 @@ class LoggerAppenderSyslogTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     */
     public function testInvalidOption()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
         $appender = new LoggerAppenderSyslog();
         $appender->setOption('CONS|XYZ');
         $appender->activateOptions();
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     */
     public function testInvalidPriority()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
         $appender = new LoggerAppenderSyslog();
         $appender->setPriority('XYZ');
         $appender->activateOptions();
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     */
     public function testInvalidFacility()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
         $appender = new LoggerAppenderSyslog();
         $appender->setFacility('XYZ');
         $appender->activateOptions();

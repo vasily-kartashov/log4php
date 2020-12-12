@@ -34,17 +34,18 @@ class LoggerAppenderPoolTest extends TestCase
      */
     private $appenderMock;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function _setUp()
     {
         $this->appenderMock = $this->createMock(LoggerAppenderConsole::class);
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage log4php: Cannot add unnamed appender to pool.
-     */
     public function testAppenderHasNoName()
     {
+        $this->expectExceptionMessage("log4php: Cannot add unnamed appender to pool.");
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
         $this->appenderMock->expects($this->once())
             ->method('getName')
             ->will($this->returnValue(''));
@@ -52,12 +53,10 @@ class LoggerAppenderPoolTest extends TestCase
         LoggerAppenderPool::add($this->appenderMock);
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage log4php: Appender [foo] already exists in pool. Overwriting existing appender.
-     */
     public function testAppenderIsAdded()
     {
+        $this->expectExceptionMessage("log4php: Appender [foo] already exists in pool. Overwriting existing appender.");
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
         $this->appenderMock->expects($this->any())
             ->method('getName')
             ->will($this->returnValue('foo'));

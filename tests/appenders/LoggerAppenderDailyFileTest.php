@@ -33,7 +33,10 @@ use PHPUnit\Framework\TestCase;
 class LoggerAppenderDailyFileTest extends TestCase
 {
 
-    protected function setUp()
+    /**
+     * @before
+     */
+    protected function _setUp()
     {
         @unlink(PHPUNIT_TEMP_DIR . '/TEST-daily.txt.' . date('Ymd'));
         @unlink(PHPUNIT_TEMP_DIR . '/TEST-daily.txt.' . date('Y'));
@@ -52,22 +55,18 @@ class LoggerAppenderDailyFileTest extends TestCase
         self::assertInstanceOf(LoggerLayoutSimple::class, $actual);
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Required parameter 'file' not set.
-     */
     public function testRequiredParamWarning1()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Required parameter 'file' not set.");
         $appender = new LoggerAppenderDailyFile();
         $appender->activateOptions();
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Required parameter 'datePattern' not set.
-     */
     public function testRequiredParamWarning2()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Required parameter 'datePattern' not set.");
         $appender = new LoggerAppenderDailyFile();
         $appender->setFile('file.log');
         $appender->setDatePattern('');

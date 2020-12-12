@@ -100,22 +100,22 @@ class LoggerConfigurationAdapterINITest extends TestCase
 
     /**
      * Test exception is thrown when file cannot be found.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage File [you/will/never/find/me.ini] does not exist.
      */
     public function testNonExistentFileException()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("File [you/will/never/find/me.ini] does not exist.");
         $adapter = new LoggerConfigurationAdapterINI();
         $adapter->convert('you/will/never/find/me.ini');
     }
 
     /**
      * Test exception is thrown when file is not a valid ini file.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage Error parsing configuration file
      */
     public function testInvalidFileException()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("Error parsing configuration file");
         $url = PHPUNIT_CONFIG_DIR . '/adapters/ini/config_invalid_syntax.ini';
         $adapter = new LoggerConfigurationAdapterINI();
         $adapter->convert($url);
@@ -123,11 +123,11 @@ class LoggerConfigurationAdapterINITest extends TestCase
 
     /**
      * Test a warning is triggered when configurator doesn't understand a line.
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage log4php: Don't know how to parse the following line: "log4php.appender.default.layout.param.bla = Log4Php\Layouts\LoggerLayoutTTCC". Skipping.
      */
     public function testInvalidLineWarning1()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("log4php: Don't know how to parse the following line: \"log4php.appender.default.layout.param.bla = Log4Php\Layouts\LoggerLayoutTTCC\". Skipping.");
         $url = PHPUNIT_CONFIG_DIR . '/adapters/ini/config_invalid_appender_declaration_1.ini';
         $adapter = new LoggerConfigurationAdapterINI();
         $adapter->convert($url);
@@ -135,11 +135,13 @@ class LoggerConfigurationAdapterINITest extends TestCase
 
     /**
      * Test a warning is triggered when configurator doesn't understand a line.
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage log4php: Don't know how to parse the following line: "log4php.appender.default.not-layout.param = Log4Php\Layouts\LoggerLayoutTTCC". Skipping.
+     *
+     *
      */
     public function testInvalidLineWarning2()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("log4php: Don't know how to parse the following line: \"log4php.appender.default.not-layout.param = Log4Php\Layouts\LoggerLayoutTTCC\". Skipping.");
         $url = PHPUNIT_CONFIG_DIR . '/adapters/ini/config_invalid_appender_declaration_2.ini';
         $adapter = new LoggerConfigurationAdapterINI();
         $adapter->convert($url);

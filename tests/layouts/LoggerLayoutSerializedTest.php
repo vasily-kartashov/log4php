@@ -43,12 +43,10 @@ class LoggerLayoutSerializedTest extends TestCase
         self::assertFalse($layout->getLocationInfo());
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage Invalid value given for 'locationInfo' property: ['foo']. Expected a boolean value. Property not changed.
-     */
     public function testLocationInfoFail()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("Invalid value given for 'locationInfo' property: ['foo']. Expected a boolean value. Property not changed.");
         $layout = new LoggerLayoutSerialized();
         $layout->setLocationInfo('foo');
     }

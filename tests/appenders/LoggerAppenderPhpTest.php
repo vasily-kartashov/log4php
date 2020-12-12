@@ -57,7 +57,10 @@ class LoggerAppenderPhpTest extends TestCase
         ]
     ];
 
-    protected function setUp()
+    /**
+     * @before
+     */
+    protected function _setUp()
     {
         set_error_handler("errorHandler");
     }
@@ -99,7 +102,10 @@ class LoggerAppenderPhpTest extends TestCase
         $logger->trace("This is a test");
     }
 
-    protected function tearDown()
+    /**
+     * @after
+     */
+    protected function _tearDown()
     {
         restore_error_handler();
     }

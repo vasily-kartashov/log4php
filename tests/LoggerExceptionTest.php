@@ -34,11 +34,9 @@ class MyException extends Exception
  */
 class LoggerExceptionTest extends TestCase
 {
-    /**
-     * @expectedException Log4Php\LoggerException
-     */
     public function testMessage()
     {
+        $this->expectException(Log4Php\LoggerException::class);
         try {
             throw new LoggerException("TEST");
         } catch (LoggerException $e) {

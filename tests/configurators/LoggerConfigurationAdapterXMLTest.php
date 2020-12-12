@@ -106,12 +106,18 @@ class LoggerConfigurationAdapterXMLTest extends TestCase
         ],
     ];
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function _setUp()
     {
         Logger::resetConfiguration();
     }
 
-    public function tearDown()
+    /**
+     * @after
+     */
+    public function _tearDown()
     {
         Logger::resetConfiguration();
     }
@@ -135,22 +141,22 @@ class LoggerConfigurationAdapterXMLTest extends TestCase
 
     /**
      * Test exception is thrown when file cannot be found.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage File [you/will/never/find/me.conf] does not exist.
      */
     public function testNonExistantFile()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("File [you/will/never/find/me.conf] does not exist.");
         $adapter = new LoggerConfigurationAdapterXML();
         $adapter->convert('you/will/never/find/me.conf');
     }
 
     /**
      * Test exception is thrown when file contains invalid XML.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage Error loading configuration file: Premature end of data in tag configuration line
      */
     public function testInvalidXMLFile()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("Error loading configuration file: Premature end of data in tag configuration line");
         $url = PHPUNIT_CONFIG_DIR . '/adapters/xml/config_invalid_syntax.xml';
         $adapter = new LoggerConfigurationAdapterXML();
         $adapter->convert($url);
@@ -159,11 +165,11 @@ class LoggerConfigurationAdapterXMLTest extends TestCase
     /**
      * Test that a warning is triggered when two loggers with the same name
      * are defined.
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage log4php: Duplicate logger definition [foo]. Overwriting
      */
     public function testDuplicateLoggerWarning()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("log4php: Duplicate logger definition [foo]. Overwriting");
         $url = PHPUNIT_CONFIG_DIR . '/adapters/xml/config_duplicate_logger.xml';
         $adapter = new LoggerConfigurationAdapterXML();
         $adapter->convert($url);

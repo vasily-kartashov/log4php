@@ -34,7 +34,7 @@ class LoggerThrowableInformationTest extends TestCase
         $tInfo = new LoggerThrowableInformation($ex);
 
         $result = $tInfo->getStringRepresentation();
-        $this->assertInternalType('array', $result);
+        $this->assertTrue(is_array($result));
     }
 
     public function testExceptionChain()
@@ -45,7 +45,7 @@ class LoggerThrowableInformationTest extends TestCase
 
         $tInfo = new LoggerThrowableInformation($ex3);
         $result = $tInfo->getStringRepresentation();
-        $this->assertInternalType('array', $result);
+        $this->assertTrue(is_array($result));
     }
 
     public function testGetThrowable()

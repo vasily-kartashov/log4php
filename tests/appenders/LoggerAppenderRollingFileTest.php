@@ -31,7 +31,10 @@ class LoggerAppenderRollingFileTest extends TestCase
 {
     const WARNING_MASSAGE = 'WARNING - my messageXYZ';
 
-    protected function setUp()
+    /**
+     * @before
+     */
+    protected function _setUp()
     {
         @unlink(PHPUNIT_TEMP_DIR . '/TEST-rolling.txt');
         @unlink(PHPUNIT_TEMP_DIR . '/TEST-rolling.txt.1');
@@ -206,7 +209,10 @@ class LoggerAppenderRollingFileTest extends TestCase
         }
     }
 
-    protected function tearDown()
+    /**
+     * @after
+     */
+    protected function _tearDown()
     {
         @unlink(PHPUNIT_TEMP_DIR . '/TEST-rolling.txt');
         @unlink(PHPUNIT_TEMP_DIR . '/TEST-rolling.txt.1');

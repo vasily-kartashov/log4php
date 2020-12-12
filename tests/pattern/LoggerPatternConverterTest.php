@@ -337,12 +337,10 @@ class LoggerPatternConverterTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage log4php: LoggerInvalidSuperglobalConverter: Cannot find superglobal variable $_FOO
-     */
     public function testNonexistantSuperglobal()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("log4php: LoggerInvalidSuperglobalConverter: Cannot find superglobal variable $_FOO");
         $converter = new LoggerInvalidSuperglobalConverter($this->info);
         $actual = $converter->convert($this->event);
     }

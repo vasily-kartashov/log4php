@@ -55,21 +55,21 @@ class LoggerOptionConverterTest extends TestCase
 
     /**
      * Test fail on NULL.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage Given value [NULL] cannot be converted to boolean.
      */
     public function testToBooleanFailure1()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("Given value [NULL] cannot be converted to boolean.");
         LoggerOptionConverter::toBooleanEx(null);
     }
 
     /**
      * Test fail on invalid string.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage Given value ['foo'] cannot be converted to boolean.
      */
     public function testToBooleanFailure2()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("Given value ['foo'] cannot be converted to boolean.");
         LoggerOptionConverter::toBooleanEx('foo');
     }
 
@@ -85,51 +85,51 @@ class LoggerOptionConverterTest extends TestCase
 
     /**
      * Test fail on NULL.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage Given value [NULL] cannot be converted to integer.
      */
     public function testToIntegerFailure1()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("Given value [NULL] cannot be converted to integer.");
         LoggerOptionConverter::toIntegerEx(null);
     }
 
     /**
      * Test fail on empty string.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage Given value [''] cannot be converted to integer.
      */
     public function testToIntegerFailure2()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("Given value [''] cannot be converted to integer.");
         LoggerOptionConverter::toIntegerEx('');
     }
 
     /**
      * Test fail on invalid string.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage Given value ['foo'] cannot be converted to integer.
      */
     public function testToIntegerFailure3()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("Given value ['foo'] cannot be converted to integer.");
         LoggerOptionConverter::toIntegerEx('foo');
     }
 
     /**
      * Test fail on boolean.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage Given value [true] cannot be converted to integer.
      */
     public function testToIntegerFailure4()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("Given value [true] cannot be converted to integer.");
         LoggerOptionConverter::toIntegerEx(true);
     }
 
     /**
      * Test fail on boolean.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage Given value [false] cannot be converted to integer.
      */
     public function testToIntegerFailure5()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("Given value [false] cannot be converted to integer.");
         LoggerOptionConverter::toIntegerEx(false);
     }
 

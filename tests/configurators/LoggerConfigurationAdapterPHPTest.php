@@ -46,6 +46,14 @@ class LoggerConfigurationAdapterPHPTest extends TestCase
         ]
     ];
 
+    /**
+     * @before
+     */
+    public function _setUp()
+    {
+        require_once __DIR__ . '/../bootstrap.php';
+    }
+
     public function testConfig()
     {
         $url = PHPUNIT_CONFIG_DIR . '/adapters/php/config_valid.php';
@@ -57,22 +65,23 @@ class LoggerConfigurationAdapterPHPTest extends TestCase
 
     /**
      * Test exception is thrown when file cannot be found.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage File [you/will/never/find/me.conf] does not exist.
+     *
+     *
      */
     public function testNonExistantFileWarning()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("File [you/will/never/find/me.conf] does not exist.");
         $adapter = new LoggerConfigurationAdapterPHP();
         $adapter->convert('you/will/never/find/me.conf');
     }
 
     /**
      * Test exception is thrown when file is not valid.
-     * @expectedException ParseError
-     * @expectedExceptionMessage syntax error, unexpected end of file, expecting ')'
      */
     public function testInvalidFileWarning()
     {
+        $this->expectException(ParseError::class);
         $url = PHPUNIT_CONFIG_DIR . '/adapters/php/config_invalid_syntax.php';
         $adapter = new LoggerConfigurationAdapterPHP();
         $adapter->convert($url);
@@ -80,10 +89,11 @@ class LoggerConfigurationAdapterPHPTest extends TestCase
 
     /**
      * Test exception is thrown when the configuration is empty.
-     * @expectedException Throwable
+     *
      */
     public function testEmptyConfigWarning()
     {
+        $this->expectException(Throwable::class);
         $url = PHPUNIT_CONFIG_DIR . '/adapters/php/config_empty.php';
         $adapter = new LoggerConfigurationAdapterPHP();
         $adapter->convert($url);
@@ -91,11 +101,13 @@ class LoggerConfigurationAdapterPHPTest extends TestCase
 
     /**
      * Test exception is thrown when the configuration does not contain an array.
-     * @expectedException Log4Php\LoggerException
-     * @expectedExceptionMessage Invalid configuration: not an array.
+     *
+     *
      */
     public function testInvalidConfigWarning()
     {
+        $this->expectException(Log4Php\LoggerException::class);
+        $this->expectExceptionMessage("Invalid configuration: not an array.");
         $url = PHPUNIT_CONFIG_DIR . '/adapters/php/config_not_an_array.php';
         $adapter = new LoggerConfigurationAdapterPHP();
         $adapter->convert($url);

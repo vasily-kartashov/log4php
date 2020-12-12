@@ -40,15 +40,17 @@ class LoggerRootTest extends TestCase
         self::assertNull($root->getParent());
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage log4php: LoggerRoot cannot have a parent.
-     */
     public function testSetParentWarning()
     {
         $root = new LoggerRoot();
         $logger = new Logger('test');
-        $root->setParent($logger);
+        try {
+            $root->setParent($logger);
+        } catch (Throwable $e) {
+            self::assertEquals('log4php: LoggerRoot cannot have a parent.', $e->getMessage());
+            return;
+        }
+        self::fail();
     }
 
     public function testSetParentResult()
@@ -59,12 +61,10 @@ class LoggerRootTest extends TestCase
         self::assertNull($root->getParent());
     }
 
-    /**
-     * @expectedException \PHPUnit\Framework\Error\Error
-     * @expectedExceptionMessage log4php: Cannot set LoggerRoot level to null.
-     */
     public function testNullLevelWarning()
     {
+        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        $this->expectExceptionMessage("log4php: Cannot set LoggerRoot level to null.");
         $root = new LoggerRoot();
         $root->setLevel(null);
     }

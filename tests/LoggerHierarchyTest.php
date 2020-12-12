@@ -33,7 +33,10 @@ class LoggerHierarchyTest extends TestCase
     /** @var LoggerHierarchy */
     private $hierarchy;
 
-    protected function setUp()
+    /**
+     * @before
+     */
+    protected function _setUp()
     {
         $this->hierarchy = new LoggerHierarchy(new LoggerRoot());
     }
