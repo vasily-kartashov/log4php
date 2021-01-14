@@ -1,7 +1,9 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.5/phpunit.xsd"
          colors="true"
-         convertErrorsToExceptions="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertDeprecationsToExceptions="true"
          bootstrap="tests/bootstrap.php">
     <testsuites>
         <testsuite name="log4php">
