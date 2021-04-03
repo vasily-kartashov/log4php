@@ -458,7 +458,7 @@ class Logger implements LoggerInterface, GenericLogger
      */
     public function removeAllAppenders()
     {
-        foreach ($this->appenders as $name => $appender) {
+        foreach ($this->appenders as $name => $_) {
             $this->removeAppender($name);
         }
     }
