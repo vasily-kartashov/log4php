@@ -63,10 +63,10 @@ class LoggerRoot extends Logger
 
     /**
      * Override parent setter. Root logger cannot have a parent.
-     * @param Logger $parent
+     * @param Logger $logger
      * @return void
      */
-    public function setParent(Logger $parent)
+    public function setParent(Logger $logger)
     {
         trigger_error("log4php: LoggerRoot cannot have a parent.", E_USER_WARNING);
     }

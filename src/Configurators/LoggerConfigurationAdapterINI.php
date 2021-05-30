@@ -58,15 +58,15 @@ class LoggerConfigurationAdapterINI implements LoggerConfigurationAdapter
     /**
      * Converts the provided INI configuration file to a PHP array config.
      *
-     * @param string $path Path to the config file.
+     * @param string $input Path to the config file.
      * @return array
      * @psalm-return array<string,mixed>
      * @throws LoggerException If the file cannot be loaded or parsed.
      */
-    public function convert($path)
+    public function convert($input): array
     {
         // Load the configuration
-        $properties = $this->load($path);
+        $properties = $this->load($input);
 
         // Parse threshold
         if (isset($properties[self::THRESHOLD_PREFIX])) {

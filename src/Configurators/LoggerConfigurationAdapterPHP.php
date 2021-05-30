@@ -48,19 +48,19 @@ use Log4Php\LoggerException;
 class LoggerConfigurationAdapterPHP implements LoggerConfigurationAdapter
 {
     /**
-     * @param string $url
+     * @param string $input
      * @return array
      * @throws LoggerException
      */
-    public function convert($url)
+    public function convert($input): array
     {
-        if (!file_exists($url)) {
-            throw new LoggerException("File [$url] does not exist.");
+        if (!file_exists($input)) {
+            throw new LoggerException("File [$input] does not exist.");
         }
 
         /** @noinspection PhpIncludeInspection */
         /** @psalm-suppress UnresolvableInclude */
-        $config = include($url);
+        $config = include($input);
 
         if ($config === false) {
             $error = error_get_last();

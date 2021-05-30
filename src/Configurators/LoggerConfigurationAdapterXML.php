@@ -39,13 +39,13 @@ class LoggerConfigurationAdapterXML implements LoggerConfigurationAdapter
     ];
 
     /**
-     * @param string $url
+     * @param string $input
      * @return array
      * @throws LoggerException
      */
-    public function convert($url)
+    public function convert($input): array
     {
-        $xml = $this->loadXML($url);
+        $xml = $this->loadXML($input);
 
         $this->parseConfiguration($xml);
 

@@ -31,5 +31,5 @@ interface LoggerConfigurationAdapter
      * @param string $input
      * @return array
      */
-    public function convert($input);
+    public function convert($input): array;
 }
