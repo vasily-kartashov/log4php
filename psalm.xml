@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <psalm name="Psalm config"
+       errorLevel="1"
        totallyTyped="true"
-       useDocblockTypes="true"
        allowStringToStandInForClass="true"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="https://getpsalm.org/schema/config"

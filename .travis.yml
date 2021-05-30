@@ -16,4 +16,4 @@ script:
   - ./vendor/bin/parallel-lint src
   - ./vendor/bin/phpcs --standard=PSR2 -n src
   - ./vendor/bin/phpunit
-  - php -v | grep -q 'PHP 7.0' || ./vendor/bin/psalm
+  - php -v | grep -q 'PHP 7.' || ./vendor/bin/psalm
